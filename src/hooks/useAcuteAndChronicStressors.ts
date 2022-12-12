@@ -39,31 +39,28 @@ function useAcuteAndChronicStressors(userData) {
     },
     'no privacy at home': {
       // done
-      duration_start: userData['D071HEDA'],
-      duration_end: userData['D071HEDB'],
+      duration: getDurationInYears(userData['D071HEDA'], userData['D071HEDB']),
       end_age: userData['D074HEA'],
     },
     'unstable housing': {
       // missing duration, age date ambiguous
-      duration_start: userData['E091HRDA'],
-      duration_end: userData['E091HRDB'],
+      duration: getDurationInYears(userData['E091HRDA'], userData['E091HRDB']),
       start_age: userData['E094HRA'],
     },
     'overwhelmed at work': {
       // done
-      duration_start: userData['D051WEDA'],
-      duration_end: userData['D051WEDB'],
+      duration: getDurationInYears(userData['D051WEDA'], userData['D051WEDB']),
       end_age: userData['D054WEA'],
     },
     'excluded at work': {
       // missing age
-      duration: userData['D061WHD'],
+      duration: getDurationInYears(userData['D061WHDA'], userData['D061WHDB']),
       end_age: null,
     },
     'job search > 6 months': {
       // done
+      duration: getDurationInYears(userData['D046WRDA'], userData['D046WRDA']),
       end_age: userData['D049WRA'],
-      duration: userData['D046WRD'],
     },
 
     'psychiatric diagnosis: self': {
@@ -80,8 +77,8 @@ function useAcuteAndChronicStressors(userData) {
 
     'loved one mentally ill': {
       // done
+      duration: getDurationInYears(userData['D435TRDA'], userData['D435TRDB']),
       end_age: userData['D438TRA'],
-      duration: userData['D435TRD'],
     },
 
     'mother mentally ill': {
@@ -97,93 +94,100 @@ function useAcuteAndChronicStressors(userData) {
     },
     'life-impacting illness': {
       // done
+      duration: getDurationInYears(userData['D149TDDA'], userData['D149TDDB']),
       end_age: userData['D152TDA'],
-      duration: userData['D149TDD'],
+      // duration: userData['D149TDD'],
     },
     'loved one physically ill': {
       // done
+      duration: getDurationInYears(userData['D425TRDA'], userData['D425TRDB']),
       end_age: userData['D428TRA'],
-      duration: userData['D425TRD'],
     },
     'received care for illness': {
       // done
+      duration: getDurationInYears(userData['D154TRDA'], userData['D154TRDB']),
       end_age: userData['D157TRA'],
-      duration: userData['D154TRD'],
     },
     'infertility': {
       // done
+      duration: getDurationInYears(userData['D254RRDA'], userData['D254RRDB']),
       end_age: userData['D257RRA'],
-      duration: userData['D254RRD'],
     },
     'socially isolated': {
       // done
+      duration: getDurationInYears(userData['D247MLDA'], userData['D247MLDB']),
       end_age: userData['D250MLA'],
-      duration: userData['D247MLD'],
     },
     'spousal arguments': {
       // done
+      duration: getDurationInYears(userData['D204MLDA'], userData['D204MLDB']),
       end_age: userData['D207MLA'],
-      duration: userData['D204MLD'],
     },
     'financial strain': {
       // done
+      duration: getDurationInYears(userData['D066FEDA'], userData['D066FEDB']),
       end_age: userData['D069FEA'],
-      duration: userData['D066FED'],
     },
     'bullied': {
       // done but age question is start date
+      duration: getDurationInYears(userData['D420OHDA'], userData['D420OHDB']),
       end_age: userData['D423OHA'],
-      duration: userData['D420OHD'],
     },
     'legal issues with partner': {
       // done
+      duration: getDurationInYears(userData['D511LRDA'], userData['D511LRDB']),
       end_age: userData['D514LRA'],
-      duration: userData['D511LRD'],
     },
     'caregiver to loved one': {
       // done
+      duration: getDurationInYears(userData['D165OEDA'], userData['D165OEDB']),
       end_age: userData['D168OEA'],
-      duration: userData['D165OED'],
     },
     'emotionally abused': {
       // done
+      duration: getDurationInYears(userData['D231OHDA'], userData['D231OHDB']),
       end_age: userData['D234OHA'],
-      duration: userData['D231OHD'],
+      // duration: userData['D231OHD'],
     },
     'harshly disciplined': {
       // done but age question is start date
+      duration: getDurationInYears(userData['D415OHDA'], userData['D415OHDB']),
       start_age: userData['D418OHA'],
-      duration: userData['D415OHD'],
     },
     'conflict between parents': {
       // done but age question is start date
+      duration: getDurationInYears(userData['D389OEDA'], userData['D389OEDB']),
       start_age: userData['D392OEA'],
-      duration: userData['D389OED'],
+      // duration: userData['D389OED'],
     },
     'difficulty caring for child(ren)': {
       // done
+      duration: getDurationInYears(userData['D550OEDA'], userData['D550OEDB']),
       end_date: userData['D553OEA'],
-      duration: userData['D550OED'],
+      // duration: userData['D550OED'],
     },
     'loved one abused': {
       // done
+      duration: getDurationInYears(userData['D225ORDA'], userData['D225ORDB']),
       end_date: userData['D228ORA'],
-      duration: userData['D225ORD'],
+      // duration: userData['D225ORD'],
     },
     'separated from parent (<18)': {
       // done but age is start date
+      duration: getDurationInYears(userData['D394OLDA'], userData['D394OLDB']),
       start_age: userData['D398OLA'],
-      duration: userData['D394OLD'],
+      // duration: userData['D394OLD'],
     },
     'physically abused': {
       // done
+      duration: getDurationInYears(userData['D237XDDA'], userData['D237XDDB']),
       end_age: userData['D240XDA'],
-      duration: userData['D237XDD'],
+      // duration: userData['D237XDD'],
     },
     'sexually abused': {
       // done
+      duration: getDurationInYears(userData['D384XDDA'], userData['D384XDDB']),
       end_age: userData['D387XDA'],
-      duration: userData['D384XDD'],
     },
   } : {}
 
