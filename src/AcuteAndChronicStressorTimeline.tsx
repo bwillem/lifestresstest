@@ -2,36 +2,103 @@ import { Line } from "react-chartjs-2"
 import Blurb from "./Blurb"
 import { Emphasis, H1 } from "./Typography"
 
-interface Entity {
-    value: string
-    total: number,
+// interface AcuteStressor {
+//     value: string
+//     total: number,
+// }
+
+interface ChronicStressor {
+    end_age?: number,
+    start_age?: number,
+    duration: number,
 }
 
 interface AcuteStressorChartInterface {
-    acuteStressors: { [key: string]: Entity }
+    acuteStressors: { [key: string]: number }
+    patientAge: number
+}
+
+interface ChronicStressorChartInterface {
+    chronicStressors: { [key: string]: ChronicStressor }
     patientAge: number
 }
 
 function AcuteStressorChart({ acuteStressors, patientAge }: AcuteStressorChartInterface) {
-    const data = Object.entries(acuteStressors)?.map(x => ({
-        x: x[1]?.value,
-        y: x[0],
-    })) || []
+    const data = Object
+        .entries(acuteStressors)
+        ?.map(x => x[1] || null) || []
+
+    const labels = Object
+        .entries(acuteStressors)
+        ?.map(x => x[0]) || []
+
+    console.log('data', data)
+    console.log('acuteStressors', acuteStressors)
 
     return (
         <Line
+            options={{
+                indexAxis: 'y',
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        max: patientAge,
+                    },
+                },
+            }}
             data={{
-                datasets: [{
-                    data,
-                }],
+                labels,
+                datasets: [
+                    {
+                        data,
+                        showLine: false,
+                    }
+                ],
             }}
         />
     )
 }
 
-function ChronicStressorChart() {
+function ChronicStressorChart({ chronicStressors, patientAge }: ChronicStressorChartInterface) {
+    const line = ({ end_age, start_age, duration }: ChronicStressor) => {
+        if (!duration) return [null, null]
+        if (!end_age && !start_age) return [null, null]
+        const start = start_age || ((end_age || 0) - duration)
+        const end = end_age
+        return [start, end]
+    }
+
+    const data = Object
+        .entries(chronicStressors)
+        ?.map(x => line(x[1])) || []
+
+    const labels = Object
+        .entries(chronicStressors)
+        ?.map(x => x[0]) || []
+
+    // console.log('chronicStressors', data)
+
     return (
-        <p>Chronic stressor chart</p>
+        <Line
+            options={{
+                indexAxis: 'y',
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        max: patientAge,
+                    },
+                },
+            }}
+            data={{
+                labels,
+                datasets: [
+                    {
+                        data,
+                        showLine: false,
+                    }
+                ],
+            }}
+        />
     )
 }
 
@@ -56,7 +123,10 @@ function AcuteAndChronicStressorTimeline({
                 acuteStressors={acuteStressors}
                 patientAge={patientAge}
             />
-            <ChronicStressorChart />
+            <ChronicStressorChart
+                chronicStressors={chronicStressors}
+                patientAge={patientAge}
+            />
         </div>
     )
 }

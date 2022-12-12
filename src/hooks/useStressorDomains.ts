@@ -111,8 +111,8 @@ function useStressorDomains(userData: UserData, publicData: UserData[]) {
     },
   } : {}
 
-  console.log('user severity', userSeverity)
-  console.log('population sev', populationAverageSeverity)
+  // console.log('user severity', userSeverity)
+  // console.log('population sev', populationAverageSeverity)
 
   return {
     userTotalStressors: getTotal(stressorDomains),

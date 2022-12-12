@@ -86,7 +86,10 @@ function App() {
     populationAverageACEs,
   } = useACEs(userData, publicData)
 
-  const patientAge = userData['X006AGE']
+  const patientAge = parseInt(userData['X006AGE'] || '0')
+
+  console.log('patietn age', patientAge)
+  console.log('user data', userData)
 
   const ref0 = useRef<HTMLDivElement>(null)
   const ref1 = useRef<HTMLDivElement>(null)

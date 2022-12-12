@@ -14,7 +14,6 @@ interface ACEsProps {
 function ACEs({ patientName, userTotal, populationAverage, ACEs }: ACEsProps) {
     const hasACEs = Boolean(Object.entries(ACEs).reduce((prev, curr) => prev + curr[1]?.value, 0))
 
-    console.log('has')
     return (
         <>
             <div className='w-100 text-center'>

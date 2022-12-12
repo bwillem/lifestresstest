@@ -55,6 +55,9 @@ function useACEs(userData, publicData) {
      * TODO: CHECK THIS WORKS! unanswered questions
      * should be nullish, no answered questions should
      * be 0 or falsy or something?????
+     * 
+     * We might want to just do this by submit date.
+     * Anything at or newer than launch date is v2
      */
     const shouldBeIncluded = answer =>
         answer[0]?.includes('ACE') && answer !== undefined && answer !== null
