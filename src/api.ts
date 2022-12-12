@@ -1,18 +1,124 @@
-const SURVEYID = '691287'
-const PHQGID = '147'
-const STRAINBODY1GID = '146'
-const STRAINBODY2GID = '145'
-const STRAINBODY3GID = '144'
-const STRAINBODY4GID = '143'
-const STRAINBODY5GID = '142'
-const STRAINBODY6GID = '139'
-const STRAINBODY7GID = '140'
-const STRAINBODY8GID = '141'
-const STRAINDEMOGRAPHICSGID = '138'
-const STRAINGID = '137'
-const K6GID = '148'
-const SUMMARYGID = '149'
-const ACEGID = '6972'
+const API_VERSION: Number = 1
+
+const SURVEYID = function () {
+    switch (API_VERSION) {
+        case 1: { return '691287' };
+        case 2: { return '686833' };
+        default: { return '691287' };
+    }
+}()
+
+const PHQGID = function(){ 
+    switch(API_VERSION) {
+        case 1: { return '147' };
+        case 2: { return '6980' };
+        default: { return '147' };
+    }
+}()
+
+const STRAINBODY1GID = function(){ 
+    switch(API_VERSION) {
+        case 1: { return '146' };
+        case 2: { return '6979' };
+        default: { return '146' };
+    }
+}()
+
+const STRAINBODY2GID = function(){ 
+    switch(API_VERSION) {
+        case 1: { return '145' };
+        case 2: { return '6978' };
+        default: { return '145' };
+    }
+}()
+
+const STRAINBODY3GID = function(){ 
+    switch(API_VERSION) {
+        case 1: { return '144' };
+        case 2: { return '6977' };
+        default: { return '144' };
+    }
+}()
+
+const STRAINBODY4GID = function(){ 
+    switch(API_VERSION) {
+        case 1: { return '143' };
+        case 2: { return '6976' };
+        default: { return '143' };
+    }
+}()
+
+const STRAINBODY5GID = function(){ 
+    switch(API_VERSION) {
+        case 1: { return '142' };
+        case 2: { return '6975' };
+        default: { return '142' };
+    }
+}()
+
+const STRAINBODY6GID = function(){ 
+    switch(API_VERSION) {
+        case 1: { return '139' };
+        case 2: { return '6972' };
+        default: { return '139' };
+    }
+}()
+
+const STRAINBODY7GID = function(){ 
+    switch(API_VERSION) {
+        case 1: { return '140' };
+        case 2: { return '6973' };
+        default: { return '140' };
+    }
+}()
+
+const STRAINBODY8GID = function(){ 
+    switch(API_VERSION) {
+        case 1: { return '141' };
+        case 2: { return '6974' };
+        default: { return '141' };
+    }
+}()
+
+const STRAINDEMOGRAPHICSGID = function(){ 
+    switch(API_VERSION) {
+        case 1: { return '138' };
+        case 2: { return '6971' };
+        default: { return '138' };
+    }
+}()
+
+const STRAINGID = function(){ 
+    switch(API_VERSION) {
+        case 1: { return '137' };
+        case 2: { return '6970' };
+        default: { return '137' };
+    }
+}()
+
+const K6GID = function(){ 
+    switch(API_VERSION) {
+        case 1: { return '148' };
+        case 2: { return '6981' };
+        default: { return '148' };
+    }
+}()
+
+const SUMMARYGID = function(){ 
+    switch(API_VERSION) {
+        case 1: { return '149' };
+        case 2: { return '6982' };
+        default: { return '149' };
+    }
+}()
+
+const ACEGID = function(){ 
+    switch(API_VERSION) {
+        case 1: { return '' };
+        case 2: { return '6972' };
+        default: { return '6972' };
+    }
+}()
 
 const PHQ = {
     [`${SURVEYID}X${PHQGID}X5124`]: 'PHQInfo',

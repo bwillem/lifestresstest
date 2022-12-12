@@ -25,7 +25,7 @@ import { H2, P } from './Typography';
 import useStressorDomains from './hooks/useStressorDomains';
 import useSocialPsychoCharacteristics from './hooks/useSocialPsychoCharacteristics';
 import usePositiveResilienceFactors from './hooks/usePositiveResilienceFactors';
-import useAccuteAndChronicStressors from './hooks/useAccuteAndChronicStressors';
+import useAccuteAndChronicStressors from './hooks/useAcuteAndChronicStressors';
 import GenericBarChart from './GenericBarChart';
 import StressorTable from './StressorTable';
 import LifeStressorTimeline from './LifeStressorTimeline';
@@ -214,6 +214,8 @@ function App() {
       >
         <LifeStressorTimeline
           patientName={patientName}
+          acuteStressors={acuteStressors}
+          chronicStressors={chronicStressors}
         />
       </div>
       <div

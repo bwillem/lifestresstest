@@ -5,8 +5,8 @@ import { P } from "./Typography"
 interface IndicatorProps {
   src: string
   title: string
-  value: number
-  total: number
+  value?: number
+  total?: number
 }
 
 function Indicator({ src, title, value, total, className, ...rest }: PropsWithChildren<React.HtmlHTMLAttributes<HTMLDivElement> & IndicatorProps>) {

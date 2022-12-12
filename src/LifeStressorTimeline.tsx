@@ -1,6 +1,6 @@
 import { Emphasis, H1, P } from "./Typography"
 
-function LifeStressorTimeline({ patientName }) {
+function LifeStressorTimeline({ patientName, acuteStressors, chronicStressors }) {
     return (
         <div className='space-y-4 text-center'>
             <H1>Life stressor timeline</H1>

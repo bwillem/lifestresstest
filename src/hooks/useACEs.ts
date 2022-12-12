@@ -1,7 +1,7 @@
-import { UserData } from "../types"
+import { ComputedDomains, UserData } from "../types"
 
 function useACEs(userData, publicData) {
-    const aceData = userData ? {
+    const aceData: ComputedDomains = userData ? {
         'Emotional abuse': {
             value: userData['ACE7'],
             total: 1,
@@ -45,25 +45,42 @@ function useACEs(userData, publicData) {
     } : {}
 
     /**
-     * TODO: somehow make sure only the users WHO WERE ASKED
+     * We make sure only the users WHO WERE ASKED
      * ACE QUESTIONS get included in the average.
      * 
-     * This means we need to distinguish between no value (answered no)
-     * and no value (never answered)!
+     * This means we need to distinguish between
+     * no value (answered no) and no value
+     * (never answered)
+     * 
+     * TODO: CHECK THIS WORKS! unanswered questions
+     * should be nullish, no answered questions should
+     * be 0 or falsy or something?????
      */
+    const shouldBeIncluded = answer =>
+        answer[0]?.includes('ACE') && answer !== undefined && answer !== null
+
     const sumACES = (userData: UserData) => {
         const values = Object.entries(userData).reduce((prev, curr) => {
-            if (curr[0]?.includes('ACE')) return [...prev, parseInt(curr[0])]
+            if (shouldBeIncluded(curr[0])) return [...prev, parseInt(curr[0])]
             return prev
         }, [] as number[])
 
         return values
     }
 
+    const userTotalACEs = Object
+        .keys(aceData)
+        ?.map(x => (aceData[x]?.value || 0))
+        ?.reduce((prev, curr) => prev + curr, 0) || 0
+
+    const populationAverageACEs = publicData
+        .map(userData => sumACES(userData))
+        .reduce((prev, curr) => prev + curr, 0) || 0
+
     return {
         aceData,
-        userTotalACEs: Object.keys(aceData)?.map(x => (aceData[x]?.value || 0)) || 0,
-        populationAverageACEs: publicData.map(userData => sumACES(userData)).reduce((prev, curr) => prev + curr, 0),
+        userTotalACEs,
+        populationAverageACEs,
     }
 }
 
