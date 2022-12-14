@@ -30,6 +30,7 @@ import GenericBarChart from './GenericBarChart';
 import StressorTable from './StressorTable';
 import LifeStressorTimeline from './LifeStressorTimeline';
 import useACEs from './hooks/useACEs';
+import { capitalize } from './util';
 // import ChartDataLabels from 'chartjs-plugin-datalabels'
 
 Chart.register(
@@ -80,7 +81,7 @@ function App() {
     chronicStressors,
   } = useAccuteAndChronicStressors(userData)
 
-  const { 
+  const {
     aceData,
     userTotalACEs,
     populationAverageACEs,
@@ -104,8 +105,8 @@ function App() {
   useEffect(() => {
     if (!data) return
 
-    setPatientName(data['691287X138X4768'])
-    setTestDate(data['submitdate']?.split(' ')?.[0] || 'unknown')
+    setPatientName(capitalize(data['691287X138X4768']) || 'Name missing')
+    setTestDate(data['submitdate']?.split(' ')?.[0] || 'Date missing')
 
     const x = Object.keys(variableMapping).reduce((prev, curr) => ({
       ...prev,
@@ -203,7 +204,7 @@ function App() {
     <>
       <div
         ref={ref0}
-        className='page space-y-10'
+        className='page space-y-12'
       >
         <Header
           patientName={patientName}
@@ -213,7 +214,7 @@ function App() {
       </div>
       <div
         ref={ref1}
-        className='page space-y-10'
+        className='page space-y-12'
       >
         <LifeStressorTimeline
           patientName={patientName}
@@ -223,7 +224,7 @@ function App() {
       </div>
       <div
         ref={ref2}
-        className='page space-y-10'
+        className='page space-y-12'
       >
         <Header
           patientName={patientName}
@@ -244,7 +245,7 @@ function App() {
       </div>
       <div
         ref={ref3}
-        className='page space-y-10'
+        className='page space-y-12'
       >
         <Header
           patientName={patientName}
@@ -260,7 +261,7 @@ function App() {
       </div>
       <div
         ref={ref4}
-        className='page space-y-10'
+        className='page space-y-12'
       >
         <Header
           patientName={patientName}
@@ -276,7 +277,7 @@ function App() {
       </div>
       <div
         ref={ref5}
-        className='page space-y-10'
+        className='page space-y-12'
       >
         <Header
           patientName={patientName}
@@ -291,7 +292,7 @@ function App() {
       </div>
       <div
         ref={ref6}
-        className='page space-y-10'
+        className='page space-y-12'
       >
         <Header
           patientName={patientName}

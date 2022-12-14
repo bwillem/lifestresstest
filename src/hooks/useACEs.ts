@@ -14,7 +14,7 @@ function useACEs(userData, publicData) {
             value: userData['ACE3'],
             total: 1,
         },
-        'Mother treated violently': {
+        'Caregiver treated violently': {
             value: userData['ACE5'],
             total: 1,
         },

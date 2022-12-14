@@ -19,7 +19,7 @@ function LifeStressorDomains({ stressorDomains }) {
                         src={`/images/domain-${slugify(d)}.png`}
                         title={capitalize(d)}
                         value={stressorDomains[d].value}
-                        total={stressorDomains[d].total}
+                        // total={stressorDomains[d].total}
                         className='w-1/6'
                     />
                 ))}

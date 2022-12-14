@@ -19,7 +19,7 @@ function Indicator({ src, title, value, total, className, ...rest }: PropsWithCh
         {title}
       </P>
       <P>
-        {value}/{total}
+        {value || 0}{total ? `/${total}` : ''}
       </P>
     </div>
   )

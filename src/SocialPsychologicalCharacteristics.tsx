@@ -16,7 +16,6 @@ function SocialPsychologicalCharacteristics({ socialPsychoCharacteristics }) {
                         key={x}
                         title={x}
                         value={socialPsychoCharacteristics[x].value}
-                        total={socialPsychoCharacteristics[x].total}
                     />
                 ))}
             </div>

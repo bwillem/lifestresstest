@@ -54,7 +54,7 @@ function ACEs({ patientName, userTotal, populationAverage, ACEs }: ACEsProps) {
                         </div>
                     </>
                 ) : (
-                    <P>No ACEs found for this patient</P>
+                    <P className='text-center w-full'>No ACEs found for this patient</P>
                 )}
             </div>
         </>

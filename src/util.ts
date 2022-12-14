@@ -8,7 +8,7 @@ const isInitialQuestion = p => p[6] === undefined
 const isFrequency = p => p[6] === 'F'
 const isSeverity = p => p[6] === 'S'
 
-const getAllAtVariableIndex = variableIndex => (variableElement: Domains | Characteristics) => data =>
+const getAllTruthyAtVariableIndex = variableIndex => (variableElement: Domains | Characteristics) => data =>
     Object.keys(data).reduce((prev, curr) => {
         const value = parseInt(data[curr] || 0)
         if (!value) return prev
@@ -29,8 +29,16 @@ const getAllAtVariableIndex = variableIndex => (variableElement: Domains | Chara
         return prev
     }, {})
 
-const getAllOfDomain = getAllAtVariableIndex(4)
-const getAllOfChar = getAllAtVariableIndex(5)
+const getTotalQuestionSum = variableIndex => variableElement => data =>
+    Object.keys(data).reduce((prev, curr) => {
+        const is = isEorD(curr) && isInitialQuestion(curr)
+        return (is && curr?.[variableIndex] === variableElement) ? prev + 1 : prev
+    }, 0)
+
+const getAllOfDomain = getAllTruthyAtVariableIndex(4)
+const getAllOfChar = getAllTruthyAtVariableIndex(5)
+const getTotalQuestionSumOfDomain = getTotalQuestionSum(4)
+const getTotalQuestionSumOfChar = getTotalQuestionSum(5)
 
 const getAllOfType = (type: string) => data =>
     Object.keys(data).reduce((prev, curr) => {
@@ -44,7 +52,7 @@ const getAllOfType = (type: string) => data =>
     }, {})
 
 const sum = (values: number[]) =>
-  values.filter(x => x).reduce((prev, curr) => curr + prev, 0)
+    values.filter(x => x).reduce((prev, curr) => curr + prev, 0)
 
 const sumOfAnswers = testFn => (data: UserData) => {
     return Object.entries(data).reduce((prev, curr) => {
@@ -64,9 +72,15 @@ const publicAverage = (prop: PublicStressorDomains) => (publicData: Array<{ [key
     }, 0) / publicData.length
 }
 
+// total truthy answers
 const totalOfDomain = (domain: Domains) => data => {
     return Object.keys(getAllOfDomain(domain)(data)).filter(x => isTruthy(data[x])).length
 }
+
+// total of all stressors
+// const totalStressors = (domain: Domains) => data => {
+//     return Object.keys(getTotalQuestionSumOfDomain(domain)(data)).length
+// }
 
 const totalOfChar = (char: Characteristics) => data => {
     return Object.keys(getAllOfChar(char)(data)).filter(x => isTruthy(data[x])).length
@@ -82,6 +96,8 @@ export {
     publicAverage,
     getAllOfDomain,
     getAllOfChar,
+    getTotalQuestionSumOfChar,
+    getTotalQuestionSumOfDomain,
     totalOfDomain,
     totalOfChar,
     getAverageOfDomain,

@@ -1,5 +1,6 @@
-import { Line } from "react-chartjs-2"
+import { Bar, Line } from "react-chartjs-2"
 import Blurb from "./Blurb"
+import colors from "./colors"
 import { Emphasis, H1 } from "./Typography"
 
 // interface AcuteStressor {
@@ -32,12 +33,17 @@ function AcuteStressorChart({ acuteStressors, patientAge }: AcuteStressorChartIn
         .entries(acuteStressors)
         ?.map(x => x[0]) || []
 
-    console.log('data', data)
-    console.log('acuteStressors', acuteStressors)
+    const severity = Object
+        .entries(acuteStressors)
+        ?.map(x => x[0]) || []
+
+    // console.log('data', data)
+    // console.log('acuteStressors', acuteStressors)
 
     return (
         <Line
             options={{
+                maintainAspectRatio: false,
                 indexAxis: 'y',
                 scales: {
                     x: {
@@ -52,6 +58,13 @@ function AcuteStressorChart({ acuteStressors, patientAge }: AcuteStressorChartIn
                     {
                         data,
                         showLine: false,
+                        pointBackgroundColor: context => {
+                            const i = context.dataIndex
+                            console.log('point: ', context.dataset.data[i])
+                            return colors.coral[600]
+                        },
+                        pointBorderColor: colors.coral[600],
+                        pointBorderWidth: 6,
                     }
                 ],
             }}
@@ -61,8 +74,8 @@ function AcuteStressorChart({ acuteStressors, patientAge }: AcuteStressorChartIn
 
 function ChronicStressorChart({ chronicStressors, patientAge }: ChronicStressorChartInterface) {
     const line = ({ end_age, start_age, duration }: ChronicStressor) => {
-        if (!duration) return [null, null]
-        if (!end_age && !start_age) return [null, null]
+        if (!duration) return null
+        if (!end_age && !start_age) return null
         const start = start_age || ((end_age || 0) - duration)
         const end = end_age
         return [start, end]
@@ -76,11 +89,15 @@ function ChronicStressorChart({ chronicStressors, patientAge }: ChronicStressorC
         .entries(chronicStressors)
         ?.map(x => x[0]) || []
 
+    console.log('data', data)
+    console.log('labels', labels)
+
     // console.log('chronicStressors', data)
 
     return (
-        <Line
+        <Bar
             options={{
+                maintainAspectRatio: false,
                 indexAxis: 'y',
                 scales: {
                     x: {
@@ -94,7 +111,9 @@ function ChronicStressorChart({ chronicStressors, patientAge }: ChronicStressorC
                 datasets: [
                     {
                         data,
-                        showLine: false,
+                        backgroundColor: colors.coral[600],
+                        barThickness: 8,
+                        // showLine: false,
                     }
                 ],
             }}
@@ -109,8 +128,8 @@ function AcuteAndChronicStressorTimeline({
     patientAge,
 }) {
     return (
-        <div className="space-y-4">
-            <div className="space-y-2 text-center">
+        <div className='space-y-8 flex flex-col h-full'>
+            <div className="space-y-4 text-center">
                 <H1>Acute & chronic stressor timeline</H1>
                 <Blurb>
                     Life Stress Test assesses 55 different major life stressors known
@@ -119,14 +138,20 @@ function AcuteAndChronicStressorTimeline({
                     acute life events and chronic difficulties.
                 </Blurb>
             </div>
-            <AcuteStressorChart
-                acuteStressors={acuteStressors}
-                patientAge={patientAge}
-            />
-            <ChronicStressorChart
-                chronicStressors={chronicStressors}
-                patientAge={patientAge}
-            />
+            <div className='h-full'>
+                <div className='h-1/2'>
+                    <AcuteStressorChart
+                        acuteStressors={acuteStressors}
+                        patientAge={patientAge}
+                    />
+                </div>
+                <div className='h-1/2'>
+                    <ChronicStressorChart
+                        chronicStressors={chronicStressors}
+                        patientAge={patientAge}
+                    />
+                </div>
+            </div>
         </div>
     )
 }
