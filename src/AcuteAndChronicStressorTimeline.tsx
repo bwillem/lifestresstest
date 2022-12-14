@@ -1,21 +1,12 @@
 import { Bar, Line } from "react-chartjs-2"
 import Blurb from "./Blurb"
 import colors from "./colors"
+import { AcuteStressor, ChronicStressor } from "./hooks/useAcuteAndChronicStressors"
+import { mockAcuteStressors } from "./mock/data"
 import { Emphasis, H1 } from "./Typography"
 
-// interface AcuteStressor {
-//     value: string
-//     total: number,
-// }
-
-interface ChronicStressor {
-    end_age?: number,
-    start_age?: number,
-    duration: number,
-}
-
 interface AcuteStressorChartInterface {
-    acuteStressors: { [key: string]: number }
+    acuteStressors: { [key: string]: AcuteStressor }
     patientAge: number
 }
 
@@ -24,10 +15,58 @@ interface ChronicStressorChartInterface {
     patientAge: number
 }
 
+const mapSeverityToColor = (severity: number) => {
+    switch (severity) {
+        case 0: {
+            return 'transparent'
+        }
+        case 1: {
+            return colors.coral[200]
+        }
+        case 2: {
+            return colors.coral[300]
+        }
+        default:
+        case 3: {
+            return colors.coral[500]
+        }
+        case 4: {
+            return colors.coral[600]
+        }
+        case 5: {
+            return colors.coral[800]
+        }
+    }
+}
+
+const reverseScale = (value: number) => {
+    switch (value) {
+        case 0: {
+            return 7
+        }
+        case 1: {
+            return 6
+        }
+        case 2: {
+            return 6
+        }
+        default:
+        case 3: {
+            return 4
+        }
+        case 4: {
+            return 2
+        }
+        case 5: {
+            return 0
+        }
+    }
+}
+
 function AcuteStressorChart({ acuteStressors, patientAge }: AcuteStressorChartInterface) {
     const data = Object
         .entries(acuteStressors)
-        ?.map(x => x[1] || null) || []
+        ?.map(x => x[1].age || null) || []
 
     const labels = Object
         .entries(acuteStressors)
@@ -35,10 +74,7 @@ function AcuteStressorChart({ acuteStressors, patientAge }: AcuteStressorChartIn
 
     const severity = Object
         .entries(acuteStressors)
-        ?.map(x => x[0]) || []
-
-    // console.log('data', data)
-    // console.log('acuteStressors', acuteStressors)
+        ?.map(x => x[1].severity) || []
 
     return (
         <Line
@@ -60,11 +96,11 @@ function AcuteStressorChart({ acuteStressors, patientAge }: AcuteStressorChartIn
                         showLine: false,
                         pointBackgroundColor: context => {
                             const i = context.dataIndex
-                            console.log('point: ', context.dataset.data[i])
-                            return colors.coral[600]
+                            return mapSeverityToColor(severity[i])
                         },
-                        pointBorderColor: colors.coral[600],
-                        pointBorderWidth: 6,
+                        pointRadius: context => {
+                            return severity[context.dataIndex] * 1.333
+                        },
                     }
                 ],
             }}
@@ -89,10 +125,9 @@ function ChronicStressorChart({ chronicStressors, patientAge }: ChronicStressorC
         .entries(chronicStressors)
         ?.map(x => x[0]) || []
 
-    console.log('data', data)
-    console.log('labels', labels)
-
-    // console.log('chronicStressors', data)
+    const severity = Object
+        .entries(chronicStressors)
+        ?.map(x => x[1].severity) || []
 
     return (
         <Bar
@@ -111,9 +146,26 @@ function ChronicStressorChart({ chronicStressors, patientAge }: ChronicStressorC
                 datasets: [
                     {
                         data,
-                        backgroundColor: colors.coral[600],
-                        barThickness: 8,
-                        // showLine: false,
+                        backgroundColor: context => {
+                            return mapSeverityToColor(severity[context.dataIndex])
+                        },
+                        borderColor: () => {
+                            return 'white'
+                        },
+                        borderSkipped: false,
+                        borderRadius: {
+                            topLeft: 99,
+                            topRight: 99,
+                            bottomLeft: 99,
+                            bottomRight: 99,
+                        },
+                        borderWidth: context => {
+                            return {
+                                top: reverseScale(severity[context.dataIndex]),
+                                bottom: reverseScale(severity[context.dataIndex]),
+                            }
+                        },
+                        barPercentage: 1,
                     }
                 ],
             }}

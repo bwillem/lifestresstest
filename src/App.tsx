@@ -31,6 +31,7 @@ import StressorTable from './StressorTable';
 import LifeStressorTimeline from './LifeStressorTimeline';
 import useACEs from './hooks/useACEs';
 import { capitalize } from './util';
+import { UserData } from './types';
 // import ChartDataLabels from 'chartjs-plugin-datalabels'
 
 Chart.register(
@@ -50,7 +51,7 @@ function App() {
   const [patientName, setPatientName] = useState('')
   const [testDate, setTestDate] = useState('')
   const [userId, setUserId] = useState('')
-  const [userData, setUserData] = useState({})
+  const [userData, setUserData] = useState<UserData>({})
   const [publicData, setPublicData] = useState([])
 
   const { data, error } = useSWR(urls.userData(userId), fetcher)
@@ -89,8 +90,8 @@ function App() {
 
   const patientAge = parseInt(userData['X006AGE'] || '0')
 
-  console.log('patietn age', patientAge)
-  console.log('user data', userData)
+  // console.log('patietn age', patientAge)
+  // console.log('user data', userData)
 
   const ref0 = useRef<HTMLDivElement>(null)
   const ref1 = useRef<HTMLDivElement>(null)

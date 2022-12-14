@@ -1,293 +1,310 @@
-const getDurationInYears = (years: string, months: string) => years && months &&
-  ((parseInt(months) / 12) + parseInt(years)).toFixed(2)
+import { UserData } from "../types"
 
-function useAcuteAndChronicStressors(userData) {
-  const acuteStressors = userData ? {
+const getDurationInYears = (years: number, months: number) =>
+  Number(((months / 12) + years).toFixed(2)) || 0
+
+export interface AcuteStressor {
+  severity: number
+  age: number
+}
+
+export interface ChronicStressor {
+  // duration in years
+  end_age?: number,
+  start_age?: number,
+  duration: number,
+  severity: number,
+}
+
+function useAcuteAndChronicStressors(userData: UserData) {
+  const _userData = Object.fromEntries(Object.entries(userData).map(entry => [entry[0], entry[1] ? parseInt(entry[1]) : 0]))
+
+  const acuteStressors: { [key: string]: AcuteStressor } = userData ? {
     'lost home or evicted': {
-      severity: userData['E110HRS'],
-      age: userData['E112HRA'],
+      severity: _userData['E110HRS'],
+      age: _userData['E112HRA'],
     },
     'difficult move': {
-      severity: userData['E118HRS'],
-      age: userData['E120HRA'],
+      severity: _userData['E118HRS'],
+      age: _userData['E120HRA'],
     },
     'dropped or failed out of school': {
-      severity: userData['E030EHS'],
-      age: userData['E032EHA'],
+      severity: _userData['E030EHS'],
+      age: _userData['E032EHA'],
     },
     'laid off or fired': {
-      severity: userData['E039WHS'],
-      age: userData['E041WHA'],
+      severity: _userData['E039WHS'],
+      age: _userData['E041WHA'],
     },
     'emergency hospitalization': {
-      severity: userData['E186TDS'],
-      age: userData['E188TDA'],
+      severity: _userData['E186TDS'],
+      age: _userData['E188TDA'],
     },
     'non-emergency hospitalization': {
-      severity: userData['E142TDS'],
-      age: userData['E144TDA'],
+      severity: _userData['E142TDS'],
+      age: _userData['E144TDA'],
     },
     'serious break-up or divorced': {
-      severity: userData['E195MLS'],
-      age: userData['E197MLA'],
+      severity: _userData['E195MLS'],
+      age: _userData['E197MLA'],
     },
     'learned of unfaithful partner': {
-      severity: userData['E218MHS'],
-      age: userData['E220MHA'],
+      severity: _userData['E218MHS'],
+      age: _userData['E220MHA'],
     },
     'physical fight with partner': {
-      severity: userData['E210MDS'],
-      age: userData['E212MDA'],
+      severity: _userData['E210MDS'],
+      age: _userData['E212MDA'],
     },
     'abortion': {
-      severity: userData['E268RDS'],
-      age: userData['E270RDA'],
+      severity: _userData['E268RDS'],
+      age: _userData['E270RDA'],
     },
     'serious prenatal problem': {
-      severity: userData['E530TDS'],
-      age: userData['E532TDA'],
+      severity: _userData['E530TDS'],
+      age: _userData['E532TDA'],
     },
     'lost primary income': {
-      severity: userData['E344FRS'],
-      age: userData['E346FRA'],
+      severity: _userData['E344FRS'],
+      age: _userData['E346FRA'],
     },
     'appeared in court or arrested': {
-      severity: userData['E319LRS'],
-      age: userData['E321LRA'],
+      severity: _userData['E319LRS'],
+      age: _userData['E321LRA'],
     },
-    'loved one\'s suicide attempt': { 
-      severity: userData['E368OLS'],
-      age: userData['E370OLA']
+    'loved one\'s suicide attempt': {
+      severity: _userData['E368OLS'],
+      age: _userData['E370OLA']
     },
-    'child\'s upsetting move out': { 
-      severity: userData['E126OLS'],
-      age: userData['E128OLA'],
+    'child\'s upsetting move out': {
+      severity: _userData['E126OLS'],
+      age: _userData['E128OLA'],
     },
-    'parental divorce (under 18)': { 
-      severity: userData['E543OLS'],
-      age: userData['E544CLA'],
+    'parental divorce (under 18)': {
+      severity: _userData['E543OLS'],
+      age: _userData['E544CLA'],
     },
-    'mother\'s death': { 
-      severity: userData['E537DLS'],
-      age: userData['E536DLA'],
+    'mother\'s death': {
+      severity: _userData['E537DLS'],
+      age: _userData['E536DLA'],
     },
-    'father\'s death': { 
-      severity: userData['E540DLS'],
-      age: userData['E539DLA'],
+    'father\'s death': {
+      severity: _userData['E540DLS'],
+      age: _userData['E539DLA'],
     },
-    'child\'s death': { 
-      severity: userData['E285OLS'],
-      age: userData['E287OLA'],
+    'child\'s death': {
+      severity: _userData['E285OLS'],
+      age: _userData['E287OLA'],
     },
-    'other loved one\'s death': { 
-      severity: userData['E360DLS'],
-      age: userData['E362DLA'],
+    'other loved one\'s death': {
+      severity: _userData['E360DLS'],
+      age: _userData['E362DLA'],
     },
-    'household break-in': { 
-      severity: userData['E313PDA'],
-      age: userData['E313PDA'],
+    'household break-in': {
+      severity: _userData['E313PDA'],
+      age: _userData['E313PDA'],
     },
-    'held up or robbed': { 
-      severity: userData['E303XDS'],
-      age: userData['E305XDA'],
+    'held up or robbed': {
+      severity: _userData['E303XDS'],
+      age: _userData['E305XDA'],
     },
-    'personally in accident': { 
-      severity: userData['E336XDS'],
-      age: userData['E338XDA'],
+    'personally in accident': {
+      severity: _userData['E336XDS'],
+      age: _userData['E338XDA'],
     },
-    'loved one in accident': { 
-      severity: userData['E352XRS'],
-      age: userData['E354XRA'],
+    'loved one in accident': {
+      severity: _userData['E352XRS'],
+      age: _userData['E354XRA'],
     },
-    'physically or sexually attacked': { 
-      severity: userData['E376XDS'],
-      age: userData['E378XDA'],
+    'physically or sexually attacked': {
+      severity: _userData['E376XDS'],
+      age: _userData['E378XDA'],
     },
-    'life otherwise threatened': { 
-      severity: userData['E336XDS'],
-      age: userData['E338XDA'],
+    'life otherwise threatened': {
+      severity: _userData['E336XDS'],
+      age: _userData['E338XDA'],
     },
   } : {}
 
-  const chronicStressors = userData ? {
+  const chronicStressors: { [key: string]: ChronicStressor } = _userData ? {
     'unsafe neighborhood': {
       // done
-      duration: getDurationInYears(userData['D076HDDA'], userData['D076HDDB']),
-      end_age: userData['D079HDA'],
-      severity: userData['D077HDS'],
+      duration: getDurationInYears(_userData['D076HDDA'], _userData['D076HDDB']),
+      end_age: _userData['D079HDA'],
+      severity: _userData['D077HDS'],
     },
     'no privacy at home': {
       // done
-      duration: getDurationInYears(userData['D071HEDA'], userData['D071HEDB']),
-      end_age: userData['D074HEA'],
-      severity: userData['D072HES'],
+      duration: getDurationInYears(_userData['D071HEDA'], _userData['D071HEDB']),
+      end_age: _userData['D074HEA'],
+      severity: _userData['D072HES'],
     },
     'unstable housing': {
       // missing duration, age date ambiguous
-      duration: getDurationInYears(userData['E091HRDA'], userData['E091HRDB']),
-      start_age: userData['E094HRA'],
-      severity: userData['E092HRS'],
+      duration: getDurationInYears(_userData['E091HRDA'], _userData['E091HRDB']),
+      start_age: _userData['E094HRA'],
+      severity: _userData['E092HRS'],
     },
     'overwhelmed at work': {
       // done
-      duration: getDurationInYears(userData['D051WEDA'], userData['D051WEDB']),
-      end_age: userData['D054WEA'],
-      severity: userData['D052WES'],
+      duration: getDurationInYears(_userData['D051WEDA'], _userData['D051WEDB']),
+      end_age: _userData['D054WEA'],
+      severity: _userData['D052WES'],
     },
     'excluded at work': {
       // missing age
-      duration: getDurationInYears(userData['D061WHDA'], userData['D061WHDB']),
-      end_age: userData['D064WHA'],
-      severity: userData['D062WHS'],
+      duration: getDurationInYears(_userData['D061WHDA'], _userData['D061WHDB']),
+      end_age: _userData['D064WHA'],
+      severity: _userData['D062WHS'],
     },
     'job search > 6 months': {
       // done
-      duration: getDurationInYears(userData['D046WRDA'], userData['D046WRDA']),
-      end_age: userData['D049WRA'],
-      severity: userData['D047WRS'],
+      duration: getDurationInYears(_userData['D046WRDA'], _userData['D046WRDA']),
+      end_age: _userData['D049WRA'],
+      severity: _userData['D047WRS'],
     },
 
     'psychiatric diagnosis: self': {
       // missing A, D and S
-      end_age: null,
-      duration: null,
-      severity: null,
+      end_age: 0,
+      duration: 0,
+      severity: 0,
     },
 
     'substance abuse: self': {
       // missing A, D and S
-      end_age: null,
-      duration: null,
-      severity: null,
+      end_age: 0,
+      duration: 0,
+      severity: 0,
     },
 
     'loved one mentally ill': {
       // done
-      duration: getDurationInYears(userData['D435TRDA'], userData['D435TRDB']),
-      end_age: userData['D438TRA'],
-      severity: userData['D436TRS'],
+      duration: getDurationInYears(_userData['D435TRDA'], _userData['D435TRDB']),
+      end_age: _userData['D438TRA'],
+      severity: _userData['D436TRS'],
     },
 
     'mother mentally ill': {
       // missing both A and D
-      end_age: null,
-      duration: null,
-      severity: null,
+      end_age: 0,
+      duration: 0,
+      severity: 0,
     },
 
     'father mentally ill': {
       // missing both A and D
-      end_age: null,
-      duration: null,
-      severity: null,
+      end_age: 0,
+      duration: 0,
+      severity: 0,
     },
     'life-impacting illness': {
       // done
-      duration: getDurationInYears(userData['D149TDDA'], userData['D149TDDB']),
-      end_age: userData['D152TDA'],
-      severity: userData['D149TDD'],
+      duration: getDurationInYears(_userData['D149TDDA'], _userData['D149TDDB']),
+      end_age: _userData['D152TDA'],
+      severity: _userData['D149TDD'],
     },
     'loved one physically ill': {
       // done
-      duration: getDurationInYears(userData['D425TRDA'], userData['D425TRDB']),
-      end_age: userData['D428TRA'],
-      severity: userData['D150TDS'],
+      duration: getDurationInYears(_userData['D425TRDA'], _userData['D425TRDB']),
+      end_age: _userData['D428TRA'],
+      severity: _userData['D150TDS'],
     },
     'received care for illness': {
       // done
-      duration: getDurationInYears(userData['D154TRDA'], userData['D154TRDB']),
-      end_age: userData['D157TRA'],
-      severity: userData['D155TRS'],
+      duration: getDurationInYears(_userData['D154TRDA'], _userData['D154TRDB']),
+      end_age: _userData['D157TRA'],
+      severity: _userData['D155TRS'],
     },
     'infertility': {
       // done
-      duration: getDurationInYears(userData['D254RRDA'], userData['D254RRDB']),
-      end_age: userData['D257RRA'],
-      severity: userData['D205MLS'],
+      duration: getDurationInYears(_userData['D254RRDA'], _userData['D254RRDB']),
+      end_age: _userData['D257RRA'],
+      severity: _userData['D205MLS'],
     },
     'socially isolated': {
       // done
-      duration: getDurationInYears(userData['D247MLDA'], userData['D247MLDB']),
-      end_age: userData['D250MLA'],
-      severity: userData['D248MLS'],
+      duration: getDurationInYears(_userData['D247MLDA'], _userData['D247MLDB']),
+      end_age: _userData['D250MLA'],
+      severity: _userData['D248MLS'],
     },
     'spousal arguments': {
       // done
-      duration: getDurationInYears(userData['D204MLDA'], userData['D204MLDB']),
-      end_age: userData['D207MLA'],
-      severity: userData['D205MLS'],
+      duration: getDurationInYears(_userData['D204MLDA'], _userData['D204MLDB']),
+      end_age: _userData['D207MLA'],
+      severity: _userData['D205MLS'],
     },
     'financial strain': {
       // done
-      duration: getDurationInYears(userData['D066FEDA'], userData['D066FEDB']),
-      end_age: userData['D069FEA'],
-      severity: userData['D067FES'],
+      duration: getDurationInYears(_userData['D066FEDA'], _userData['D066FEDB']),
+      end_age: _userData['D069FEA'],
+      severity: _userData['D067FES'],
     },
     'bullied': {
       // done but age question is start date
-      duration: getDurationInYears(userData['D420OHDA'], userData['D420OHDB']),
-      end_age: userData['D423OHA'],
-      severity: userData['D421OHS'],
+      duration: getDurationInYears(_userData['D420OHDA'], _userData['D420OHDB']),
+      end_age: _userData['D423OHA'],
+      severity: _userData['D421OHS'],
     },
     'legal issues with partner': {
       // done
-      duration: getDurationInYears(userData['D511LRDA'], userData['D511LRDB']),
-      end_age: userData['D514LRA'],
-      severity: userData['D512LRS'],
+      duration: getDurationInYears(_userData['D511LRDA'], _userData['D511LRDB']),
+      end_age: _userData['D514LRA'],
+      severity: _userData['D512LRS'],
     },
     'caregiver to loved one': {
       // done
-      duration: getDurationInYears(userData['D165OEDA'], userData['D165OEDB']),
-      end_age: userData['D168OEA'],
-      severity: userData['D166OES'],
+      duration: getDurationInYears(_userData['D165OEDA'], _userData['D165OEDB']),
+      end_age: _userData['D168OEA'],
+      severity: _userData['D166OES'],
     },
     'emotionally abused': {
       // done
-      duration: getDurationInYears(userData['D231OHDA'], userData['D231OHDB']),
-      end_age: userData['D234OHA'],
-      severity: userData['D232OHS'],
+      duration: getDurationInYears(_userData['D231OHDA'], _userData['D231OHDB']),
+      end_age: _userData['D234OHA'],
+      severity: _userData['D232OHS'],
     },
     'harshly disciplined': {
       // done but age question is start date
-      duration: getDurationInYears(userData['D415OHDA'], userData['D415OHDB']),
-      start_age: userData['D418OHA'],
-      severity: userData['D416OHS'],
+      duration: getDurationInYears(_userData['D415OHDA'], _userData['D415OHDB']),
+      start_age: _userData['D418OHA'],
+      severity: _userData['D416OHS'],
     },
     'conflict between parents': {
       // done but age question is start date
-      duration: getDurationInYears(userData['D389OEDA'], userData['D389OEDB']),
-      start_age: userData['D392OEA'],
-      severity: userData['D390OES'],
+      duration: getDurationInYears(_userData['D389OEDA'], _userData['D389OEDB']),
+      start_age: _userData['D392OEA'],
+      severity: _userData['D390OES'],
     },
     'difficulty caring for child(ren)': {
       // done
-      duration: getDurationInYears(userData['D550OEDA'], userData['D550OEDB']),
-      end_date: userData['D553OEA'],
-      severity: userData['D551OES'],
+      duration: getDurationInYears(_userData['D550OEDA'], _userData['D550OEDB']),
+      end_age: _userData['D553OEA'],
+      severity: _userData['D551OES'],
     },
     'loved one abused': {
       // done
-      duration: getDurationInYears(userData['D225ORDA'], userData['D225ORDB']),
-      end_date: userData['D228ORA'],
-      severity: userData['D226ORS'],
+      duration: getDurationInYears(_userData['D225ORDA'], _userData['D225ORDB']),
+      end_age: _userData['D228ORA'],
+      severity: _userData['D226ORS'],
     },
     'separated from parent (<18)': {
       // done but age is start date
-      duration: getDurationInYears(userData['D394OLDA'], userData['D394OLDB']),
-      start_age: userData['D398OLA'],
-      severity: userData['D396OLS'],
+      duration: getDurationInYears(_userData['D394OLDA'], _userData['D394OLDB']),
+      start_age: _userData['D398OLA'],
+      severity: _userData['D396OLS'],
     },
     'physically abused': {
       // done
-      duration: getDurationInYears(userData['D237XDDA'], userData['D237XDDB']),
-      end_age: userData['D240XDA'],
-      severity: userData['D238XDS'],
+      duration: getDurationInYears(_userData['D237XDDA'], _userData['D237XDDB']),
+      end_age: _userData['D240XDA'],
+      severity: _userData['D238XDS'],
     },
     'sexually abused': {
       // done
-      duration: getDurationInYears(userData['D384XDDA'], userData['D384XDDB']),
-      end_age: userData['D387XDA'],
-      severity: userData['D385XDS'],
+      duration: getDurationInYears(_userData['D384XDDA'], _userData['D384XDDB']),
+      end_age: _userData['D387XDA'],
+      severity: _userData['D385XDS'],
     },
   } : {}
 

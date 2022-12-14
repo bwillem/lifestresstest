@@ -11,8 +11,6 @@ function PositiveResilienceFactors({
   positiveResilienceFactors,
 }) {
 
-  console.log('pRF', positiveResilienceFactors)
-
   return (
     <>
       <div className='w-100 text-center'>
