@@ -64,6 +64,12 @@ function App() {
     populationAverageStressors,
     stressorDomains,
     publicStressorDomains,
+    totalMaxSumSeverity,
+    totalMaxSumOfStressors,
+    totalMaxSumOfChronicStressors,
+    totalMaxSumOfChronicStressorSeverity,
+    totalMaxSumOfAcuteStressors,
+    totalMaxSumOfAcuteStressorSeverity,
   } = useStressorDomains(userData, publicData)
 
   const {
@@ -91,7 +97,7 @@ function App() {
   const patientAge = parseInt(userData['X006AGE'] || '0')
 
   // console.log('patietn age', patientAge)
-  console.log('user data', userData)
+  // console.log('user data', userData)
 
   const ref0 = useRef<HTMLDivElement>(null)
   const ref1 = useRef<HTMLDivElement>(null)
@@ -156,13 +162,23 @@ function App() {
       ref4.current &&
       ref5.current &&
       ref6.current &&
+      totalMaxSumOfAcuteStressorSeverity &&
+      Object.keys(publicStressorDomains).length &&
+      Boolean(populationAverage) &&
       !pdf.current
+
+    console.log('isReady', isReady)
 
     if (!isReady) return
 
     const toPDF = async () => {
       if (!isReady) return
       pdf.current = doc
+
+      const page0 = await html2canvas(ref0.current)
+      const page0img = page0.toDataURL('report/png')
+      doc.addImage(page0img, 'PNG', 0, 0, format[0], format[1])
+
       const page1 = await html2canvas(ref1.current)
       const page1img = page1.toDataURL('report/png')
       doc.addImage(page1img, 'PNG', 0, 0, format[0], format[1])
@@ -176,6 +192,21 @@ function App() {
       const page3 = await html2canvas(ref3.current)
       const page3img = page3.toDataURL('report/png')
       doc.addImage(page3img, 'PNG', 0, 0, format[0], format[1])
+
+      doc.addPage(format)
+      const page4 = await html2canvas(ref4.current)
+      const page4img = page4.toDataURL('report/png')
+      doc.addImage(page4img, 'PNG', 0, 0, format[0], format[1])
+
+      doc.addPage(format)
+      const page5 = await html2canvas(ref5.current)
+      const page5img = page5.toDataURL('report/png')
+      doc.addImage(page5img, 'PNG', 0, 0, format[0], format[1])
+
+      doc.addPage(format)
+      const page6 = await html2canvas(ref6.current)
+      const page6img = page6.toDataURL('report/png')
+      doc.addImage(page6img, 'PNG', 0, 0, format[0], format[1])
 
       doc.save('test.pdf')
     }
@@ -200,6 +231,9 @@ function App() {
       </div>
     )
   }
+
+  console.log('sum severiy: ', totalMaxSumSeverity)
+  console.log('sum stressors: ', totalMaxSumOfStressors)
 
   return (
     <>
@@ -304,36 +338,42 @@ function App() {
             <H2>Total lifetime stressor count</H2>
             <GenericBarChart
               data={[populationAverageStressors, userTotalStressors]}
+              max={totalMaxSumOfStressors}
             />
           </div>
           <div className='w-1/2 text-center pl-4'>
             <H2>Total lifetime stressor severity</H2>
             <GenericBarChart
               data={[populationAverageSeverity, userSeverity]}
+              max={totalMaxSumSeverity}
             />
           </div>
           <div className='w-1/2 text-center pr-4'>
             <H2>Lifetime chronic stressor count</H2>
             <GenericBarChart
               data={[populationAverageSeverity, userSeverity]}
+              max={totalMaxSumOfChronicStressors}
             />
           </div>
           <div className='w-1/2 text-center pl-4'>
             <H2>Lifetime chronic stressor severity</H2>
             <GenericBarChart
               data={[populationAverageStressors, userTotalStressors]}
+              max={totalMaxSumOfChronicStressorSeverity}
             />
           </div>
           <div className='w-1/2 text-center pr-4'>
             <H2>Lifetime acute stressor count</H2>
             <GenericBarChart
               data={[populationAverageStressors, userTotalStressors]}
+              max={totalMaxSumOfAcuteStressors}
             />
           </div>
           <div className='w-1/2 text-center pl-4'>
             <H2>Lifetime acute stressor severity</H2>
             <GenericBarChart
               data={[populationAverageStressors, userTotalStressors]}
+              max={totalMaxSumOfAcuteStressorSeverity}
             />
           </div>
         </div>

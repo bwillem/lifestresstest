@@ -15,6 +15,7 @@ function SocialPsychologicalCharacteristics({ socialPsychoCharacteristics }) {
                         className='w-1/5'
                         key={x}
                         title={x}
+                        total={socialPsychoCharacteristics[x].total}
                         value={socialPsychoCharacteristics[x].value}
                     />
                 ))}

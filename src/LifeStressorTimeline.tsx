@@ -10,6 +10,8 @@ function LifeStressorTimeline({ patientName, acuteStressors, chronicStressors })
                 stressors <Emphasis>{patientName}</Emphasis> experienced categorized by their reported
                 severity. Knowing when a stressor occurred, and how bad it was,
                 can help identify experiences that were particularly impactful.</P>
+                {/* <LifeStressorTimelineChart
+                /> */}
         </div>
     )
 }

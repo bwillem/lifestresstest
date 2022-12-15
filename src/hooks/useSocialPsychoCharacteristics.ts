@@ -1,26 +1,26 @@
-import { getAverageOfDomain, totalOfChar } from "../util"
+import { getAverageOfDomain, maxOfCharatertistic, maxOfDomain, totalOfCharacteristic } from "../util"
 
 function useSocialPsychoCharacteristics(userData, publicData) {
   const socialPsychoCharacteristics = userData ? {
     'interpersonal loss': {
-      value: totalOfChar('L')(userData),
-      total: 11,
+      value: totalOfCharacteristic('L')(userData),
+      total: maxOfCharatertistic('L')(userData),
     },
     'physical danger': {
-      value: totalOfChar('D')(userData),
-      total: 16,
+      value: totalOfCharacteristic('D')(userData),
+      total: maxOfCharatertistic('D')(userData),
     },
     'humiliation': {
-      value: totalOfChar('H')(userData),
-      total: 7,
+      value: totalOfCharacteristic('H')(userData),
+      total: maxOfCharatertistic('H')(userData),
     },
     'role change or disruption': {
-      value: totalOfChar('R')(userData),
-      total: 16,
+      value: totalOfCharacteristic('R')(userData),
+      total: maxOfCharatertistic('R')(userData),
     },
     'entrapment': {
-      value: totalOfChar('E')(userData),
-      total: 6,
+      value: totalOfCharacteristic('E')(userData),
+      total: maxOfCharatertistic('E')(userData),
     },
   } : {}
 

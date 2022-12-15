@@ -1,86 +1,98 @@
 import { ComputedDomains, UserData } from "../types"
-import { getAverageOfDomain, totalOfDomain, sumSeverity, sum, getTotalQuestionSumOfDomain } from "../util"
+import {
+  sumOfStressors,
+  populationAverageSumOfStressors,
+  getAverageOfDomain,
+  totalOfDomain,
+  sumSeverity,
+  sum,
+  maxOfDomain,
+  maxSumOfSeverity,
+  maxSumOfStressors,
+  maxSumOfChronicStressors,
+  maxSumOfAcuteStressors,
+  maxSumOfChronicStressorSeverity,
+  maxSumOfAcuteStressorSeverity,
+} from "../util"
 
-const getTotal = (data: ComputedDomains) =>
-  Object.entries(data).length ? Object.entries(data)?.reduce((prev, curr) => prev + curr[1].value, 0) : 0
 
 function useStressorDomains(userData: UserData, publicData: UserData[]) {
-  // console.log('H', totalOfDomain('H')(userData), userData['Hous'])
-  // console.log('E', totalOfDomain('E')(userData), userData['Educ'])
-  // console.log('M', totalOfDomain('M')(userData), userData['Mari'])
-  // console.log('R', totalOfDomain('R')(userData), userData['Repr'])
-  // console.log('O', totalOfDomain('O')(userData), userData['Rela'])
-  // console.log('W', totalOfDomain('W')(userData), userData['Work'])
-  // console.log('F', totalOfDomain('F')(userData), userData['Fina'])
-  // console.log('D', totalOfDomain('D')(userData), userData['Deat'])
-  // console.log('L', totalOfDomain('L')(userData), userData['Lega'])
-  // console.log('P', totalOfDomain('P')(userData), userData['Poss'])
-  // console.log('X', totalOfDomain('X')(userData), userData['Life'])
-  // console.log('T', totalOfDomain('T')(userData), userData['Trea'])
+  // console.log('H', totalOfDomain('H')(userData), userData['Hous'], sumOfDomain('H')(userData))
+  // console.log('E', totalOfDomain('E')(userData), userData['Educ'], sumOfDomain('E')(userData))
+  // console.log('M', totalOfDomain('M')(userData), userData['Mari'], sumOfDomain('M')(userData))
+  // console.log('R', totalOfDomain('R')(userData), userData['Repr'], sumOfDomain('R')(userData))
+  // console.log('O', totalOfDomain('O')(userData), userData['Rela'], sumOfDomain('O')(userData))
+  // console.log('W', totalOfDomain('W')(userData), userData['Work'], sumOfDomain('W')(userData))
+  // console.log('F', totalOfDomain('F')(userData), userData['Fina'], sumOfDomain('F')(userData))
+  // console.log('D', totalOfDomain('D')(userData), userData['Deat'], sumOfDomain('D')(userData))
+  // console.log('L', totalOfDomain('L')(userData), userData['Lega'], sumOfDomain('L')(userData))
+  // console.log('P', totalOfDomain('P')(userData), userData['Poss'], sumOfDomain('P')(userData))
+  // console.log('X', totalOfDomain('X')(userData), userData['Life'], sumOfDomain('X')(userData))
+  // console.log('T', totalOfDomain('T')(userData), userData['Trea'], sumOfDomain('T')(userData))
 
   const userSeverity = sumSeverity(userData)
   const populationAverageSeverity = Math.round(sum(publicData.map(data => sumSeverity(data))) / publicData.length)
 
+  const userTotalStressors = sumOfStressors(userData)
+  const populationAverageStressors = populationAverageSumOfStressors(publicData)
+
+  const totalMaxSumSeverity = maxSumOfSeverity(userData)
+  const totalMaxSumOfStressors = maxSumOfStressors(userData)
+
+  const totalMaxSumOfChronicStressors = maxSumOfChronicStressors(userData)
+  const totalMaxSumOfAcuteStressors = maxSumOfAcuteStressors(userData)
+
+  const totalMaxSumOfChronicStressorSeverity = maxSumOfChronicStressorSeverity(userData)
+  const totalMaxSumOfAcuteStressorSeverity = maxSumOfAcuteStressorSeverity(userData)
+
   const stressorDomains: ComputedDomains = userData ? {
     'housing': {
-      // value: parseInt(userData['Hous'] || '0'),
       value: totalOfDomain('H')(userData),
-      total: getTotalQuestionSumOfDomain('H')(userData),
+      total: maxOfDomain('H')(userData),
     },
     'education': {
-      // value: parseInt(userData['Educ'] || '0'),
       value: totalOfDomain('E')(userData),
-      total: getTotalQuestionSumOfDomain('E')(userData),
+      total: maxOfDomain('E')(userData),
     },
     'marital or partner': {
-      // value: parseInt(userData['Mari'] || '0'),
       value: totalOfDomain('M')(userData),
-      total: getTotalQuestionSumOfDomain('M')(userData),
+      total: maxOfDomain('M')(userData),
     },
     'reproduction': {
-      // value: parseInt(userData['Repr'] || '0'),
       value: totalOfDomain('R')(userData),
-      total: getTotalQuestionSumOfDomain('R')(userData),
+      total: maxOfDomain('R')(userData),
     },
     'other relationships': {
-      // value: parseInt(userData['Rela'] || '0'),
       value: totalOfDomain('O')(userData),
-      total: getTotalQuestionSumOfDomain('O')(userData),
+      total: maxOfDomain('O')(userData),
     },
     'work': {
-      // value: parseInt(userData['Work'] || '0'),
       value: totalOfDomain('W')(userData),
-      total: getTotalQuestionSumOfDomain('W')(userData),
+      total: maxOfDomain('W')(userData),
     },
     'financial': {
-      // value: parseInt(userData['Fina'] || '0'),
       value: totalOfDomain('F')(userData),
-      total: getTotalQuestionSumOfDomain('F')(userData),
+      total: maxOfDomain('F')(userData),
     },
     'death': {
-      // value: parseInt(userData['Deat'] || '0'),
       value: totalOfDomain('D')(userData),
-      total: getTotalQuestionSumOfDomain('D')(userData),
+      total: maxOfDomain('D')(userData),
     },
     'legal or crime': {
-      // value: parseInt(userData['Lega'] || '0'),
       value: totalOfDomain('L')(userData),
-      total: getTotalQuestionSumOfDomain('L')(userData),
+      total: maxOfDomain('L')(userData),
     },
     'possessions': {
-      // value: parseInt(userData['Poss'] || '0'),
       value: totalOfDomain('P')(userData),
-      total: getTotalQuestionSumOfDomain('P')(userData),
+      total: maxOfDomain('P')(userData),
     },
     'life-threatening situation': {
-      // value: parseInt(userData['Life'] || '0'),
       value: totalOfDomain('X')(userData),
-      total: getTotalQuestionSumOfDomain('X')(userData),
+      total: maxOfDomain('X')(userData),
     },
     'treatment or health': {
-      // value: parseInt(userData['Trea'] || '0'),
       value: totalOfDomain('T')(userData),
-      total: getTotalQuestionSumOfDomain('T')(userData),
+      total: maxOfDomain('T')(userData),
     },
   } : {}
 
@@ -123,17 +135,19 @@ function useStressorDomains(userData: UserData, publicData: UserData[]) {
     },
   } : {}
 
-  // console.log(userData)
-  // console.log('user severity', userSeverity)
-  // console.log('population sev', populationAverageSeverity)
-
   return {
-    userTotalStressors: getTotal(stressorDomains),
+    userTotalStressors,
     userSeverity,
-    populationAverageStressors: getTotal(publicStressorDomains),
+    populationAverageStressors,
     populationAverageSeverity,
     stressorDomains,
     publicStressorDomains,
+    totalMaxSumSeverity,
+    totalMaxSumOfStressors,
+    totalMaxSumOfChronicStressors,
+    totalMaxSumOfChronicStressorSeverity,
+    totalMaxSumOfAcuteStressors,
+    totalMaxSumOfAcuteStressorSeverity,
   }
 }
 
