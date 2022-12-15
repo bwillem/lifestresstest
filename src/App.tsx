@@ -91,7 +91,7 @@ function App() {
   const patientAge = parseInt(userData['X006AGE'] || '0')
 
   // console.log('patietn age', patientAge)
-  // console.log('user data', userData)
+  console.log('user data', userData)
 
   const ref0 = useRef<HTMLDivElement>(null)
   const ref1 = useRef<HTMLDivElement>(null)
