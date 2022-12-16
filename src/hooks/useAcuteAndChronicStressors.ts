@@ -92,15 +92,15 @@ function useAcuteAndChronicStressors(userData: UserData) {
       severity: _userData['E540DLS'],
       age: _userData['E539DLA'],
     },
-    'child\'s death': {
+    "child's death": {
       severity: _userData['E285OLS'],
       age: _userData['E287OLA'],
     },
-    'other loved one\'s death': {
+    "other loved one's death": {
       severity: _userData['E360DLS'],
       age: _userData['E362DLA'],
     },
-    'household break-in': {
+    'household bre\ak-in': {
       severity: _userData['E313PDA'],
       age: _userData['E313PDA'],
     },
@@ -288,7 +288,7 @@ function useAcuteAndChronicStressors(userData: UserData) {
       end_age: _userData['D228ORA'],
       severity: _userData['D226ORS'],
     },
-    'separated from parent (<18)': {
+    'separated from parent (under 18)': {
       // done but age is start date
       duration: getDurationInYears(_userData['D394OLDA'], _userData['D394OLDB']),
       start_age: _userData['D398OLA'],

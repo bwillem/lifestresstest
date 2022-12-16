@@ -2,15 +2,14 @@ import { Bar, Line } from "react-chartjs-2"
 import Blurb from "./Blurb"
 import colors from "./colors"
 import { AcuteStressor, ChronicStressor } from "./hooks/useAcuteAndChronicStressors"
-import { mockAcuteStressors } from "./mock/data"
 import { Emphasis, H1 } from "./Typography"
 
-interface AcuteStressorChartInterface {
+interface AcuteStressorsChartProps {
     acuteStressors: { [key: string]: AcuteStressor }
     patientAge: number
 }
 
-interface ChronicStressorChartInterface {
+interface ChronicStressorsChartProps {
     chronicStressors: { [key: string]: ChronicStressor }
     patientAge: number
 }
@@ -63,7 +62,7 @@ const reverseScale = (value: number) => {
     }
 }
 
-function AcuteStressorChart({ acuteStressors, patientAge }: AcuteStressorChartInterface) {
+function AcuteStressorChart({ acuteStressors, patientAge }: AcuteStressorsChartProps) {
     const data = Object
         .entries(acuteStressors)
         ?.map(x => x[1].age || null) || []
@@ -85,6 +84,11 @@ function AcuteStressorChart({ acuteStressors, patientAge }: AcuteStressorChartIn
                     x: {
                         beginAtZero: true,
                         max: patientAge,
+                    },
+                    y: {
+                        ticks: {
+                            autoSkip: false,
+                        },
                     },
                 },
             }}
@@ -108,7 +112,7 @@ function AcuteStressorChart({ acuteStressors, patientAge }: AcuteStressorChartIn
     )
 }
 
-function ChronicStressorChart({ chronicStressors, patientAge }: ChronicStressorChartInterface) {
+function ChronicStressorChart({ chronicStressors, patientAge }: ChronicStressorsChartProps) {
     const line = ({ end_age, start_age, duration }: ChronicStressor) => {
         if (!duration) return null
         if (!end_age && !start_age) return null
@@ -138,6 +142,11 @@ function ChronicStressorChart({ chronicStressors, patientAge }: ChronicStressorC
                     x: {
                         beginAtZero: true,
                         max: patientAge,
+                    },
+                    y: {
+                        ticks: {
+                            autoSkip: false,
+                        },
                     },
                 },
             }}

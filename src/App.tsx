@@ -32,7 +32,6 @@ import LifeStressorTimeline from './LifeStressorTimeline';
 import useACEs from './hooks/useACEs';
 import { capitalize } from './util';
 import { UserData } from './types';
-// import ChartDataLabels from 'chartjs-plugin-datalabels'
 
 Chart.register(
   CategoryScale,
@@ -41,7 +40,6 @@ Chart.register(
   PointElement,
   LineElement,
   // Legend,
-  // ChartDataLabels,
 )
 
 const format = [1024, 1440]
@@ -95,9 +93,6 @@ function App() {
   } = useACEs(userData, publicData)
 
   const patientAge = parseInt(userData['X006AGE'] || '0')
-
-  // console.log('patietn age', patientAge)
-  // console.log('user data', userData)
 
   const ref0 = useRef<HTMLDivElement>(null)
   const ref1 = useRef<HTMLDivElement>(null)
@@ -167,7 +162,7 @@ function App() {
       Boolean(populationAverage) &&
       !pdf.current
 
-    console.log('isReady', isReady)
+    console.log('IS RERADY', isReady)
 
     if (!isReady) return
 
@@ -179,6 +174,7 @@ function App() {
       const page0img = page0.toDataURL('report/png')
       doc.addImage(page0img, 'PNG', 0, 0, format[0], format[1])
 
+      doc.addPage(format)
       const page1 = await html2canvas(ref1.current)
       const page1img = page1.toDataURL('report/png')
       doc.addImage(page1img, 'PNG', 0, 0, format[0], format[1])
@@ -211,15 +207,18 @@ function App() {
       doc.save('test.pdf')
     }
 
-    // toPDF()
+    toPDF()
   }, [
-    ref0.current,
-    ref1.current,
-    ref2.current,
-    ref3.current,
-    ref4.current,
-    ref5.current,
-    ref6.current,
+    // ref0.current,
+    // ref1.current,
+    // ref2.current,
+    // ref3.current,
+    // ref4.current,
+    // ref5.current,
+    // ref6.current,
+    Object.keys(publicStressorDomains).length,
+    populationAverage,
+    totalMaxSumOfAcuteStressorSeverity,
   ])
 
   if (!publicData || !data) {
@@ -231,9 +230,6 @@ function App() {
       </div>
     )
   }
-
-  console.log('sum severiy: ', totalMaxSumSeverity)
-  console.log('sum stressors: ', totalMaxSumOfStressors)
 
   return (
     <>
@@ -251,7 +247,12 @@ function App() {
         ref={ref1}
         className='page space-y-12'
       >
+        <Header
+          patientName={patientName}
+          testDate={testDate}
+        />
         <LifeStressorTimeline
+          patientAge={patientAge}
           patientName={patientName}
           acuteStressors={acuteStressors}
           chronicStressors={chronicStressors}

@@ -18,6 +18,7 @@ const getKTotal = data => {
 }
 
 const getKAverage = publicData => {
+  if (!publicData.length) return 0
   return publicData
     .map(x => getKTotal(x))
     .reduce((prev, curr) => prev + curr, 0) / publicData.length
