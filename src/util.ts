@@ -1,5 +1,7 @@
 import { Characteristics, Domains, Outcomes, PublicStressorDomains, UserData } from "./types"
 
+const FREQUENCY_SCALE_MAX = 4
+
 const capitalize = (x: string) => `${x[0].toUpperCase()}${x.slice(1).toLowerCase()}`
 const slugify = (x: string) => x.replaceAll(' ', '-').toLowerCase()
 const isTruthy = (value: string) => value && Boolean(parseInt(value) || 0)
@@ -13,6 +15,9 @@ const isE = p => p[0] === 'E'
 const isD = p => p[0] === 'D'
 const isFrequency = x => isOfOutcome('F')(x)
 const isSeverity = x => isOfOutcome('S')(x)
+
+const isChronic = variable => isD(variable)
+const isAcute = variable => isE(variable)
 
 // const getAllTruthyAtVariableIndex = variableIndex => (variableElement: Domains | Characteristics) => data =>
 //     Object.keys(data).reduce((prev, curr) => {
@@ -119,7 +124,7 @@ const totalOfStressors = (data: UserData) => {
 
 const totalOfAcuteStressors = (data: UserData) => {
     return Object.entries(data).reduce((prev, curr) => {
-        if (isE(curr[0]) && isInitialQuestion(curr[0])) {
+        if (isAcute(curr[0])) {
             return prev + 1
         }
         return prev
@@ -128,7 +133,7 @@ const totalOfAcuteStressors = (data: UserData) => {
 
 const totalOfChronicStressors = (data: UserData) => {
     return Object.entries(data).reduce((prev, curr) => {
-        if (isD(curr[0]) && isInitialQuestion(curr[0])) {
+        if (isChronic(curr[0]) && isInitialQuestion(curr[0])) {
             return prev + 1
         }
         return prev
@@ -231,22 +236,37 @@ const sumOfStressors = (data: UserData) => {
     }, 0)
 }
 
-const populationAverageSumOfStressors = (populationData: UserData[]) => {
+const sumPopulationAverage = testFn => populationData =>
+    Math.round(populationData.reduce((prev, curr) => {
+        return prev + Object.entries(curr).reduce((prev, curr) => {
+            if (testFn(curr)) {
+                return prev + 1
+            } else {
+                return prev
+            }
+        }, 0)
+    }, 0) / populationData.length)
+
+const sumPopulationAverageStressors = (populationData: UserData[]) => {
     return populationData.reduce((prev, curr) => prev + sumOfStressors(curr), 0) / populationData.length
 }
 
-const maxSumOfStressors = (userData: UserData) => totalOfStressors(userData) * 5
-const maxSumOfSeverity = (userData: UserData) => maxOfOutcome('S')(userData) * 5
+const maxSumOfStressors = (userData: UserData) => totalOfStressors(userData) * FREQUENCY_SCALE_MAX
+const maxSumOfSeverity = (userData: UserData) => maxOfOutcome('S')(userData) * FREQUENCY_SCALE_MAX
 
-const maxSumOfAcuteStressors = (userData: UserData) => totalOfAcuteStressors(userData) * 5
-const maxSumOfChronicStressors = (userData: UserData) => totalOfChronicStressors(userData) * 5
+const maxSumOfAcuteStressors = (userData: UserData) => totalOfAcuteStressors(userData)
+const maxSumOfChronicStressors = (userData: UserData) => totalOfChronicStressors(userData)
 
-const maxSumOfAcuteStressorSeverity = (userData: UserData) => totalOfAcuteStressors(userData) * 5
-const maxSumOfChronicStressorSeverity = (userData: UserData) => totalOfChronicStressors(userData) * 5
+const maxSumOfAcuteStressorSeverity = (userData: UserData) => totalOfAcuteStressors(userData) * FREQUENCY_SCALE_MAX
+const maxSumOfChronicStressorSeverity = (userData: UserData) => totalOfChronicStressors(userData) * FREQUENCY_SCALE_MAX
 
 export {
     sum,
     slugify,
+    isChronic,
+    isAcute,
+    isInitialQuestion,
+    isSeverity,
     capitalize,
     publicAverage,
     totalOfDomain,
@@ -254,7 +274,7 @@ export {
     sumOfDomain,
     sumOfCharacteristic,
     sumOfStressors,
-    populationAverageSumOfStressors,
+    sumPopulationAverageStressors,
     sumSeverity,
     maxOfDomain,
     maxOfCharatertistic,

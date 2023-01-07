@@ -58,8 +58,16 @@ function App() {
   const {
     userSeverity,
     userTotalStressors,
+    userChronicStressors,
+    userAcuteStressors,
+    userChronicStressorSeverity,
+    userAcuteStressorSeverity,
     populationAverageSeverity,
     populationAverageStressors,
+    populationAverageChronicStressors,
+    populationAverageChronicStressorSeverity,
+    populationAverageAcuteStressors,
+    populationAverageAcuteStressorSeverity,
     stressorDomains,
     publicStressorDomains,
     totalMaxSumSeverity,
@@ -162,7 +170,7 @@ function App() {
       Boolean(populationAverage) &&
       !pdf.current
 
-    console.log('IS RERADY', isReady)
+    // console.log('IS RERADY', isReady)
 
     if (!isReady) return
 
@@ -207,7 +215,7 @@ function App() {
       doc.save('test.pdf')
     }
 
-    toPDF()
+    // toPDF()
   }, [
     // ref0.current,
     // ref1.current,
@@ -352,28 +360,28 @@ function App() {
           <div className='w-1/2 text-center pr-4'>
             <H2>Lifetime chronic stressor count</H2>
             <GenericBarChart
-              data={[populationAverageSeverity, userSeverity]}
+              data={[populationAverageChronicStressors, userChronicStressors]}
               max={totalMaxSumOfChronicStressors}
             />
           </div>
           <div className='w-1/2 text-center pl-4'>
             <H2>Lifetime chronic stressor severity</H2>
             <GenericBarChart
-              data={[populationAverageStressors, userTotalStressors]}
+              data={[populationAverageChronicStressorSeverity, userChronicStressorSeverity]}
               max={totalMaxSumOfChronicStressorSeverity}
             />
           </div>
           <div className='w-1/2 text-center pr-4'>
             <H2>Lifetime acute stressor count</H2>
             <GenericBarChart
-              data={[populationAverageStressors, userTotalStressors]}
+              data={[populationAverageAcuteStressors, userAcuteStressors]}
               max={totalMaxSumOfAcuteStressors}
             />
           </div>
           <div className='w-1/2 text-center pl-4'>
             <H2>Lifetime acute stressor severity</H2>
             <GenericBarChart
-              data={[populationAverageStressors, userTotalStressors]}
+              data={[populationAverageAcuteStressorSeverity, userAcuteStressorSeverity]}
               max={totalMaxSumOfAcuteStressorSeverity}
             />
           </div>

@@ -1,7 +1,7 @@
 import { ComputedDomains, UserData } from "../types"
 import {
   sumOfStressors,
-  populationAverageSumOfStressors,
+  sumPopulationAverageStressors,
   getAverageOfDomain,
   totalOfDomain,
   sumSeverity,
@@ -13,8 +13,28 @@ import {
   maxSumOfAcuteStressors,
   maxSumOfChronicStressorSeverity,
   maxSumOfAcuteStressorSeverity,
+  isChronic,
+  isAcute,
+  isInitialQuestion,
+  isSeverity,
 } from "../util"
 
+const filterUserData = filterBy =>
+  userData =>
+    Object.keys(userData)
+      .filter(filterBy)
+      .reduce((prev, curr) => ({
+        ...prev,
+        [curr]: userData[curr],
+      }), {})
+
+const userDataToNumberArray = (userData: UserData) =>
+  Object.entries(userData).map(x => parseInt(x[1])).filter(x => x)
+
+const isChronicAndInitial = variable => isChronic(variable) && isInitialQuestion(variable)
+const isAcuteAndInitial = variable => isAcute(variable) && isInitialQuestion(variable)
+
+const isChronicSeverity = variable => isChronic(variable) && isSeverity(variable)
 
 function useStressorDomains(userData: UserData, publicData: UserData[]) {
   // console.log('H', totalOfDomain('H')(userData), userData['Hous'], sumOfDomain('H')(userData))
@@ -31,10 +51,22 @@ function useStressorDomains(userData: UserData, publicData: UserData[]) {
   // console.log('T', totalOfDomain('T')(userData), userData['Trea'], sumOfDomain('T')(userData))
 
   const userSeverity = sumSeverity(userData)
+
+  const userChronicStressorSeverity = sumSeverity(filterUserData(isChronicSeverity)(userData))
+  const userAcuteStressorSeverity = sumSeverity(filterUserData(isAcute)(userData))
+
   const populationAverageSeverity = Math.round(sum(publicData.map(data => sumSeverity(data))) / publicData.length)
 
+  const populationAverageStressors = sumPopulationAverageStressors(publicData)
+  const populationAverageChronicStressors = Math.round(sum(publicData.map(data => sum(userDataToNumberArray(filterUserData(isChronicAndInitial)(data))))) / publicData.length)
+  const populationAverageAcuteStressors = Math.round(sum(publicData.map(data => sum(userDataToNumberArray(filterUserData(isAcuteAndInitial)(data))))) / publicData.length)
+
+  const populationAverageChronicStressorSeverity = Math.round(sum(publicData.map(data => sumSeverity(filterUserData(isChronicSeverity)(data)))) / publicData.length)
+  const populationAverageAcuteStressorSeverity = Math.round(sum(publicData.map(data => sumSeverity(filterUserData(isChronicSeverity)(data)))) / publicData.length)
+
   const userTotalStressors = sumOfStressors(userData)
-  const populationAverageStressors = populationAverageSumOfStressors(publicData)
+  const userChronicStressors = sumOfStressors(filterUserData(isChronicAndInitial)(userData))
+  const userAcuteStressors = sumOfStressors(filterUserData(isAcuteAndInitial)(userData))
 
   const totalMaxSumSeverity = maxSumOfSeverity(userData)
   const totalMaxSumOfStressors = maxSumOfStressors(userData)
@@ -137,9 +169,17 @@ function useStressorDomains(userData: UserData, publicData: UserData[]) {
 
   return {
     userTotalStressors,
+    userChronicStressors,
+    userAcuteStressors,
+    userChronicStressorSeverity,
+    userAcuteStressorSeverity,
     userSeverity,
     populationAverageStressors,
     populationAverageSeverity,
+    populationAverageChronicStressors,
+    populationAverageAcuteStressors,
+    populationAverageChronicStressorSeverity,
+    populationAverageAcuteStressorSeverity,
     stressorDomains,
     publicStressorDomains,
     totalMaxSumSeverity,

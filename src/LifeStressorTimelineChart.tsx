@@ -1,4 +1,5 @@
-import { Bar, Line } from "react-chartjs-2"
+import { v1 } from 'uuid'
+import { Line } from "react-chartjs-2"
 import { AcuteStressor, ChronicStressor } from "./hooks/useAcuteAndChronicStressors"
 import { slugify } from "./util"
 
@@ -55,7 +56,6 @@ function LifeStressorTimelineChart({ acuteStressors, chronicStressors, patientAg
         .filter(x => x[1]?.age)
         .map(x => ({
             data: [x[1].age, x[1].severity * 2],
-            // data: [x[1].age, mapSeverityToLabel(x[1].severity)],
             image: mapNameToImage(x[0]),
         }))
 
@@ -64,24 +64,113 @@ function LifeStressorTimelineChart({ acuteStressors, chronicStressors, patientAg
         .filter(x => getMiddlePoint(x[1]))
         .map(x => ({
             data: [getMiddlePoint(x[1]), x[1].severity * 2],
-            // data: [getMiddlePoint(x[1]), mapSeverityToLabel(x[1].severity)],
             image: mapNameToImage(x[0]),
         }))
 
     const data = [...acuteData.map(x => x.data), ...chronicData.map(x => x.data)]
     const images = [...acuteData.map(x => x.image), ...chronicData.map(x => x.image)]
 
-    // console.log('data', data)
-
     return (
         <Line
+            plugins={[{
+                id: 'beforeDatasetDraw',
+                beforeDatasetDraw(chart, args, opts) {
+                    // @ts-ignore
+                    const points = chart.getDatasetMeta(0).data.map(el => ({
+                        ...el,
+                        id: v1(),
+                    }))
+
+                    let adjustedMap: { [key: string]: { x: number, y: number, id: string }[] } = {}
+                    const adjusted: string[] = []
+
+                    /**
+                     * Loop over the dataset,
+                     * keep track of each point,
+                     * if a point is overlapping (datasetmeta.element.x && datasetmeta.element.y exist in overlapping ),
+                     * put it in a group and
+                     * mutate the datasetmeta.element.x
+                     */
+                    points.forEach(point => {
+                        const overlapping = points.find(el =>
+                            (el.x === point.x) && (el.y === point.y) && (el.id !== point.id))
+
+                        if (overlapping) {
+                            /**
+                             * format data into groups
+                             */
+                            const hasGroup = adjustedMap[`${overlapping.x}${overlapping.y}`]
+
+                            const adjusted = {
+                                ...overlapping,
+                                x: point.x - 24,
+                                y: point.y - 24,
+                            }
+
+                            if (!hasGroup) adjustedMap[`${overlapping.x}${overlapping.y}`] = []
+
+                            adjustedMap[`${overlapping.x}${overlapping.y}`] = [
+                                ...adjustedMap[`${overlapping.x}${overlapping.y}`],
+                                adjusted,
+                            ]
+                        }
+                    })
+
+                    /**
+                     * make adjustments to each point in a group
+                     */
+                    points.forEach((point, i) => {
+                        const existsInAGroup = point => {
+                            let group: { x: number, y: number, id: string }[] = []
+                            Object.values(adjustedMap)
+                                .some(x =>
+                                    Boolean(x.find(x =>
+                                        x.id === point.id)) ? group = x : null)
+                            return group
+                        }
+
+                        const g = existsInAGroup(point)
+
+                        if (g.length) {
+                            const index = g.findIndex(x => x.id === point.id)
+                            const offset = g.length * 8
+                            const transformation = (32 * index) - offset
+
+                            chart.getDatasetMeta(0).data[i].y = chart.getDatasetMeta(0).data[i].y - 32
+                            chart.getDatasetMeta(0).data[i].x = chart.getDatasetMeta(0).data[i].x + transformation
+
+                            console.log('OFFSETTING', offset, point.id, chart.getDatasetMeta(0).data[i], i)
+
+                            adjusted.push(point.id)
+
+                            // g.forEach((p, groupIndex) => {
+
+                            //     // console.log('ready to adjust', g, p, groupIndex)
+                            //     // console.log('adjustd', adjusted)
+
+                            //     if (adjusted.includes(p.id)) {
+                            //         return
+                            //     }
+                            //     const offset = 32 * groupIndex
+
+                            //     chart.getDatasetMeta(0).data[i].y = chart.getDatasetMeta(0).data[i].y - 16
+                            //     chart.getDatasetMeta(0).data[i].x = chart.getDatasetMeta(0).data[i].x + offset
+
+                            //     console.log('OFFSETTING', offset, p.id, chart.getDatasetMeta(0).data[i], i)
+
+                            //     adjusted.push(p.id)
+                            // })
+                        }
+                    })
+                },
+            }]}
             options={{
                 indexAxis: 'y',
                 showLine: false,
                 elements: {
-                    // point: {
-                    //     pointStyle: images,
-                    // },
+                    point: {
+                        pointStyle: images,
+                    },
                 },
                 scales: {
                     y: {
