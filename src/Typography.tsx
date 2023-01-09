@@ -17,13 +17,13 @@ const H3: FC<React.HtmlHTMLAttributes<HTMLHeadingElement>> = ({ className, ...re
 }
 
 const Emphasis: FC<React.HtmlHTMLAttributes<HTMLSpanElement>> = ({ className, ...rest }) => {
-    const classes = classNames('font-bold text-coral-600', className)
+    const classes = classNames(className, 'font-bold')
     return <span className={classes} {...rest} />
 }
 
 const P: FC<React.HtmlHTMLAttributes<HTMLParagraphElement> & { inactive?: boolean }> = ({ className, inactive = false, ...rest }) => {
     const color = inactive ? 'text-neutral-500' : 'text-neutral-900'
-    const classes = classNames('text-sm', color, className)
+    const classes = classNames(className, 'text-sm', color)
     return <p className={classes} {...rest} />
 }
 

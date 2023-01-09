@@ -19,12 +19,12 @@ function PositiveResilienceFactors({
             <H1>6 Positive resilience factors</H1>
             <H2>Adverse childhood experiences</H2>
           </div>
-          <Blurb>
+          <Blurb className='text-teal-dark'>
             Resilience factors are personal and interpersonal processes such as
             positive emotions and feeling connected to friends and family, which
-            can reduce the negative impact stressors have on health. <Emphasis> {patientName} </Emphasis>
-            has a positive resilience score of <Emphasis> {userTotal} out of 28</Emphasis> vs.
-            the population average of <Emphasis> {populationAverage} out of 28</Emphasis>.
+            can reduce the negative impact stressors have on health. <Emphasis className="text-teal-dark"> {patientName} </Emphasis>
+            has a positive resilience score of <Emphasis className="text-teal-dark"> {userTotal} out of 28</Emphasis> vs.
+            the population average of <Emphasis className="text-teal-dark"> {populationAverage} out of 28</Emphasis>.
           </Blurb>
         </div>
       </div>

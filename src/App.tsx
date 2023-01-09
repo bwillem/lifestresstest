@@ -32,6 +32,7 @@ import LifeStressorTimeline from './LifeStressorTimeline';
 import useACEs from './hooks/useACEs';
 import { capitalize } from './util';
 import { UserData } from './types';
+import Blurb from './Blurb';
 
 Chart.register(
   CategoryScale,
@@ -39,7 +40,6 @@ Chart.register(
   BarElement,
   PointElement,
   LineElement,
-  // Legend,
 )
 
 const format = [1024, 1440]
@@ -343,43 +343,61 @@ function App() {
           testDate={testDate}
         />
         <div className='flex flex-wrap space-y-8'>
-          <div className='w-1/2 text-center mt-8 pr-4'>
+          <div className='w-1/2 text-center mt-8 pr-4 space-y-4 mb-6'>
             <H2>Total lifetime stressor count</H2>
+            <Blurb className='text-coral'>
+              Represents the total number of all the acute & chronic stressors experienced over the life course. Higher scores have been related to poorer health and wellbeing, cognitive and behavioral outcomes, aging, and longevity.
+            </Blurb>
             <GenericBarChart
               data={[populationAverageStressors, userTotalStressors]}
               max={totalMaxSumOfStressors}
             />
           </div>
-          <div className='w-1/2 text-center pl-4'>
+          <div className='w-1/2 text-center pl-4 space-y-4 mb-6'>
             <H2>Total lifetime stressor severity</H2>
+            <Blurb className='text-coral'>
+              Represents the total severity of all the acute & chronic stressors experienced over the life course, calculated based on how stressful or threatening stressors were perceived to be. Sometimes what matters is not what stressors a person faced but how stressful or threatening they were perceived.
+            </Blurb>
             <GenericBarChart
               data={[populationAverageSeverity, userSeverity]}
               max={totalMaxSumSeverity}
             />
           </div>
-          <div className='w-1/2 text-center pr-4'>
+          <div className='w-1/2 text-center pr-4 space-y-4 mb-6'>
             <H2>Lifetime chronic stressor count</H2>
+            <Blurb className='text-coral'>
+              Represents the total number of all the chronic stressors experienced over the life course. Chronic stressors include persistent interpersonal, financial, and housing problems that last at least one month, though many last much longer.
+            </Blurb>
             <GenericBarChart
               data={[populationAverageChronicStressors, userChronicStressors]}
               max={totalMaxSumOfChronicStressors}
             />
           </div>
-          <div className='w-1/2 text-center pl-4'>
+          <div className='w-1/2 text-center pl-4 space-y-4 mb-6'>
             <H2>Lifetime chronic stressor severity</H2>
+            <Blurb className='text-coral'>
+              Represents the total severity of all the chronic stressors experienced over the life course. Chronic stressors include persistent interpersonal, financial, and housing problems that last at least one month, though many last much longer.
+            </Blurb>
             <GenericBarChart
               data={[populationAverageChronicStressorSeverity, userChronicStressorSeverity]}
               max={totalMaxSumOfChronicStressorSeverity}
             />
           </div>
-          <div className='w-1/2 text-center pr-4'>
+          <div className='w-1/2 text-center pr-4 space-y-4 mb-6'>
             <H2>Lifetime acute stressor count</H2>
+            <Blurb className='text-coral'>
+              Represents the total number of all the acute stressors experienced over the life course. Acute stressors include getting laid off or fired, being robbed or attacked, getting divorced, or having a loved one pass away.
+            </Blurb>
             <GenericBarChart
               data={[populationAverageAcuteStressors, userAcuteStressors]}
               max={totalMaxSumOfAcuteStressors}
             />
           </div>
-          <div className='w-1/2 text-center pl-4'>
+          <div className='w-1/2 text-center pl-4 space-y-4 mb-6'>
             <H2>Lifetime acute stressor severity</H2>
+            <Blurb className='text-coral'>
+              Represents the total severity of all the acute stressors experienced over the life course. Acute stressors include getting laid off or fired, being robbed or attacked, getting divorced, or having a loved one pass away.
+            </Blurb>
             <GenericBarChart
               data={[populationAverageAcuteStressorSeverity, userAcuteStressorSeverity]}
               max={totalMaxSumOfAcuteStressorSeverity}

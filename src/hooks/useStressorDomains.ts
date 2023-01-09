@@ -57,7 +57,7 @@ function useStressorDomains(userData: UserData, publicData: UserData[]) {
 
   const populationAverageSeverity = Math.round(sum(publicData.map(data => sumSeverity(data))) / publicData.length)
 
-  const populationAverageStressors = sumPopulationAverageStressors(publicData)
+  const populationAverageStressors = Math.round(sumPopulationAverageStressors(publicData))
   const populationAverageChronicStressors = Math.round(sum(publicData.map(data => sum(userDataToNumberArray(filterUserData(isChronicAndInitial)(data))))) / publicData.length)
   const populationAverageAcuteStressors = Math.round(sum(publicData.map(data => sum(userDataToNumberArray(filterUserData(isAcuteAndInitial)(data))))) / publicData.length)
 

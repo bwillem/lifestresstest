@@ -10,7 +10,7 @@ interface IndicatorProps {
 }
 
 function Indicator({ src, title, value, total, className, ...rest }: PropsWithChildren<React.HtmlHTMLAttributes<HTMLDivElement> & IndicatorProps>) {
-  const classes = classnames('flex flex-col justify-center items-center w-1/3 mt-8 text-center', className)
+  const classes = classnames(className, 'flex flex-col justify-center items-center w-1/3 mt-8 text-center')
 
   return (
     <div className={classes} {...rest}>

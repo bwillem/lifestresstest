@@ -9,7 +9,9 @@ function LifeStressorDomains({ stressorDomains }) {
             <div className='text-center'>
                 <div className='space-y-2'>
                     <H1>12 Life stressor domains</H1>
-                    <Blurb>Stressors can occur in the different life domains shown below. Knowing which life domain(s) are most impacted can lead to more focused strategies for reducing stress and improving resilience.</Blurb>
+                    <Blurb className='text-coral'>
+                        Stressors can occur in the different life domains shown below. Knowing which life domain(s) are most impacted can lead to more focused strategies for reducing stress and improving resilience.
+                    </Blurb>
                 </div>
             </div>
             <div className='flex flex-wrap items-center justify-center'>

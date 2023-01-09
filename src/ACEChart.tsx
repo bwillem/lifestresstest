@@ -1,9 +1,11 @@
 import { Bar } from 'react-chartjs-2'
 import colors from './colors'
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 function ACEChart() {
     return (
         <Bar
+            plugins={[ChartDataLabels]}
             options={{
                 scales: {
                     y: {
@@ -13,6 +15,14 @@ function ACEChart() {
                     },
                 },
                 maintainAspectRatio: false,
+                plugins: {
+                    datalabels: {
+                        color: 'black',
+                        font: {
+                            size: 16,
+                        },
+                    },
+                },
             }}
             data={{
                 labels: ['Population average', 'Patient'],

@@ -9,3 +9,13 @@
   padding: 16px 64px 64px;
   overflow: hidden;
 }
+
+h1,
+h2,
+h3 {
+  font-family: 'Chonburi', cursive;
+}
+
+.chonburi {
+  font-family: 'Chonburi', cursive;
+}

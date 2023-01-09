@@ -22,7 +22,7 @@ function ACEs({ patientName, userTotal, populationAverage, ACEs }: ACEsProps) {
                         <H1>10 ACEs</H1>
                         <H2>Adverse childhood experiences</H2>
                     </div>
-                    <Blurb>
+                    <Blurb className='text-coral'>
                         Adverse Childhood Experiences, or ACEs, are major life stressors such as abuse,
                         neglect, and household dysfunction that some people experience before age 18.
                         <Emphasis> {patientName} </Emphasis> experienced <Emphasis>{userTotal} out of 10 </Emphasis>

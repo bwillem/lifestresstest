@@ -19,6 +19,9 @@ const isSeverity = x => isOfOutcome('S')(x)
 const isChronic = variable => isD(variable)
 const isAcute = variable => isE(variable)
 
+const mergeClasses = classes => defaultClasses =>
+    [...defaultClasses.split(' '), ...classes.split(' ')].join(' ')
+
 // const getAllTruthyAtVariableIndex = variableIndex => (variableElement: Domains | Characteristics) => data =>
 //     Object.keys(data).reduce((prev, curr) => {
 //         const value = parseInt(data[curr] || 0)
@@ -236,16 +239,16 @@ const sumOfStressors = (data: UserData) => {
     }, 0)
 }
 
-const sumPopulationAverage = testFn => populationData =>
-    Math.round(populationData.reduce((prev, curr) => {
-        return prev + Object.entries(curr).reduce((prev, curr) => {
-            if (testFn(curr)) {
-                return prev + 1
-            } else {
-                return prev
-            }
-        }, 0)
-    }, 0) / populationData.length)
+// const sumPopulationAverage = testFn => populationData =>
+//     Math.round(populationData.reduce((prev, curr) => {
+//         return prev + Object.entries(curr).reduce((prev, curr) => {
+//             if (testFn(curr)) {
+//                 return prev + 1
+//             } else {
+//                 return prev
+//             }
+//         }, 0)
+//     }, 0) / populationData.length)
 
 const sumPopulationAverageStressors = (populationData: UserData[]) => {
     return populationData.reduce((prev, curr) => prev + sumOfStressors(curr), 0) / populationData.length
@@ -286,4 +289,5 @@ export {
     maxSumOfChronicStressorSeverity,
     getAverageOfDomain,
     getAllOfType,
+    mergeClasses,
 }
