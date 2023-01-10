@@ -2,6 +2,7 @@ import { v1 } from 'uuid'
 import { Line } from "react-chartjs-2"
 import { AcuteStressor, ChronicStressor } from "./hooks/useAcuteAndChronicStressors"
 import { slugify } from "./util"
+import colors from './colors'
 
 interface LifeStressorTimelineChartProps {
     acuteStressors: { [key: string]: AcuteStressor }
@@ -75,7 +76,8 @@ function LifeStressorTimelineChart({ acuteStressors, chronicStressors, patientAg
             plugins={[{
                 id: 'beforeDatasetDraw',
                 beforeDatasetDraw(chart, args, opts) {
-                    // @ts-ignore
+                    const { ctx, getDatasetMeta } = chart
+
                     const points = chart.getDatasetMeta(0).data.map(el => ({
                         ...el,
                         id: v1(),
@@ -101,17 +103,19 @@ function LifeStressorTimelineChart({ acuteStressors, chronicStressors, patientAg
                              */
                             const hasGroup = adjustedMap[`${overlapping.x}${overlapping.y}`]
 
-                            const adjusted = {
-                                ...overlapping,
-                                x: point.x - 24,
-                                y: point.y - 24,
-                            }
+                            // const adjusted = {
+                            //     ...overlapping,
+                            //     x: point.x - 24,
+                            //     y: point.y - 24,
+                            // }
 
-                            if (!hasGroup) adjustedMap[`${overlapping.x}${overlapping.y}`] = []
+                            if (!hasGroup) {
+                                adjustedMap[`${overlapping.x}${overlapping.y}`] = []
+                            }
 
                             adjustedMap[`${overlapping.x}${overlapping.y}`] = [
                                 ...adjustedMap[`${overlapping.x}${overlapping.y}`],
-                                adjusted,
+                                overlapping,
                             ]
                         }
                     })
@@ -133,33 +137,32 @@ function LifeStressorTimelineChart({ acuteStressors, chronicStressors, patientAg
 
                         if (g.length) {
                             const index = g.findIndex(x => x.id === point.id)
-                            const offset = g.length * 8
-                            const transformation = (32 * index) - offset
+                            const offset = g.length * 10
+                            const transformation = (40 * index) - offset
+                            const transformedX = chart.getDatasetMeta(0).data[i].x + transformation
+                            const transformedY = chart.getDatasetMeta(0).data[i].y - 40
 
-                            chart.getDatasetMeta(0).data[i].y = chart.getDatasetMeta(0).data[i].y - 32
-                            chart.getDatasetMeta(0).data[i].x = chart.getDatasetMeta(0).data[i].x + transformation
+                            chart.getDatasetMeta(0).data[i].y = transformedY
+                            chart.getDatasetMeta(0).data[i].x = transformedX
 
-                            console.log('OFFSETTING', offset, point.id, chart.getDatasetMeta(0).data[i], i)
+                            ctx.save()
+
+                            ctx.beginPath()
+                            ctx.moveTo(point.x, point.y)
+                            ctx.lineTo(transformedX, transformedY)
+                            ctx.strokeStyle = '#F75656'
+                            ctx.stroke()
+
+                            ctx.beginPath()
+                            ctx.fillStyle = '#eeeeee'
+                            ctx.arc(point.x, point.y, 16, 0, Math.PI * 2)
+                            ctx.fill()
+
+                            ctx.font = 'bold 14px sans-serif'
+                            ctx.fillStyle = '#F75656'
+                            ctx.fillText('2', point.x - 4, point.y + 4)
 
                             adjusted.push(point.id)
-
-                            // g.forEach((p, groupIndex) => {
-
-                            //     // console.log('ready to adjust', g, p, groupIndex)
-                            //     // console.log('adjustd', adjusted)
-
-                            //     if (adjusted.includes(p.id)) {
-                            //         return
-                            //     }
-                            //     const offset = 32 * groupIndex
-
-                            //     chart.getDatasetMeta(0).data[i].y = chart.getDatasetMeta(0).data[i].y - 16
-                            //     chart.getDatasetMeta(0).data[i].x = chart.getDatasetMeta(0).data[i].x + offset
-
-                            //     console.log('OFFSETTING', offset, p.id, chart.getDatasetMeta(0).data[i], i)
-
-                            //     adjusted.push(p.id)
-                            // })
                         }
                     })
                 },
