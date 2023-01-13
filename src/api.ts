@@ -8,112 +8,112 @@ const SURVEYID = function () {
     }
 }()
 
-const PHQGID = function(){ 
-    switch(API_VERSION) {
+const PHQGID = function () {
+    switch (API_VERSION) {
         case 1: { return '147' };
         case 2: { return '6980' };
         default: { return '147' };
     }
 }()
 
-const STRAINBODY1GID = function(){ 
-    switch(API_VERSION) {
+const STRAINBODY1GID = function () {
+    switch (API_VERSION) {
         case 1: { return '146' };
         case 2: { return '6979' };
         default: { return '146' };
     }
 }()
 
-const STRAINBODY2GID = function(){ 
-    switch(API_VERSION) {
+const STRAINBODY2GID = function () {
+    switch (API_VERSION) {
         case 1: { return '145' };
         case 2: { return '6978' };
         default: { return '145' };
     }
 }()
 
-const STRAINBODY3GID = function(){ 
-    switch(API_VERSION) {
+const STRAINBODY3GID = function () {
+    switch (API_VERSION) {
         case 1: { return '144' };
         case 2: { return '6977' };
         default: { return '144' };
     }
 }()
 
-const STRAINBODY4GID = function(){ 
-    switch(API_VERSION) {
+const STRAINBODY4GID = function () {
+    switch (API_VERSION) {
         case 1: { return '143' };
         case 2: { return '6976' };
         default: { return '143' };
     }
 }()
 
-const STRAINBODY5GID = function(){ 
-    switch(API_VERSION) {
+const STRAINBODY5GID = function () {
+    switch (API_VERSION) {
         case 1: { return '142' };
         case 2: { return '6975' };
         default: { return '142' };
     }
 }()
 
-const STRAINBODY6GID = function(){ 
-    switch(API_VERSION) {
+const STRAINBODY6GID = function () {
+    switch (API_VERSION) {
         case 1: { return '139' };
         case 2: { return '6972' };
         default: { return '139' };
     }
 }()
 
-const STRAINBODY7GID = function(){ 
-    switch(API_VERSION) {
+const STRAINBODY7GID = function () {
+    switch (API_VERSION) {
         case 1: { return '140' };
         case 2: { return '6973' };
         default: { return '140' };
     }
 }()
 
-const STRAINBODY8GID = function(){ 
-    switch(API_VERSION) {
+const STRAINBODY8GID = function () {
+    switch (API_VERSION) {
         case 1: { return '141' };
         case 2: { return '6974' };
         default: { return '141' };
     }
 }()
 
-const STRAINDEMOGRAPHICSGID = function(){ 
-    switch(API_VERSION) {
+const STRAINDEMOGRAPHICSGID = function () {
+    switch (API_VERSION) {
         case 1: { return '138' };
         case 2: { return '6971' };
         default: { return '138' };
     }
 }()
 
-const STRAINGID = function(){ 
-    switch(API_VERSION) {
+const STRAINGID = function () {
+    switch (API_VERSION) {
         case 1: { return '137' };
         case 2: { return '6970' };
         default: { return '137' };
     }
 }()
 
-const K6GID = function(){ 
-    switch(API_VERSION) {
+const K6GID = function () {
+    switch (API_VERSION) {
         case 1: { return '148' };
         case 2: { return '6981' };
         default: { return '148' };
     }
 }()
 
-const SUMMARYGID = function(){ 
-    switch(API_VERSION) {
+const SUMMARYGID = function () {
+    switch (API_VERSION) {
         case 1: { return '149' };
         case 2: { return '6982' };
         default: { return '149' };
     }
 }()
 
-const ACEGID = function(){ 
-    switch(API_VERSION) {
+const ACEGID = function () {
+    switch (API_VERSION) {
         case 1: { return '' };
         case 2: { return '6972' };
         default: { return '6972' };
@@ -626,12 +626,28 @@ const fetcher = (...args) => fetch(...args).then(res => res.json())
 
 const urls = {
     userData: (userId: string) => userId &&
-        process.env.NODE_ENV === 'development' ? `https://lifestresstest.com/wp-json/lifestresstest/limesurvey/${userId}` : `/wp-json/lifestresstest/limesurvey/${userId}`,
+        process.env.NODE_ENV === 'development' ?
+        `https://lifestresstest.com/wp-json/lifestresstest/limesurvey/${userId}` :
+        `/wp-json/lifestresstest/limesurvey/${userId}`,
+
     publicData: process.env.NODE_ENV === 'development' ? `https://lifestresstest.com/wp-json/lifestresstest/public` : `/wp-json/lifestresstest/public`,
+
+    report: (userId: string) => userId &&
+        process.env.NODE_ENV === 'development' ?
+        `https://lifestresstest.com/wp-json/lifestresstest/report/${userId}` :
+        `/wp-json/lifestresstest/report/${userId}`,
+}
+
+const postReport = ({ userId, file }) => {
+    const body = new FormData()
+    body.append('file', file)
+    console.log('file', file)
+    return fetch(urls.report(userId), { method: 'post', body })
 }
 
 export {
     urls,
     fetcher,
+    postReport,
     variableMapping,
 }

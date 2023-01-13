@@ -19,7 +19,7 @@ import AcuteAndChronicStressorTimeline from './AcuteAndChronicStressorTimeline';
 import StressorExposureBySocialPsychological from './StressorExposureBySocialPsychological';
 import useSWR from 'swr';
 import qs from 'query-string'
-import { fetcher, urls, variableMapping } from './api';
+import { fetcher, postReport, urls, variableMapping } from './api';
 import StressorExposure from './StressorExposure';
 import { H2, P } from './Typography';
 import useStressorDomains from './hooks/useStressorDomains';
@@ -51,6 +51,7 @@ function App() {
   const [userId, setUserId] = useState('')
   const [userData, setUserData] = useState<UserData>({})
   const [publicData, setPublicData] = useState([])
+  const [timelineIsReady, setTimelineIsReady] = useState(false)
 
   const { data, error } = useSWR(urls.userData(userId), fetcher)
   const { data: rawPublicData, error: publicDataError } = useSWR(urls.publicData, fetcher)
@@ -165,12 +166,11 @@ function App() {
       ref4.current &&
       ref5.current &&
       ref6.current &&
+      timelineIsReady &&
       totalMaxSumOfAcuteStressorSeverity &&
       Object.keys(publicStressorDomains).length &&
       Boolean(populationAverage) &&
       !pdf.current
-
-    // console.log('IS RERADY', isReady)
 
     if (!isReady) return
 
@@ -212,21 +212,24 @@ function App() {
       const page6img = page6.toDataURL('report/png')
       doc.addImage(page6img, 'PNG', 0, 0, format[0], format[1])
 
-      doc.save('test.pdf')
+      // @ts-ignore
+      const file = doc.output('arraybuffer', `${userId}-report.pdf`)
+
+      if (file) {
+        try {
+          await postReport({ userId, file })
+        } catch (e) {
+          console.error(e)
+        }
+      }
     }
 
-    // toPDF()
+    setTimeout(toPDF, 1000)
   }, [
-    // ref0.current,
-    // ref1.current,
-    // ref2.current,
-    // ref3.current,
-    // ref4.current,
-    // ref5.current,
-    // ref6.current,
     Object.keys(publicStressorDomains).length,
     populationAverage,
     totalMaxSumOfAcuteStressorSeverity,
+    timelineIsReady,
   ])
 
   if (!publicData || !data) {
@@ -264,6 +267,7 @@ function App() {
           patientName={patientName}
           acuteStressors={acuteStressors}
           chronicStressors={chronicStressors}
+          setTimelineIsReady={setTimelineIsReady}
         />
       </div>
       <div

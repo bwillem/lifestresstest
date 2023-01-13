@@ -7,6 +7,7 @@ function LifeStressorTimeline({
     patientAge,
     acuteStressors,
     chronicStressors,
+    setTimelineIsReady,
 }) {
     return (
         <div className='space-y-4 text-center'>
@@ -21,6 +22,7 @@ function LifeStressorTimeline({
                     patientAge={patientAge}
                     acuteStressors={acuteStressors}
                     chronicStressors={chronicStressors}
+                    setTimelineIsReady={setTimelineIsReady}
                 />
         </div>
     )

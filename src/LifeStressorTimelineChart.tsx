@@ -3,9 +3,11 @@ import { Line } from "react-chartjs-2"
 import { AcuteStressor, ChronicStressor } from "./hooks/useAcuteAndChronicStressors"
 import { slugify } from "./util"
 import colors from './colors'
+import { memo, useState } from 'react'
 
 interface LifeStressorTimelineChartProps {
     acuteStressors: { [key: string]: AcuteStressor }
+    setTimelineIsReady: any
     chronicStressors: { [key: string]: ChronicStressor }
     patientAge: number
 }
@@ -48,7 +50,13 @@ const mapNameToImage = (name: string) => {
     return image
 }
 
-function LifeStressorTimelineChart({ acuteStressors, chronicStressors, patientAge }: LifeStressorTimelineChartProps) {
+function LifeStressorTimelineChart({
+    acuteStressors,
+    chronicStressors,
+    setTimelineIsReady,
+    patientAge,
+}: LifeStressorTimelineChartProps) {
+    const [hasDrawn, setHasDrawn] = useState(false)
     const labelLabels = ['', 'not at all', 'slightly', 'moderate', 'quite a bit', 'extreme', ''].reverse()
     const labels = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 
@@ -74,9 +82,17 @@ function LifeStressorTimelineChart({ acuteStressors, chronicStressors, patientAg
     return (
         <Line
             plugins={[{
+                id: 'afterDatasetDraw',
+                afterDatasetsDraw(chart, args, options, cancelable) {
+                    setTimelineIsReady(true)
+                    setHasDrawn(true)
+                }
+            }, {
                 id: 'beforeDatasetDraw',
                 beforeDatasetDraw(chart, args, opts) {
-                    const { ctx, getDatasetMeta } = chart
+                    if (hasDrawn) return
+
+                    const { ctx } = chart
 
                     const points = chart.getDatasetMeta(0).data.map(el => ({
                         ...el,
@@ -102,12 +118,6 @@ function LifeStressorTimelineChart({ acuteStressors, chronicStressors, patientAg
                              * format data into groups
                              */
                             const hasGroup = adjustedMap[`${overlapping.x}${overlapping.y}`]
-
-                            // const adjusted = {
-                            //     ...overlapping,
-                            //     x: point.x - 24,
-                            //     y: point.y - 24,
-                            // }
 
                             if (!hasGroup) {
                                 adjustedMap[`${overlapping.x}${overlapping.y}`] = []
@@ -203,4 +213,4 @@ function LifeStressorTimelineChart({ acuteStressors, chronicStressors, patientAg
     )
 }
 
-export default LifeStressorTimelineChart
+export default memo(LifeStressorTimelineChart)
