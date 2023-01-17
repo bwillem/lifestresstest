@@ -13,7 +13,7 @@ function SocialPsychologicalCharacteristics({ socialPsychoCharacteristics }) {
             <div className='flex flex-wrap'>
                 {Object.keys(socialPsychoCharacteristics).map(x => (
                     <Indicator
-                        src={`/images/sociopsych-${slugify(x)}.png`}
+                        src={`./images/sociopsych-${slugify(x)}.png`}
                         className='w-1/5'
                         key={x}
                         title={x}

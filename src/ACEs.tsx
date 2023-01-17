@@ -39,7 +39,7 @@ function ACEs({ patientName, userTotal, populationAverage, ACEs }: ACEsProps) {
                                     <Indicator
                                         key={d}
                                         title={d}
-                                        src={`/images/ace-${slugify(d)}.png`}
+                                        src={`./images/ace-${slugify(d)}.png`}
                                         {...ACEs[d]}
                                     />
                                 ))}

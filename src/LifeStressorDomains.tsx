@@ -18,7 +18,7 @@ function LifeStressorDomains({ stressorDomains }) {
                 {Object.keys(stressorDomains).map(d => (
                     <Indicator
                         key={d}
-                        src={`/images/domain-${slugify(d)}.png`}
+                        src={`./images/domain-${slugify(d)}.png`}
                         title={capitalize(d)}
                         value={stressorDomains[d].value}
                         total={stressorDomains[d].total}

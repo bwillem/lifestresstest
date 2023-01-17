@@ -33,7 +33,7 @@ function PositiveResilienceFactors({
           <div className='flex flex-wrap'>
             {Object.keys(positiveResilienceFactors).map(d => (
               <Indicator
-                src={`/images/res-${slugify(d)}.png`}
+                src={`./images/res-${slugify(d)}.png`}
                 key={d}
                 {...positiveResilienceFactors[d]} />
             ))}
