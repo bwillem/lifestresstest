@@ -224,7 +224,7 @@ function App() {
       }
     }
 
-    setTimeout(toPDF, 1000)
+    // setTimeout(toPDF, 1000)
   }, [
     Object.keys(publicStressorDomains).length,
     populationAverage,
