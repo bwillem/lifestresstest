@@ -1,8 +1,7 @@
 import { v1 } from 'uuid'
 import { Line } from "react-chartjs-2"
 import { AcuteStressor, ChronicStressor } from "./hooks/useAcuteAndChronicStressors"
-import { slugify } from "./util"
-import colors from './colors'
+import { imgDir, scaleTitleFont, slugify } from "./util"
 import { memo, useState } from 'react'
 
 interface LifeStressorTimelineChartProps {
@@ -24,29 +23,9 @@ const getMiddlePoint = ({ start_age = 0, end_age = 0, duration = 0 }: ChronicStr
     return 0
 }
 
-const mapSeverityToLabel = (s: number) => {
-    switch (s) {
-        case 1: {
-            return 'not at all'
-        }
-        case 2: {
-            return 'slightly'
-        }
-        case 3: {
-            return 'moderate'
-        }
-        case 4: {
-            return 'quite a bit'
-        }
-        case 5: {
-            return 'extreme'
-        }
-    }
-}
-
 const mapNameToImage = (name: string) => {
     const image = new Image(32, 32)
-    image.src = `images/timeline-${slugify(name)}.png`
+    image.src = `${imgDir}/timeline-${slugify(name)}.png`
     return image
 }
 
@@ -83,13 +62,13 @@ function LifeStressorTimelineChart({
         <Line
             plugins={[{
                 id: 'afterDatasetDraw',
-                afterDatasetsDraw(chart, args, options, cancelable) {
+                afterDatasetsDraw() {
                     setTimelineIsReady(true)
                     setHasDrawn(true)
                 }
             }, {
                 id: 'beforeDatasetDraw',
-                beforeDatasetDraw(chart, args, opts) {
+                beforeDatasetDraw(chart) {
                     if (hasDrawn) return
 
                     const { ctx } = chart
@@ -187,6 +166,11 @@ function LifeStressorTimelineChart({
                 },
                 scales: {
                     y: {
+                        title: {
+                            display: true,
+                            text: 'SEVERITY',
+                            font: scaleTitleFont,
+                        },
                         beginAtZero: true,
                         min: 1,
                         max: 11,
@@ -198,8 +182,16 @@ function LifeStressorTimelineChart({
                         },
                     },
                     x: {
+                        title: {
+                            display: true,
+                            text: 'PATIENT AGE',
+                            font: scaleTitleFont,
+                        },
                         beginAtZero: true,
                         max: patientAge,
+                        ticks: {
+                            stepSize: 1,
+                        },
                     },
                 },
             }}

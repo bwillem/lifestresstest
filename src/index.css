@@ -8,12 +8,28 @@
   margin: auto;
   padding: 16px 64px 64px;
   overflow: hidden;
+
+}
+
+@media print {
+  .page {
+    page-break-after: always;
+  }
 }
 
 h1,
 h2,
 h3 {
   font-family: 'Chonburi', cursive;
+}
+
+p {
+  font-family: 'DM Sans', sans-serif;
+  line-height: 1.666;
+}
+
+.dm-sans {
+  font-family: 'DM Sans', sans-serif;
 }
 
 .chonburi {

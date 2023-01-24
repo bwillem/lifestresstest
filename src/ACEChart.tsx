@@ -1,6 +1,7 @@
 import { Bar } from 'react-chartjs-2'
 import colors from './colors'
 import ChartDataLabels from 'chartjs-plugin-datalabels';
+import { dataLabelsFont } from './util';
 
 function ACEChart() {
     return (
@@ -18,9 +19,7 @@ function ACEChart() {
                 plugins: {
                     datalabels: {
                         color: 'black',
-                        font: {
-                            size: 16,
-                        },
+                        font: dataLabelsFont,
                     },
                 },
             }}

@@ -1,9 +1,10 @@
 import { Characteristics, Domains, Outcomes, PublicStressorDomains, UserData } from "./types"
 
 const FREQUENCY_SCALE_MAX = 4
+const imgDir = process.env.NODE_ENV === 'development' ? './stress-test-report/images' : './images'
 
 const capitalize = (x: string) => `${x[0].toUpperCase()}${x.slice(1).toLowerCase()}`
-const slugify = (x: string) => x.replaceAll(' ', '-').toLowerCase()
+const slugify = (x: string) => x.replaceAll(' ', '-').replaceAll('/', '-').toLowerCase()
 const isTruthy = (value: string) => value && Boolean(parseInt(value) || 0)
 const isEorD = p => (p[0] === 'E') || (p[0] === 'D')
 const isInitialQuestion = p => p[6] === undefined
@@ -18,6 +19,15 @@ const isSeverity = x => isOfOutcome('S')(x)
 
 const isChronic = variable => isD(variable)
 const isAcute = variable => isE(variable)
+
+const dataLabelsFont = {
+    size: 20,
+}
+
+const scaleTitleFont = {
+    size: 20,
+    weight: 'bold',
+}
 
 const mergeClasses = classes => defaultClasses =>
     [...defaultClasses.split(' '), ...classes.split(' ')].join(' ')
@@ -290,4 +300,7 @@ export {
     getAverageOfDomain,
     getAllOfType,
     mergeClasses,
+    imgDir,
+    scaleTitleFont,
+    dataLabelsFont,
 }

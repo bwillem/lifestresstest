@@ -5,10 +5,7 @@ import {
   BarElement,
   PointElement,
   LineElement,
-  // Legend,
 } from 'chart.js'
-import { jsPDF } from 'jspdf'
-import html2canvas from 'html2canvas'
 import { useEffect, useRef, useState } from 'react';
 import ACEs from './ACEs';
 import PositiveResilienceFactors from './PositiveResilienceFactors';
@@ -19,7 +16,7 @@ import AcuteAndChronicStressorTimeline from './AcuteAndChronicStressorTimeline';
 import StressorExposureBySocialPsychological from './StressorExposureBySocialPsychological';
 import useSWR from 'swr';
 import qs from 'query-string'
-import { fetcher, postReport, urls, variableMapping } from './api';
+import { fetcher, urls, variableMapping } from './api';
 import StressorExposure from './StressorExposure';
 import { H2, P } from './Typography';
 import useStressorDomains from './hooks/useStressorDomains';
@@ -33,6 +30,8 @@ import useACEs from './hooks/useACEs';
 import { capitalize } from './util';
 import { UserData } from './types';
 import Blurb from './Blurb';
+import HalfWidthItem from './HalfWidthItem';
+import useIsPuppeteer from './hooks/useIsPuppeteer';
 
 Chart.register(
   CategoryScale,
@@ -42,9 +41,6 @@ Chart.register(
   LineElement,
 )
 
-const format = [1024, 1440]
-const doc = new jsPDF({ unit: 'px', format })
-
 function App() {
   const [patientName, setPatientName] = useState('')
   const [testDate, setTestDate] = useState('')
@@ -53,8 +49,10 @@ function App() {
   const [publicData, setPublicData] = useState([])
   const [timelineIsReady, setTimelineIsReady] = useState(false)
 
-  const { data, error } = useSWR(urls.userData(userId), fetcher)
-  const { data: rawPublicData, error: publicDataError } = useSWR(urls.publicData, fetcher)
+  const isPuppeteer = useIsPuppeteer()
+
+  const { data, error } = useSWR(isPuppeteer && urls.userData(userId), fetcher)
+  const { data: rawPublicData, error: publicDataError } = useSWR(isPuppeteer && urls.publicData, fetcher)
 
   const {
     userSeverity,
@@ -87,7 +85,8 @@ function App() {
   const {
     userTotal,
     populationAverage,
-    positiveResilienceFactors,
+    selfPositiveResilienceFactors,
+    socialPositiveResilienceFactors,
   } = usePositiveResilienceFactors(userData, publicData)
 
   const {
@@ -110,8 +109,6 @@ function App() {
   const ref4 = useRef<HTMLDivElement>(null)
   const ref5 = useRef<HTMLDivElement>(null)
   const ref6 = useRef<HTMLDivElement>(null)
-
-  const pdf = useRef<jsPDF>()
 
   useEffect(() => {
     if (!data) return
@@ -169,62 +166,10 @@ function App() {
       timelineIsReady &&
       totalMaxSumOfAcuteStressorSeverity &&
       Object.keys(publicStressorDomains).length &&
-      Boolean(populationAverage) &&
-      !pdf.current
+      Boolean(populationAverage)
 
     if (!isReady) return
 
-    const toPDF = async () => {
-      if (!isReady) return
-      pdf.current = doc
-
-      const page0 = await html2canvas(ref0.current)
-      const page0img = page0.toDataURL('report/png')
-      doc.addImage(page0img, 'PNG', 0, 0, format[0], format[1])
-
-      doc.addPage(format)
-      const page1 = await html2canvas(ref1.current)
-      const page1img = page1.toDataURL('report/png')
-      doc.addImage(page1img, 'PNG', 0, 0, format[0], format[1])
-
-      doc.addPage(format)
-      const page2 = await html2canvas(ref2.current)
-      const page2img = page2.toDataURL('report/png')
-      doc.addImage(page2img, 'PNG', 0, 0, format[0], format[1])
-
-      doc.addPage(format)
-      const page3 = await html2canvas(ref3.current)
-      const page3img = page3.toDataURL('report/png')
-      doc.addImage(page3img, 'PNG', 0, 0, format[0], format[1])
-
-      doc.addPage(format)
-      const page4 = await html2canvas(ref4.current)
-      const page4img = page4.toDataURL('report/png')
-      doc.addImage(page4img, 'PNG', 0, 0, format[0], format[1])
-
-      doc.addPage(format)
-      const page5 = await html2canvas(ref5.current)
-      const page5img = page5.toDataURL('report/png')
-      doc.addImage(page5img, 'PNG', 0, 0, format[0], format[1])
-
-      doc.addPage(format)
-      const page6 = await html2canvas(ref6.current)
-      const page6img = page6.toDataURL('report/png')
-      doc.addImage(page6img, 'PNG', 0, 0, format[0], format[1])
-
-      // @ts-ignore
-      const file = doc.output('arraybuffer', `${userId}-report.pdf`)
-
-      if (file) {
-        try {
-          await postReport({ userId, file })
-        } catch (e) {
-          console.error(e)
-        }
-      }
-    }
-
-    // setTimeout(toPDF, 1000)
   }, [
     Object.keys(publicStressorDomains).length,
     populationAverage,
@@ -288,7 +233,8 @@ function App() {
           userTotal={userTotal}
           populationAverage={populationAverage}
           patientName={patientName}
-          positiveResilienceFactors={positiveResilienceFactors}
+          selfPositiveResilienceFactors={selfPositiveResilienceFactors}
+          socialPositiveResilienceFactors={socialPositiveResilienceFactors}
         />
       </div>
       <div
@@ -346,8 +292,8 @@ function App() {
           patientName={patientName}
           testDate={testDate}
         />
-        <div className='flex flex-wrap space-y-8'>
-          <div className='w-1/2 text-center mt-8 pr-4 space-y-4 mb-6'>
+        <div className='flex flex-wrap gap-4'>
+          <HalfWidthItem>
             <H2>Total lifetime stressor count</H2>
             <Blurb className='text-coral'>
               Represents the total number of all the acute & chronic stressors experienced over the life course. Higher scores have been related to poorer health and wellbeing, cognitive and behavioral outcomes, aging, and longevity.
@@ -356,8 +302,8 @@ function App() {
               data={[populationAverageStressors, userTotalStressors]}
               max={totalMaxSumOfStressors}
             />
-          </div>
-          <div className='w-1/2 text-center pl-4 space-y-4 mb-6'>
+          </HalfWidthItem>
+          <HalfWidthItem>
             <H2>Total lifetime stressor severity</H2>
             <Blurb className='text-coral'>
               Represents the total severity of all the acute & chronic stressors experienced over the life course, calculated based on how stressful or threatening stressors were perceived to be. Sometimes what matters is not what stressors a person faced but how stressful or threatening they were perceived.
@@ -366,8 +312,8 @@ function App() {
               data={[populationAverageSeverity, userSeverity]}
               max={totalMaxSumSeverity}
             />
-          </div>
-          <div className='w-1/2 text-center pr-4 space-y-4 mb-6'>
+          </HalfWidthItem>
+          <HalfWidthItem>
             <H2>Lifetime chronic stressor count</H2>
             <Blurb className='text-coral'>
               Represents the total number of all the chronic stressors experienced over the life course. Chronic stressors include persistent interpersonal, financial, and housing problems that last at least one month, though many last much longer.
@@ -376,8 +322,8 @@ function App() {
               data={[populationAverageChronicStressors, userChronicStressors]}
               max={totalMaxSumOfChronicStressors}
             />
-          </div>
-          <div className='w-1/2 text-center pl-4 space-y-4 mb-6'>
+          </HalfWidthItem>
+          <HalfWidthItem>
             <H2>Lifetime chronic stressor severity</H2>
             <Blurb className='text-coral'>
               Represents the total severity of all the chronic stressors experienced over the life course. Chronic stressors include persistent interpersonal, financial, and housing problems that last at least one month, though many last much longer.
@@ -386,8 +332,8 @@ function App() {
               data={[populationAverageChronicStressorSeverity, userChronicStressorSeverity]}
               max={totalMaxSumOfChronicStressorSeverity}
             />
-          </div>
-          <div className='w-1/2 text-center pr-4 space-y-4 mb-6'>
+          </HalfWidthItem>
+          <HalfWidthItem>
             <H2>Lifetime acute stressor count</H2>
             <Blurb className='text-coral'>
               Represents the total number of all the acute stressors experienced over the life course. Acute stressors include getting laid off or fired, being robbed or attacked, getting divorced, or having a loved one pass away.
@@ -396,8 +342,8 @@ function App() {
               data={[populationAverageAcuteStressors, userAcuteStressors]}
               max={totalMaxSumOfAcuteStressors}
             />
-          </div>
-          <div className='w-1/2 text-center pl-4 space-y-4 mb-6'>
+          </HalfWidthItem>
+          <HalfWidthItem>
             <H2>Lifetime acute stressor severity</H2>
             <Blurb className='text-coral'>
               Represents the total severity of all the acute stressors experienced over the life course. Acute stressors include getting laid off or fired, being robbed or attacked, getting divorced, or having a loved one pass away.
@@ -406,7 +352,7 @@ function App() {
               data={[populationAverageAcuteStressorSeverity, userAcuteStressorSeverity]}
               max={totalMaxSumOfAcuteStressorSeverity}
             />
-          </div>
+          </HalfWidthItem>
         </div>
       </div>
     </>

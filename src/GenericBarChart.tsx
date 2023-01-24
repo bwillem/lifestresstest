@@ -27,7 +27,7 @@ function GenericBarChart({ data, maintainAspectRatio = true, max = 0 }) {
                 },
             }}
             data={{
-                labels: ['Population average', 'Patient'],
+                labels: ['AVERAGE', 'PATIENT'],
                 datasets: [{
                     data,
                     label: '',

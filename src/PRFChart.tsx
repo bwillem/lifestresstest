@@ -1,6 +1,7 @@
 import { Bar } from 'react-chartjs-2'
 import colors from './colors'
 import ChartDataLabels from 'chartjs-plugin-datalabels';
+import { dataLabelsFont } from './util';
 
 function PRFChart({ userTotal, populationAverage }) {
     return (
@@ -11,6 +12,9 @@ function PRFChart({ userTotal, populationAverage }) {
                     y: {
                         max: 28,
                         ticks: {
+                            font: {
+                                size: 14,
+                            },
                         },
                     },
                 },
@@ -18,14 +22,12 @@ function PRFChart({ userTotal, populationAverage }) {
                 plugins: {
                     datalabels: {
                         color: 'black',
-                        font: {
-                            size: 16,
-                        },
+                        font: dataLabelsFont,
                     },
                 }, 
             }}
             data={{
-                labels: ['Population average', 'Patient'],
+                labels: ['AVERAGE', 'PATIENT'],
                 datasets: [{
                     data: [populationAverage, userTotal],
                     label: '',

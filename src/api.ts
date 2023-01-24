@@ -630,7 +630,9 @@ const urls = {
         `https://lifestresstest.com/wp-json/lifestresstest/limesurvey/${userId}` :
         `/wp-json/lifestresstest/limesurvey/${userId}`,
 
-    publicData: process.env.NODE_ENV === 'development' ? `https://lifestresstest.com/wp-json/lifestresstest/public` : `/wp-json/lifestresstest/public`,
+    publicData: process.env.NODE_ENV === 'development' ?
+        `https://lifestresstest.com/wp-json/lifestresstest/public` :
+        `/wp-json/lifestresstest/public`,
 
     report: (userId: string) => userId &&
         process.env.NODE_ENV === 'development' ?

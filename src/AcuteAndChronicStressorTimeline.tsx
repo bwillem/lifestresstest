@@ -1,5 +1,6 @@
 import { Bar, Line } from "react-chartjs-2"
 import Blurb from "./Blurb"
+import BlurbWithOutline from "./BlurbWithOutline"
 import colors from "./colors"
 import { AcuteStressor, ChronicStressor } from "./hooks/useAcuteAndChronicStressors"
 import { Emphasis, H1 } from "./Typography"
@@ -190,14 +191,14 @@ function AcuteAndChronicStressorTimeline({
 }) {
     return (
         <div className='space-y-8 flex flex-col h-full'>
-            <div className="space-y-4 text-center">
-                <H1>Acute & chronic stressor timeline</H1>
-                <Blurb className='text-coral'>
+            <div className='text-center relative'>
+                <BlurbWithOutline className='text-coral border-b-0 before:[height:109px!important] after:[height:109px!important]'>
                     Life Stress Test assesses 55 different major life stressors known
                     to impact health, wellbeing, and aging. Below is a graph showing
                     when <Emphasis>{patientName}'s</Emphasis> stressors occurred, including
                     acute life events and chronic difficulties.
-                </Blurb>
+                </BlurbWithOutline>
+                <H1 className='[width:718px] [padding:32px] [top:-52px] [left:50%] [transform:translateX(-50%)] bg-white mx-auto absolute'>Acute & chronic stressor timeline</H1>
             </div>
             <div className='h-full'>
                 <div className='h-1/2'>

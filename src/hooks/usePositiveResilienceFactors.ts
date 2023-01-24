@@ -30,37 +30,57 @@ function usePositiveResilienceFactors(userData, publicData) {
   const userTotal = getKTotal(userData)
   const populationAverage = Math.round(getKAverage(publicData))
 
-  const positiveResilienceFactors = userData ? {
+  const selfPositiveResilienceFactors = userData ? {
     'positive emotions': {
       value: allK['K67'],
       total: 4,
     },
-    'connected to environment': {
+    'sense of purpose': {
       value: allK['K68'],
       total: 4,
     },
-    'connected to friends & co-workers': {
+    'self-regulation': {
       value: allK['K69'],
       total: 4,
     },
-    'connected to family': {
+    'connection to nature': {
       value: allK['K70'],
       total: 4,
     },
-    'emotional self-regulation': {
-      value: parseInt(allK['K72']) + parseInt(allK['K71']),
-      total: 8,
+    'agency/control': {
+      value: allK['K71'],
+      total: 4,
     },
-    'tools & resources for positive change': {
+  } : {}
+
+  const socialPositiveResilienceFactors = userData ? {
+    'social connection': {
+      value: allK['K72'],
+      total: 4,
+    },
+    'collaboration': {
       value: allK['K73'],
       total: 4,
+    },
+    'conflict resolution': {
+      value: allK['K74'],
+      total: 4,
+    },
+    'resources to succeed': {
+      value: allK['K75'],
+      total: 4,
+    },
+    'collective support': {
+      value: allK['K76'],
+      total: 8,
     },
   } : {}
 
   return {
     userTotal,
     populationAverage,
-    positiveResilienceFactors,
+    selfPositiveResilienceFactors,
+    socialPositiveResilienceFactors,
   }
 }
 
