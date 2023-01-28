@@ -1,6 +1,7 @@
 import { Line } from 'react-chartjs-2'
 import colors from './colors'
 import { P } from './Typography'
+import { scaleTitleFont } from './util'
 
 function StressorExposureByLifeDomainChart({ stressorDomains, publicStressorDomains }) {
     return (
@@ -11,6 +12,22 @@ function StressorExposureByLifeDomainChart({ stressorDomains, publicStressorDoma
             </div>
             <Line
                 options={{
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'LIFE DOMAIN',
+                                font: scaleTitleFont,
+                            },
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'LIFETIME STRESSOR COUNT',
+                                font: scaleTitleFont,
+                            },
+                        },
+                    },
                 }}
                 data={{
                     labels: Object.keys(stressorDomains).map(x => x),

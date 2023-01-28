@@ -11,6 +11,8 @@ const isInitialQuestion = p => p[6] === undefined
 const isOfOutcome = (outcome: Outcomes) => (variable: string) => variable[6] === outcome
 const isOfDomain = (domain: Domains) => (variable: string) => variable?.[4] === domain
 const isOfCharacteristic = domain => (variable: string) => variable?.[5] === domain
+const uppercase = (x: string) => x.toUpperCase()
+const capitalizeEach = (x: string) => x.split(' ').filter(Boolean).map(x => capitalize(x)).join(' ')
 
 const isE = p => p[0] === 'E'
 const isD = p => p[0] === 'D'
@@ -31,54 +33,6 @@ const scaleTitleFont = {
 
 const mergeClasses = classes => defaultClasses =>
     [...defaultClasses.split(' '), ...classes.split(' ')].join(' ')
-
-// const getAllTruthyAtVariableIndex = variableIndex => (variableElement: Domains | Characteristics) => data =>
-//     Object.keys(data).reduce((prev, curr) => {
-//         const value = parseInt(data[curr] || 0)
-//         if (!value) return prev
-//         if (isEorD(curr) && curr[variableIndex] === variableElement) {
-//             if (isInitialQuestion(curr)) {
-//                 return {
-//                     ...prev,
-//                     [curr]: value,
-//                 }
-//             }
-//         }
-//         return prev
-//     }, {})
-
-// const getSumAtVariableIndex = variableIndex => (variableElement: Domains | Characteristics) => data =>
-//     Object.keys(data).reduce((prev, curr) => {
-//         const value = parseInt(data[curr] || 0)
-//         if (!value) return prev
-//         if (isEorD(curr) && curr[variableIndex] === variableElement) {
-//             if (isInitialQuestion(curr)) {
-//                 return {
-//                     ...prev,
-//                     [curr]: value,
-//                 }
-//             }
-//             if (isFrequency(curr)) {
-//                 return {
-//                     ...prev,
-//                     [curr]: value > 0 ? value - 1 : value, // account for initial question adding 1 to frequency
-//                 }
-//             }
-//         }
-//         return prev
-//     }, {})
-
-// const getTotalQuestionSum = variableIndex => variableElement => data =>
-//     Object.keys(data).reduce((prev, curr) => {
-//         const is = isEorD(curr) && isInitialQuestion(curr)
-//         return (is && curr?.[variableIndex] === variableElement) ? prev + 1 : prev
-//     }, 0)
-
-// const getEachDomain = getAllTruthyAtVariableIndex(4)
-// const getAllOfChar = getAllTruthyAtVariableIndex(5)
-// const getTotalQuestionSumOfChar = getTotalQuestionSum(5)
-
-// const maxOfDomain = getTotalQuestionSum(4)
 
 const getAllOfType = (type: string) => data =>
     Object.keys(data).reduce((prev, curr) => {
@@ -249,17 +203,6 @@ const sumOfStressors = (data: UserData) => {
     }, 0)
 }
 
-// const sumPopulationAverage = testFn => populationData =>
-//     Math.round(populationData.reduce((prev, curr) => {
-//         return prev + Object.entries(curr).reduce((prev, curr) => {
-//             if (testFn(curr)) {
-//                 return prev + 1
-//             } else {
-//                 return prev
-//             }
-//         }, 0)
-//     }, 0) / populationData.length)
-
 const sumPopulationAverageStressors = (populationData: UserData[]) => {
     return populationData.reduce((prev, curr) => prev + sumOfStressors(curr), 0) / populationData.length
 }
@@ -303,4 +246,6 @@ export {
     imgDir,
     scaleTitleFont,
     dataLabelsFont,
+    uppercase,
+    capitalizeEach,
 }

@@ -15,7 +15,7 @@ function Indicator({ src, title, value, total, className, ...rest }: PropsWithCh
   return (
     <div className={classes} {...rest}>
       <img className='w-16' src={src} />
-      <P>
+      <P className="mt-2">
         {title}
       </P>
       <P>

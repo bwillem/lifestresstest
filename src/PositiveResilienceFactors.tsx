@@ -1,4 +1,3 @@
-import Blurb from "./Blurb"
 import BlurbWithOutline from "./BlurbWithOutline"
 import Indicator from "./Indicator"
 import PRFChart from "./PRFChart"
@@ -24,7 +23,6 @@ function PositiveResilienceFactors({
             has a positive resilience score of <Emphasis className="text-teal-dark"> {userTotal} out of 28</Emphasis> vs.
             the population average of <Emphasis className="text-teal-dark"> {populationAverage} out of 28</Emphasis>.
           </BlurbWithOutline>
-          {/* <H1>6 Positive resilience factors</H1> */}
           <H1 className='[width:560px] [padding:32px] [top:-50px] [left:50%] [transform:translateX(-50%)] bg-white mx-auto absolute'>Positive resilience factors</H1>
         </div>
       </div>
@@ -34,9 +32,9 @@ function PositiveResilienceFactors({
             <H2 className="[writing-mode:vertical-lr] [text-orientation:upright]">Self</H2>
             {Object.keys(selfPositiveResilienceFactors).map(d => (
               <Indicator
-                src={`${imgDir}/res-${slugify(d)}.png`}
                 key={d}
                 className='w-1/5'
+                src={`${imgDir}/res-${slugify(d)}.png`}
                 {...selfPositiveResilienceFactors[d]} />
             ))}
           </div>
@@ -44,9 +42,9 @@ function PositiveResilienceFactors({
             <H2 className="[writing-mode:vertical-lr] [text-orientation:upright]">Social</H2>
             {Object.keys(socialPositiveResilienceFactors).map(d => (
               <Indicator
-                src={`${imgDir}/res-${slugify(d)}.png`}
                 key={d}
                 className='w-1/5'
+                src={`${imgDir}/res-${slugify(d)}.png`}
                 {...selfPositiveResilienceFactors[d]} />
             ))}
           </div>

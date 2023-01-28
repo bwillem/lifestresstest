@@ -3,12 +3,27 @@
 @tailwind utilities;
 
 .page {
-  width: 1024px;
-  height: 1440px;
   margin: auto;
   padding: 16px 64px 64px;
   overflow: hidden;
+}
 
+.landscape {
+  height: 1136px;
+  width: 1440px;
+}
+
+.portrait {
+  width: 1024px;
+  height: 1440px;
+}
+
+@font-face{
+  font-family: 'Hatton';
+  src:url('./fonts/PPHatton-Regular.otf')  format('opentype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: auto;
 }
 
 @media print {
@@ -17,10 +32,15 @@
   }
 }
 
+h1 {
+  text-transform: uppercase;
+}
+
 h1,
 h2,
 h3 {
-  font-family: 'Chonburi', cursive;
+  font-family: 'Hatton', cursive;
+  color: #504C4C;
 }
 
 p {
@@ -30,8 +50,4 @@ p {
 
 .dm-sans {
   font-family: 'DM Sans', sans-serif;
-}
-
-.chonburi {
-  font-family: 'Chonburi', cursive;
 }

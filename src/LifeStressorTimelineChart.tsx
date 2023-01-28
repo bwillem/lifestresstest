@@ -6,7 +6,6 @@ import { memo, useState } from 'react'
 
 interface LifeStressorTimelineChartProps {
     acuteStressors: { [key: string]: AcuteStressor }
-    setTimelineIsReady: any
     chronicStressors: { [key: string]: ChronicStressor }
     patientAge: number
 }
@@ -32,7 +31,6 @@ const mapNameToImage = (name: string) => {
 function LifeStressorTimelineChart({
     acuteStressors,
     chronicStressors,
-    setTimelineIsReady,
     patientAge,
 }: LifeStressorTimelineChartProps) {
     const [hasDrawn, setHasDrawn] = useState(false)
@@ -63,7 +61,6 @@ function LifeStressorTimelineChart({
             plugins={[{
                 id: 'afterDatasetDraw',
                 afterDatasetsDraw() {
-                    setTimelineIsReady(true)
                     setHasDrawn(true)
                 }
             }, {

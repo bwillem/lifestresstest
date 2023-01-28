@@ -166,7 +166,7 @@ function useAcuteAndChronicStressors(userData: UserData) {
 
     'psychiatric diagnosis: self': {
       // missing A, D and S
-      end_age: 0,
+      end_age: _userData['D183TRA'],
       duration: 0,
       severity: 0,
     },
@@ -184,7 +184,6 @@ function useAcuteAndChronicStressors(userData: UserData) {
       end_age: _userData['D438TRA'],
       severity: _userData['D436TRS'],
     },
-
     'mother mentally ill': {
       // missing both A and D
       end_age: 0,
@@ -243,7 +242,7 @@ function useAcuteAndChronicStressors(userData: UserData) {
     'bullied': {
       // done but age question is start date
       duration: getDurationInYears(_userData['D420OHDA'], _userData['D420OHDB']),
-      end_age: _userData['D423OHA'],
+      start_age: _userData['D423OHA'],
       severity: _userData['D421OHS'],
     },
     'legal issues with partner': {
@@ -265,13 +264,13 @@ function useAcuteAndChronicStressors(userData: UserData) {
       severity: _userData['D232OHS'],
     },
     'harshly disciplined': {
-      // done but age question is start date
+      // done
       duration: getDurationInYears(_userData['D415OHDA'], _userData['D415OHDB']),
       start_age: _userData['D418OHA'],
       severity: _userData['D416OHS'],
     },
     'conflict between parents': {
-      // done but age question is start date
+      // done
       duration: getDurationInYears(_userData['D389OEDA'], _userData['D389OEDB']),
       start_age: _userData['D392OEA'],
       severity: _userData['D390OES'],
@@ -289,7 +288,7 @@ function useAcuteAndChronicStressors(userData: UserData) {
       severity: _userData['D226ORS'],
     },
     'separated from parent (under 18)': {
-      // done but age is start date
+      // done
       duration: getDurationInYears(_userData['D394OLDA'], _userData['D394OLDB']),
       start_age: _userData['D398OLA'],
       severity: _userData['D396OLS'],

@@ -6,7 +6,7 @@ import {
   PointElement,
   LineElement,
 } from 'chart.js'
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import ACEs from './ACEs';
 import PositiveResilienceFactors from './PositiveResilienceFactors';
 import Header from './Header';
@@ -27,11 +27,12 @@ import GenericBarChart from './GenericBarChart';
 import StressorTable from './StressorTable';
 import LifeStressorTimeline from './LifeStressorTimeline';
 import useACEs from './hooks/useACEs';
-import { capitalize } from './util';
 import { UserData } from './types';
 import Blurb from './Blurb';
 import HalfWidthItem from './HalfWidthItem';
 import useIsPuppeteer from './hooks/useIsPuppeteer';
+import PatientSummary from './PatientSummary';
+import { capitalizeEach } from './util';
 
 Chart.register(
   CategoryScale,
@@ -41,18 +42,57 @@ Chart.register(
   LineElement,
 )
 
+function usePatientDetails(userData) {
+  const [patientDetails, setPatientDetails] = useState({
+    patientName: '',
+    patientAge: 0,
+    patientRace: '',
+    patientGender: '',
+    patientUpbringing: '',
+    patientRelationshipStatus: '',
+    patientMotherIsAlive: '',
+    patientFatherIsAlive: '',
+    additionalInformation: '',
+  })
+
+  useEffect(() => {
+    setPatientDetails({
+      patientName: capitalizeEach(`${userData['S002SuNm']} ${userData['S003SuNm'] || ''}`),
+      patientAge: parseInt(userData['X006AGE'] || '0'),
+      patientRace: userData['X061RACE'] || 'undisclosed',
+      patientGender: userData['X0071GEN'] || 'undisclosed',
+      patientUpbringing: userData['X011CHLD'],
+      patientRelationshipStatus: userData['X009RELA'] || 'undisclosed',
+      patientMotherIsAlive: userData['E535DL'],
+      patientFatherIsAlive: userData['E538DL'],
+      additionalInformation: userData['S440StWT'],
+    })
+  }, [userData])
+
+  return patientDetails
+}
+
 function App() {
-  const [patientName, setPatientName] = useState('')
-  const [testDate, setTestDate] = useState('')
   const [userId, setUserId] = useState('')
   const [userData, setUserData] = useState<UserData>({})
   const [publicData, setPublicData] = useState([])
-  const [timelineIsReady, setTimelineIsReady] = useState(false)
 
   const isPuppeteer = useIsPuppeteer()
 
   const { data, error } = useSWR(isPuppeteer && urls.userData(userId), fetcher)
   const { data: rawPublicData, error: publicDataError } = useSWR(isPuppeteer && urls.publicData, fetcher)
+
+  const {
+    patientName,
+    patientRace,
+    patientAge,
+    patientGender,
+    patientUpbringing,
+    patientRelationshipStatus,
+    patientFatherIsAlive,
+    patientMotherIsAlive,
+    additionalInformation,
+  } = usePatientDetails(userData)
 
   const {
     userSeverity,
@@ -100,21 +140,8 @@ function App() {
     populationAverageACEs,
   } = useACEs(userData, publicData)
 
-  const patientAge = parseInt(userData['X006AGE'] || '0')
-
-  const ref0 = useRef<HTMLDivElement>(null)
-  const ref1 = useRef<HTMLDivElement>(null)
-  const ref2 = useRef<HTMLDivElement>(null)
-  const ref3 = useRef<HTMLDivElement>(null)
-  const ref4 = useRef<HTMLDivElement>(null)
-  const ref5 = useRef<HTMLDivElement>(null)
-  const ref6 = useRef<HTMLDivElement>(null)
-
   useEffect(() => {
     if (!data) return
-
-    setPatientName(capitalize(data['691287X138X4768']) || 'Name missing')
-    setTestDate(data['submitdate']?.split(' ')?.[0] || 'Date missing')
 
     const x = Object.keys(variableMapping).reduce((prev, curr) => ({
       ...prev,
@@ -134,19 +161,8 @@ function App() {
       }), {})
     )
 
-    // console.log(
-    //   'population data from their totcnt',
-    //   x.reduce((prev, curr) => {
-    //     return parseInt(curr['TotCnt']) + prev
-    //   }, 0) / x.length,
-    // )
-
     setPublicData(x)
   }, [rawPublicData])
-
-  // console.log('my computed pop', populationAverageStressors)
-  // console.log('my computed user', userTotalStressors)
-  // console.log('populationdata', publicData)
 
   useEffect(() => {
     if (!window.location?.search) return
@@ -155,69 +171,42 @@ function App() {
     setUserId(userId)
   }, [window?.location?.search])
 
-  useEffect(() => {
-    const isReady = ref0.current &&
-      ref1.current &&
-      ref2.current &&
-      ref3.current &&
-      ref4.current &&
-      ref5.current &&
-      ref6.current &&
-      timelineIsReady &&
-      totalMaxSumOfAcuteStressorSeverity &&
-      Object.keys(publicStressorDomains).length &&
-      Boolean(populationAverage)
-
-    if (!isReady) return
-
-  }, [
-    Object.keys(publicStressorDomains).length,
-    populationAverage,
-    totalMaxSumOfAcuteStressorSeverity,
-    timelineIsReady,
-  ])
-
   if (!publicData || !data) {
     return (
       <div
-        className='page space-y-10'
+        className='page portrait space-y-10'
       >
         <P>Loading...</P>
       </div>
     )
   }
 
+  const testDate = data['submitdate']?.split(' ')?.[0] || 'Date missing'
+
   return (
     <>
       <div
-        ref={ref0}
-        className='page space-y-12'
+        className='page portrait'
       >
         <Header
           patientName={patientName}
           testDate={testDate}
         />
-        <StressorTable />
-      </div>
-      <div
-        ref={ref1}
-        className='page space-y-12'
-      >
-        <Header
+        <PatientSummary
+          userData={userData}
           patientName={patientName}
-          testDate={testDate}
-        />
-        <LifeStressorTimeline
           patientAge={patientAge}
-          patientName={patientName}
-          acuteStressors={acuteStressors}
-          chronicStressors={chronicStressors}
-          setTimelineIsReady={setTimelineIsReady}
+          patientRace={patientRace}
+          patientGender={patientGender}
+          patientUpbringing={patientUpbringing}
+          patientRelationshipStatus={patientRelationshipStatus}
+          patientMotherIsAlive={patientMotherIsAlive}
+          patientFatherIsAlive={patientFatherIsAlive}
+          additionalInformation={additionalInformation}
         />
       </div>
       <div
-        ref={ref2}
-        className='page space-y-12'
+        className='page portrait space-y-12'
       >
         <Header
           patientName={patientName}
@@ -238,8 +227,7 @@ function App() {
         />
       </div>
       <div
-        ref={ref3}
-        className='page space-y-12'
+        className='page portrait space-y-12'
       >
         <Header
           patientName={patientName}
@@ -254,8 +242,7 @@ function App() {
         />
       </div>
       <div
-        ref={ref4}
-        className='page space-y-12'
+        className='page portrait space-y-12'
       >
         <Header
           patientName={patientName}
@@ -270,8 +257,7 @@ function App() {
         />
       </div>
       <div
-        ref={ref5}
-        className='page space-y-12'
+        className='page portrait space-y-12'
       >
         <Header
           patientName={patientName}
@@ -285,8 +271,7 @@ function App() {
         />
       </div>
       <div
-        ref={ref6}
-        className='page space-y-12'
+        className='page portrait space-y-12'
       >
         <Header
           patientName={patientName}
@@ -294,7 +279,7 @@ function App() {
         />
         <div className='flex flex-wrap gap-4'>
           <HalfWidthItem>
-            <H2>Total lifetime stressor count</H2>
+            <H2 className='uppercase'>Total lifetime stressor count</H2>
             <Blurb className='text-coral'>
               Represents the total number of all the acute & chronic stressors experienced over the life course. Higher scores have been related to poorer health and wellbeing, cognitive and behavioral outcomes, aging, and longevity.
             </Blurb>
@@ -304,7 +289,7 @@ function App() {
             />
           </HalfWidthItem>
           <HalfWidthItem>
-            <H2>Total lifetime stressor severity</H2>
+            <H2 className='uppercase'>Total lifetime stressor severity</H2>
             <Blurb className='text-coral'>
               Represents the total severity of all the acute & chronic stressors experienced over the life course, calculated based on how stressful or threatening stressors were perceived to be. Sometimes what matters is not what stressors a person faced but how stressful or threatening they were perceived.
             </Blurb>
@@ -314,7 +299,7 @@ function App() {
             />
           </HalfWidthItem>
           <HalfWidthItem>
-            <H2>Lifetime chronic stressor count</H2>
+            <H2 className='uppercase'>Lifetime chronic stressor count</H2>
             <Blurb className='text-coral'>
               Represents the total number of all the chronic stressors experienced over the life course. Chronic stressors include persistent interpersonal, financial, and housing problems that last at least one month, though many last much longer.
             </Blurb>
@@ -324,7 +309,7 @@ function App() {
             />
           </HalfWidthItem>
           <HalfWidthItem>
-            <H2>Lifetime chronic stressor severity</H2>
+            <H2 className='uppercase'>Lifetime chronic stressor severity</H2>
             <Blurb className='text-coral'>
               Represents the total severity of all the chronic stressors experienced over the life course. Chronic stressors include persistent interpersonal, financial, and housing problems that last at least one month, though many last much longer.
             </Blurb>
@@ -334,7 +319,7 @@ function App() {
             />
           </HalfWidthItem>
           <HalfWidthItem>
-            <H2>Lifetime acute stressor count</H2>
+            <H2 className='uppercase'>Lifetime acute stressor count</H2>
             <Blurb className='text-coral'>
               Represents the total number of all the acute stressors experienced over the life course. Acute stressors include getting laid off or fired, being robbed or attacked, getting divorced, or having a loved one pass away.
             </Blurb>
@@ -344,7 +329,7 @@ function App() {
             />
           </HalfWidthItem>
           <HalfWidthItem>
-            <H2>Lifetime acute stressor severity</H2>
+            <H2 className='uppercase'>Lifetime acute stressor severity</H2>
             <Blurb className='text-coral'>
               Represents the total severity of all the acute stressors experienced over the life course. Acute stressors include getting laid off or fired, being robbed or attacked, getting divorced, or having a loved one pass away.
             </Blurb>
@@ -354,6 +339,29 @@ function App() {
             />
           </HalfWidthItem>
         </div>
+      </div>
+      <div
+        className='page landscape space-y-12'
+      >
+        <Header
+          patientName={patientName}
+          testDate={testDate}
+        />
+        <StressorTable />
+      </div>
+      <div
+        className='page landscape space-y-12'
+      >
+        <Header
+          patientName={patientName}
+          testDate={testDate}
+        />
+        <LifeStressorTimeline
+          patientAge={patientAge}
+          patientName={patientName}
+          acuteStressors={acuteStressors}
+          chronicStressors={chronicStressors}
+        />
       </div>
     </>
   )

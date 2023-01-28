@@ -1,5 +1,5 @@
+import classNames from "classnames"
 import { Bar, Line } from "react-chartjs-2"
-import Blurb from "./Blurb"
 import BlurbWithOutline from "./BlurbWithOutline"
 import colors from "./colors"
 import { AcuteStressor, ChronicStressor } from "./hooks/useAcuteAndChronicStressors"
@@ -85,6 +85,9 @@ function AcuteStressorChart({ acuteStressors, patientAge }: AcuteStressorsChartP
                     x: {
                         beginAtZero: true,
                         max: patientAge,
+                        ticks: {
+                            display: false,
+                        },
                     },
                     y: {
                         ticks: {
@@ -183,6 +186,16 @@ function ChronicStressorChart({ chronicStressors, patientAge }: ChronicStressors
     )
 }
 
+const bottomEdge = `after:absolute after:[height:1px] after:[width:97%] after:[left:3%] after:[background:white] after:[bottom:-1px]`
+const topEdge = `before:absolute before:[height:1px] before:[width:97%] before:[left:3%] before:[background:white] before:[top:-1px]`
+const borders = `border-l border-t border-b`
+
+function ChartContainerWithBracket({ className, ...rest }) {
+    const classes = classNames(
+        className, `${bottomEdge} ${topEdge} ${borders} w-full relative`)
+    return <div className={classes} {...rest} />
+}
+
 function AcuteAndChronicStressorTimeline({
     acuteStressors,
     chronicStressors,
@@ -190,7 +203,7 @@ function AcuteAndChronicStressorTimeline({
     patientAge,
 }) {
     return (
-        <div className='space-y-8 flex flex-col h-full'>
+        <div className='flex flex-col h-full'>
             <div className='text-center relative'>
                 <BlurbWithOutline className='text-coral border-b-0 before:[height:109px!important] after:[height:109px!important]'>
                     Life Stress Test assesses 55 different major life stressors known
@@ -200,18 +213,27 @@ function AcuteAndChronicStressorTimeline({
                 </BlurbWithOutline>
                 <H1 className='[width:718px] [padding:32px] [top:-52px] [left:50%] [transform:translateX(-50%)] bg-white mx-auto absolute'>Acute & chronic stressor timeline</H1>
             </div>
-            <div className='h-full'>
-                <div className='h-1/2'>
-                    <AcuteStressorChart
-                        acuteStressors={acuteStressors}
-                        patientAge={patientAge}
-                    />
-                </div>
-                <div className='h-1/2'>
-                    <ChronicStressorChart
-                        chronicStressors={chronicStressors}
-                        patientAge={patientAge}
-                    />
+            <div className='flex h-full'>
+                <h3 className="[writing-mode:vertical-lr] [transform:rotate(180deg)translateY(70px)] text-center">STRESSORS</h3>
+                <div className='flex flex-col [height:96%] grow'>
+                    <div className='flex [height:43%] [padding-bottom:16px] w-full grow'>
+                        <p className="[writing-mode:vertical-lr] [transform:rotate(180deg)] text-center">Acute</p>
+                        <ChartContainerWithBracket className='[padding-left:11px]'>
+                            <AcuteStressorChart
+                                acuteStressors={acuteStressors}
+                                patientAge={patientAge}
+                            />
+                        </ChartContainerWithBracket>
+                    </div>
+                    <div className='flex h-1/2 w-full grow'>
+                        <p className="[writing-mode:vertical-lr] [transform:rotate(180deg)] text-center">Chronic</p>
+                        <div className={`${bottomEdge} ${topEdge} ${borders} w-full relative`}>
+                            <ChronicStressorChart
+                                chronicStressors={chronicStressors}
+                                patientAge={patientAge}
+                            />
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

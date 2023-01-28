@@ -1,6 +1,7 @@
 import { Line } from 'react-chartjs-2'
 import colors from './colors'
 import { P } from './Typography'
+import { scaleTitleFont } from './util'
 
 function StressorExposureBySocialPyshChart({ socialPsychoCharacteristics, publicSocialPsychoCharacteristics }) {
     return (
@@ -11,6 +12,22 @@ function StressorExposureBySocialPyshChart({ socialPsychoCharacteristics, public
             </div>
             <Line
                 options={{
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'SOCIAL-PSYCHOLOGICAL CHARACTERISTIC',
+                                font: scaleTitleFont,
+                            },
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'LIFETIME STRESSOR COUNT',
+                                font: scaleTitleFont,
+                            },
+                        },
+                    },
                 }}
                 data={{
                     labels: Object.keys(socialPsychoCharacteristics).map(x => x),
