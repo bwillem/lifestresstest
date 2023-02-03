@@ -5,9 +5,9 @@ import { capitalize, imgDir, slugify } from "./util"
 
 function LifeStressorDomains({ stressorDomains }) {
     return (
-        <div>
+        <>
             <div className='text-center relative'>
-                <BlurbWithOutline className='text-coral border-b-0 before:[height:100px] after:[height:100px]'>
+                <BlurbWithOutline className='[margin-top:100px] text-coral border-b-0 before:[height:100px] after:[height:100px]'>
                     Stressors can occur in the different life domains shown below. Knowing which life domain(s) are most impacted can lead to more focused strategies for reducing stress and improving resilience.
                 </BlurbWithOutline>
                 <H1 className='[width:518px] [padding:32px] [top:-52px] [left:50%] [transform:translateX(-50%)] bg-white mx-auto absolute'>12 Life stressor domains</H1>
@@ -25,7 +25,7 @@ function LifeStressorDomains({ stressorDomains }) {
                     />
                 ))}
             </div>
-        </div>
+        </>
     )
 }
 

@@ -186,7 +186,7 @@ function App() {
   return (
     <>
       <div
-        className='page portrait'
+        className='page'
       >
         <Header
           patientName={patientName}
@@ -206,7 +206,7 @@ function App() {
         />
       </div>
       <div
-        className='page portrait space-y-12'
+        className='page space-y-12'
       >
         <Header
           patientName={patientName}
@@ -227,7 +227,7 @@ function App() {
         />
       </div>
       <div
-        className='page portrait space-y-12'
+        className='page space-y-12'
       >
         <Header
           patientName={patientName}
@@ -242,7 +242,7 @@ function App() {
         />
       </div>
       <div
-        className='page portrait space-y-12'
+        className='page space-y-12'
       >
         <Header
           patientName={patientName}
@@ -257,7 +257,7 @@ function App() {
         />
       </div>
       <div
-        className='page portrait space-y-12'
+        className='page space-y-12'
       >
         <Header
           patientName={patientName}
@@ -271,7 +271,7 @@ function App() {
         />
       </div>
       <div
-        className='page portrait space-y-12'
+        className='page space-y-12'
       >
         <Header
           patientName={patientName}
@@ -341,27 +341,31 @@ function App() {
         </div>
       </div>
       <div
-        className='page landscape space-y-12'
+        className='page landscape stressor-table space-y-12'
       >
-        <Header
-          patientName={patientName}
-          testDate={testDate}
-        />
-        <StressorTable />
+        <div className='w-full h-[896px]'>
+          <Header
+            patientName={patientName}
+            testDate={testDate}
+          />
+          <StressorTable />
+        </div>
       </div>
       <div
-        className='page landscape space-y-12'
+        className='page landscape stressor-timeline space-y-12'
       >
-        <Header
-          patientName={patientName}
-          testDate={testDate}
-        />
-        <LifeStressorTimeline
-          patientAge={patientAge}
-          patientName={patientName}
-          acuteStressors={acuteStressors}
-          chronicStressors={chronicStressors}
-        />
+        <div className='w-full h-[896px]'>
+          <Header
+            patientName={patientName}
+            testDate={testDate}
+          />
+          <LifeStressorTimeline
+            patientAge={patientAge}
+            patientName={patientName}
+            acuteStressors={acuteStressors}
+            chronicStressors={chronicStressors}
+          />
+        </div>
       </div>
     </>
   )

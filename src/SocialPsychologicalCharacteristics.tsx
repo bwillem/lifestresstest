@@ -5,9 +5,9 @@ import { imgDir, slugify } from "./util";
 
 function SocialPsychologicalCharacteristics({ socialPsychoCharacteristics }) {
     return (
-        <div className=''>
+        <>
             <div className='text-center relative'>
-                <BlurbWithOutline className='text-coral border-b-0 before:[height:109px!important] after:[height:109px!important]'>
+                <BlurbWithOutline className='[margin-top:100px] text-coral border-b-0 before:[height:109px!important] after:[height:109px!important]'>
                     Stressors can involve the different social-psychological characteristics shown below. These characteristics refer to the core features of stressors that people can experience. Knowing which characteristics a person has experienced can lead to more specific treatment targets.
                 </BlurbWithOutline>
                 <H1 className='[width:786px] [padding:32px] [top:-52px] [left:50%] [transform:translateX(-50%)] bg-white mx-auto absolute'>5 Social-psychological characteristics</H1>
@@ -24,7 +24,7 @@ function SocialPsychologicalCharacteristics({ socialPsychoCharacteristics }) {
                     />
                 ))}
             </div>
-        </div>
+        </>
     )
 }
 

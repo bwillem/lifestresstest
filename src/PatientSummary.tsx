@@ -153,22 +153,22 @@ function PatientSummary({
                 <BlurbWithOutline className='border-b-0 before:[height:86px!important] after:[height:86px!important]'>
                     <Emphasis>{patientName}</Emphasis> is <Emphasis>{patientAge}</Emphasis> years old.
                     Their relationship status is <Emphasis>{relationshipMap[patientRelationshipStatus]}</Emphasis>.
-                    {patientRace ? (<>Their ethinicity is <Emphasis>{patientRace}</Emphasis>.</>) : null}
-                    {patientGender ? (<>Their gender is <Emphasis>{patientGender}</Emphasis>.</>) : null}
+                    {patientRace ? (<>{` `}Their ethinicity is <Emphasis>{patientRace}</Emphasis>.</>) : null}
+                    {patientGender ? (<>{` `}Their gender is <Emphasis>{patientGender}</Emphasis>.</>) : null}
                     {motherIs ? (
                         <>
-                            Their mother is <Emphasis>{motherIs}</Emphasis>
+                            {` `}Their mother is <Emphasis>{motherIs}</Emphasis>
                         </>
                     ) : null}
                     {fatherIs ? (
                         <>
-                            Their father is <Emphasis>{fatherIs}</Emphasis>.
+                            {` `}Their father is <Emphasis>{fatherIs}</Emphasis>.
                         </>
                     ) : null}
                     {
                         upbringingMap[patientUpbringing] ? (
                             <>
-                                They <Emphasis>{upbringingMap[patientUpbringing]}</Emphasis>
+                                {` `}They <Emphasis>{upbringingMap[patientUpbringing]}</Emphasis>
                             </>
                         ) : null
                     }
