@@ -98,6 +98,10 @@ function useSummaryData(userData) {
     }
 }
 
+const CautionSymbol = () => {
+    return <span className='mx-4 text-coral-700'>⚠</span>
+}
+
 function PatientSummary({
     patientName,
     patientAge,
@@ -177,9 +181,9 @@ function PatientSummary({
                     Patient summary
                 </H1>
             </div>
-            <div className='grid grid-cols-5 border rounded-sm'>
-                <div className="text-center p-4 border-b col-span-5">
-                    <H1>Priority response: in the last 30 days</H1>
+            <div className='grid grid-cols-5 border rounded-sm border-gray-500'>
+                <div className="text-center bg-[#d9d9d9] p-4 border-b col-span-5">
+                    <H1><CautionSymbol/>Priority response: in the last 30 days<CautionSymbol/></H1>
                 </div>
                 {Object.keys(summaryData).map(x => (
                     <PriorityResponseRow

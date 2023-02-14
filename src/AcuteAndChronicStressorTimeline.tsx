@@ -188,7 +188,7 @@ function ChronicStressorChart({ chronicStressors, patientAge }: ChronicStressors
 
 const bottomEdge = `after:absolute after:[height:1px] after:[width:97%] after:[left:3%] after:[background:white] after:[bottom:-1px]`
 const topEdge = `before:absolute before:[height:1px] before:[width:97%] before:[left:3%] before:[background:white] before:[top:-1px]`
-const borders = `border-l border-t border-b`
+const borders = `border-black border-l border-t border-b`
 
 function ChartContainerWithBracket({ className, ...rest }) {
     const classes = classNames(

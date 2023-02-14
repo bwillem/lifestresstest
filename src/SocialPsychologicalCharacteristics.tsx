@@ -12,7 +12,7 @@ function SocialPsychologicalCharacteristics({ socialPsychoCharacteristics }) {
                 </BlurbWithOutline>
                 <H1 className='[width:786px] [padding:32px] [top:-52px] [left:50%] [transform:translateX(-50%)] bg-white mx-auto absolute'>5 Social-psychological characteristics</H1>
             </div>
-            <div className='flex flex-wrap items-center justify-center relative pb-8 after:[background:white] after:[height:98px] after:[width:1px] after:[right:-1px] after:[top:0] after:absolute after:content-" " before:[background:white] before:[height:98px] before:[width:1px] before:[left:-1px] before:[top:0] before:absolute before:content-" " border-b border-l border-r'>
+            <div className='border-black flex flex-wrap items-center justify-center relative pb-8 after:[background:white] after:[height:98px] after:[width:1px] after:[right:-1px] after:[top:0] after:absolute after:content-" " before:[background:white] before:[height:98px] before:[width:1px] before:[left:-1px] before:[top:0] before:absolute before:content-" " border-b border-l border-r'>
                 {Object.keys(socialPsychoCharacteristics).map(x => (
                     <Indicator
                         src={`${imgDir}/sociopsych-${slugify(x)}.png`}

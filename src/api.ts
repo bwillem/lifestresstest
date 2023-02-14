@@ -112,13 +112,13 @@ const SUMMARYGID = function () {
     }
 }()
 
-const ACEGID = function () {
-    switch (API_VERSION) {
-        case 1: { return '' };
-        case 2: { return '6972' };
-        default: { return '6972' };
-    }
-}()
+// const ACEGID = function () {
+//     switch (API_VERSION) {
+//         case 1: { return '' };
+//         case 2: { return '6972' };
+//         default: { return '6972' };
+//     }
+// }()
 
 const PHQ = {
     [`${SURVEYID}X${PHQGID}X248354`]: 'PHQInfo',

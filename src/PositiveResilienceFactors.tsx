@@ -26,7 +26,7 @@ function PositiveResilienceFactors({
           <H1 className='[width:560px] [padding:32px] [top:-50px] [left:50%] [transform:translateX(-50%)] bg-white mx-auto absolute'>Positive resilience factors</H1>
         </div>
       </div>
-      <div className='flex items-stretch relative pb-8 pl-8 pr-8 after:[background:white] after:[height:308px] after:[width:1px] after:[right:-1px] after:[top:0] after:absolute after:content-" " before:[background:white] before:[height:308px] before:[width:1px] before:[left:-1px] before:[top:0] before:absolute before:content-" " border-b border-l border-r'>
+      <div className='border-black flex items-stretch relative pb-8 pl-8 pr-8 after:[background:white] after:[height:308px] after:[width:1px] after:[right:-1px] after:[top:0] after:absolute after:content-" " before:[background:white] before:[height:308px] before:[width:1px] before:[left:-1px] before:[top:0] before:absolute before:content-" " border-b border-l border-r'>
         <div className="w-2/3 flex flex-col">
           <div className="items-center space-between flex w-full h-1/2">
             <H2 className="[writing-mode:vertical-lr] [text-orientation:upright]">Self</H2>
