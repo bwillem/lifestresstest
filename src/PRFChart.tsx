@@ -17,6 +17,13 @@ function PRFChart({ userTotal, populationAverage }) {
                             },
                         },
                     },
+                    x: {
+                        ticks: {
+                            font: {
+                                size: 14,
+                            },
+                        },
+                    },
                 },
                 maintainAspectRatio: false,
                 plugins: {
@@ -24,10 +31,10 @@ function PRFChart({ userTotal, populationAverage }) {
                         color: 'black',
                         font: dataLabelsFont,
                     },
-                }, 
+                },
             }}
             data={{
-                labels: ['AVERAGE', 'PATIENT'],
+                labels: [['POPULATION', 'AVERAGE'], ['PATIENT', 'TOTAL']],
                 datasets: [{
                     data: [populationAverage, userTotal],
                     label: '',

@@ -4,6 +4,7 @@ import BlurbWithOutline from "./BlurbWithOutline"
 import colors from "./colors"
 import { AcuteStressor, ChronicStressor } from "./hooks/useAcuteAndChronicStressors"
 import { Emphasis, H1 } from "./Typography"
+import { scaleTitleFont } from "./util"
 
 interface AcuteStressorsChartProps {
     acuteStressors: { [key: string]: AcuteStressor }
@@ -146,6 +147,11 @@ function ChronicStressorChart({ chronicStressors, patientAge }: ChronicStressors
                     x: {
                         beginAtZero: true,
                         max: patientAge,
+                        title: {
+                            display: true,
+                            text: 'PATIENT AGE',
+                            font: scaleTitleFont,
+                        },
                     },
                     y: {
                         ticks: {
