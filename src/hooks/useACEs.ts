@@ -3,43 +3,43 @@ import { ComputedDomains, UserData } from "../types"
 function useACEs(userData, publicData) {
     const aceData: ComputedDomains = userData ? {
         'Emotional abuse': {
-            value: userData['ACE7'],
+            value: parseInt(userData['ACE7']),
             total: 1,
         },
         'Incarcerated relative': {
-            value: userData['ACE6'],
+            value: parseInt(userData['ACE6']),
             total: 1,
         },
         'Mental illness': {
-            value: userData['ACE3'],
+            value: parseInt(userData['ACE3']),
             total: 1,
         },
         'Caregiver treated violently': {
-            value: userData['ACE5'],
+            value: parseInt(userData['ACE5']),
             total: 1,
         },
         'Physical abuse': {
-            value: userData['ACE8'],
+            value: parseInt(userData['ACE8']),
             total: 1,
         },
         'Physical neglect': {
-            value: userData['ACE1'],
+            value: parseInt(userData['ACE1']),
             total: 1,
         },
         'Emotional neglect': {
-            value: userData['ACE9'],
+            value: parseInt(userData['ACE9']),
             total: 1,
         },
         'Sexual abuse': {
-            value: userData['ACE10'],
+            value: parseInt(userData['ACE10']),
             total: 1,
         },
         'Substance abuse': {
-            value: userData['ACE4'],
+            value: parseInt(userData['ACE4']),
             total: 1,
         },
         'Loss of parent (divorce/death/other)': {
-            value: userData['ACE2'],
+            value: parseInt(userData['ACE2']),
             total: 1,
         },
     } : {}
@@ -73,7 +73,7 @@ function useACEs(userData, publicData) {
 
     const userTotalACEs = Object
         .keys(aceData)
-        ?.map(x => (aceData[x]?.value || 0))
+        ?.map(x => aceData[x]?.value || 0)
         ?.reduce((prev, curr) => prev + curr, 0) || 0
 
     const populationAverageACEs = publicData

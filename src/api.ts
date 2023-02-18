@@ -1,4 +1,4 @@
-const API_VERSION: Number = 1
+const API_VERSION: Number = 2
 
 const SURVEYID = function () {
     switch (API_VERSION) {
@@ -111,14 +111,6 @@ const SUMMARYGID = function () {
         default: { return '149' };
     }
 }()
-
-// const ACEGID = function () {
-//     switch (API_VERSION) {
-//         case 1: { return '' };
-//         case 2: { return '6972' };
-//         default: { return '6972' };
-//     }
-// }()
 
 const PHQ = {
     [`${SURVEYID}X${PHQGID}X248354`]: 'PHQInfo',
@@ -299,8 +291,6 @@ const strainBody6 = {
     [`${SURVEYID}X${STRAINBODY6GID}X248214`]: 'D549OE',
     [`${SURVEYID}X${STRAINBODY6GID}X248215`]: 'D550OED',
     [`${SURVEYID}X${STRAINBODY6GID}X248216`]: 'D551OES',
-    // [`${SURVEYID}X${STRAINBODY6GID}X4986`]: 'D551OES',
-    // [`${SURVEYID}X${STRAINBODY6GID}X4987`]: 'D552OET',
     [`${SURVEYID}X${STRAINBODY6GID}X248218`]: 'D553OEA',
     [`${SURVEYID}X${STRAINBODY6GID}X248205`]: 'E266RD',
     [`${SURVEYID}X${STRAINBODY6GID}X248206`]: 'E267RDF',
@@ -498,7 +488,6 @@ const strainBody8 = {
     [`${SURVEYID}X${STRAINBODY8GID}X248346A`]: 'D435TRDA',
     [`${SURVEYID}X${STRAINBODY8GID}X248346B`]: 'D435TRDB',
     [`${SURVEYID}X${STRAINBODY8GID}X248347`]: 'D436TRS',
-    // [`${SURVEYID}X${STRAINBODY8GID}X5118`]: 'D437TRT',
     [`${SURVEYID}X${STRAINBODY8GID}X248349`]: 'D438TRA',
     [`${SURVEYID}X${STRAINBODY8GID}X248350`]: 'D547TR',
     [`${SURVEYID}X${STRAINBODY8GID}X249174`]: 'D547TRS',
@@ -628,7 +617,7 @@ const fetcher = (...args) => fetch(...args).then(res => res.json())
 const urls = {
     userData: (userId: string) => userId &&
         process.env.NODE_ENV === 'development' ?
-        `https://lifestresstest.com/wp-json/lifestresstest/limesurvey/${userId}` :
+        `https://lifestresstest.com/wp-json/lifestresstest/survey?survey_id=${userId}` :
         `/wp-json/lifestresstest/limesurvey/${userId}`,
 
     publicData: process.env.NODE_ENV === 'development' ?
@@ -644,7 +633,6 @@ const urls = {
 const postReport = ({ userId, file }) => {
     const body = new FormData()
     body.append('file', file)
-    console.log('file', file)
     return fetch(urls.report(userId), { method: 'post', body })
 }
 

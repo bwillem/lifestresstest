@@ -42,12 +42,106 @@ Chart.register(
   LineElement,
 )
 
+const parseRace = (answer: string) => {
+  if (!answer) return null
+
+  switch (answer) {
+    case 'A1': {
+      return 'Asian'
+    }
+    case 'A2': {
+      return 'Black or African American'
+    }
+    case 'A3': {
+      return 'Native Hawaiian or Other Pacific Islander'
+    }
+    case 'A4': {
+      return 'White'
+    }
+    case 'A5': {
+      return 'Unknown'
+    }
+    case 'A6': {
+      return 'Multiple races'
+    }
+    case 'A7': {
+      return 'Indigenous or First Nation, Aborginal people(s)'
+    }
+    case 'A9': {
+      return 'Prefer not to answer'
+    }
+  }
+}
+
+const parseGender = (answer: string) => {
+  if (!answer) return null
+
+  switch (answer) {
+    case 'A1': {
+      return 'Woman'
+    }
+    case 'A2': {
+      return 'Transgender'
+    }
+    case 'A3': {
+      return 'Gender Fluid'
+    }
+    case 'A4': {
+      return 'Gender Queery'
+    }
+    case 'A5': {
+      return 'Agender'
+    }
+    case 'A6': {
+      return 'Non Binary/Non Conforming'
+    }
+    case 'A7': {
+      return 'Two-Spirited'
+    }
+    case 'A8': {
+      return 'Prefer not to answer'
+    }
+    case 'A9': {
+      return 'Man'
+    }
+  }
+}
+
+const parsePronouns = (answer: string) => {
+  if (!answer) return null
+
+  switch (answer) {
+    case 'A1': {
+      return 'She/Her/Hers'
+    }
+    case 'A2': {
+      return 'He/Him/His'
+    }
+    case 'A3': {
+      return 'Ze/Hir/Hirs'
+    }
+    case 'A4': {
+      return 'They/Them/Theirs'
+    }
+    case 'A5': {
+      return 'No Pronoun'
+    }
+    case 'A6': {
+      return 'No Preference'
+    }
+    case 'A7': {
+      return 'Prefer not to say'
+    }
+  }
+}
+
 function usePatientDetails(userData) {
   const [patientDetails, setPatientDetails] = useState({
     patientName: '',
     patientAge: 0,
     patientRace: '',
     patientGender: '',
+    patientPronouns: '',
     patientUpbringing: '',
     patientRelationshipStatus: '',
     patientMotherIsAlive: '',
@@ -55,12 +149,15 @@ function usePatientDetails(userData) {
     additionalInformation: '',
   })
 
+  console.log('user data', userData)
+
   useEffect(() => {
     setPatientDetails({
       patientName: capitalizeEach(`${userData['S002SuNm']} ${userData['S003SuNm'] || ''}`),
       patientAge: parseInt(userData['X006AGE'] || '0'),
-      patientRace: userData['X061RACE'] || 'undisclosed',
-      patientGender: userData['X0071GEN'] || 'undisclosed',
+      patientRace: parseRace(userData['X061RACE']) || 'undisclosed',
+      patientGender: parseGender(userData['X0071GEN']) || 'undisclosed',
+      patientPronouns: parsePronouns(userData['X0072GEN']) || 'undisclosed',
       patientUpbringing: userData['X011CHLD'],
       patientRelationshipStatus: userData['X009RELA'] || 'undisclosed',
       patientMotherIsAlive: userData['E535DL'],
@@ -87,6 +184,7 @@ function App() {
     patientRace,
     patientAge,
     patientGender,
+    patientPronouns,
     patientUpbringing,
     patientRelationshipStatus,
     patientFatherIsAlive,
@@ -183,6 +281,8 @@ function App() {
 
   const testDate = data['submitdate']?.split(' ')?.[0] || 'Date missing'
 
+  // console.log(patientName)
+
   return (
     <>
       <div
@@ -198,6 +298,7 @@ function App() {
           patientAge={patientAge}
           patientRace={patientRace}
           patientGender={patientGender}
+          patientPronouns={patientPronouns}
           patientUpbringing={patientUpbringing}
           patientRelationshipStatus={patientRelationshipStatus}
           patientMotherIsAlive={patientMotherIsAlive}

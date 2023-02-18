@@ -107,6 +107,7 @@ function PatientSummary({
     patientAge,
     patientRace,
     patientGender,
+    patientPronouns,
     patientUpbringing,
     patientRelationshipStatus,
     patientMotherIsAlive,
@@ -154,11 +155,12 @@ function PatientSummary({
     return (
         <>
             <div className='text-center relative [margin-top:100px]'>
-                <BlurbWithOutline className='border-b-0 before:[height:86px!important] after:[height:86px!important]'>
+                <BlurbWithOutline className='border-b-0 before:[height:100px!important] after:[height:100px!important]'>
                     <Emphasis>{patientName}</Emphasis> is <Emphasis>{patientAge}</Emphasis> years old.
                     Their relationship status is <Emphasis>{relationshipMap[patientRelationshipStatus]}</Emphasis>.
                     {patientRace ? (<>{` `}Their ethinicity is <Emphasis>{patientRace}</Emphasis>.</>) : null}
                     {patientGender ? (<>{` `}Their gender is <Emphasis>{patientGender}</Emphasis>.</>) : null}
+                    {patientPronouns ? (<>{` `}Their pronouns are <Emphasis>{patientPronouns}</Emphasis>.</>) : null}
                     {motherIs ? (
                         <>
                             {` `}Their mother is <Emphasis>{motherIs}</Emphasis>
@@ -181,7 +183,7 @@ function PatientSummary({
                     Patient summary
                 </H1>
             </div>
-            <div className='grid grid-cols-5 border rounded-sm border-gray-500'>
+            <div className='grid grid-cols-5 border border-gray-500'>
                 <div className="text-center bg-[#d9d9d9] p-4 border-b col-span-5">
                     <H1><CautionSymbol/>Priority response: in the last 30 days<CautionSymbol/></H1>
                 </div>

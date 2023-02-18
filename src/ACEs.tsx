@@ -27,7 +27,6 @@ const borders = [
 ]
 
 function ACEs({ patientName, userTotal, populationAverage, ACEs }: ACEsProps) {
-
     return (
         <>
             <div className='w-100 text-center'>
