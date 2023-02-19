@@ -5,14 +5,14 @@ import { imgDir, slugify } from "./util";
 
 function SocialPsychologicalCharacteristics({ socialPsychoCharacteristics }) {
     return (
-        <>
+        <div>
             <div className='text-center relative'>
                 <BlurbWithOutline className='[margin-top:100px] text-coral border-b-0 before:[height:116px!important] after:[height:116px!important]'>
                     Stressors can involve the different social-psychological characteristics shown below. These characteristics refer to the core features of stressors that people can experience. Knowing which characteristics a person has experienced can lead to more specific treatment targets.
                 </BlurbWithOutline>
                 <H1 className='[width:786px] [padding:32px] [top:-52px] [left:50%] [transform:translateX(-50%)] bg-white mx-auto absolute'>5 Social-psychological characteristics</H1>
             </div>
-            <div className='border-black flex flex-wrap items-center justify-center relative pb-8 after:[background:white] after:[height:98px] after:[width:1px] after:[right:-1px] after:[top:0] after:absolute after:content-" " before:[background:white] before:[height:98px] before:[width:1px] before:[left:-1px] before:[top:0] before:absolute before:content-" " border-b border-l border-r'>
+            <div className='border-black flex flex-wrap items-center justify-center relative pb-8 after:[background:white] after:[height:106px] after:[width:1px] after:[right:-1px] after:[top:0] after:absolute after:content-" " before:[background:white] before:[height:106px] before:[width:1px] before:[left:-1px] before:[top:0] before:absolute before:content-" " border-b border-l border-r'>
                 {Object.keys(socialPsychoCharacteristics).map(x => (
                     <Indicator
                         src={`${imgDir}/sociopsych-${slugify(x)}.png`}
@@ -24,7 +24,7 @@ function SocialPsychologicalCharacteristics({ socialPsychoCharacteristics }) {
                     />
                 ))}
             </div>
-        </>
+        </div>
     )
 }
 

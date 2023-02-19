@@ -28,7 +28,7 @@ const borders = [
 
 function ACEs({ patientName, userTotal, populationAverage, ACEs }: ACEsProps) {
     return (
-        <>
+        <div>
             <div className='w-100 text-center'>
                 <div className='relative'>
                     <BlurbWithOutline className='text-coral [margin-top:100px] border-b-0 after:[height:116px!important] before:[height:116px!important]'>
@@ -60,7 +60,7 @@ function ACEs({ patientName, userTotal, populationAverage, ACEs }: ACEsProps) {
                     />
                 </div>
             </div>
-        </>
+        </div>
     )
 }
 
