@@ -91,7 +91,7 @@ const totalOfStressors = (data: UserData) => {
 
 const totalOfAcuteStressors = (data: UserData) => {
     return Object.entries(data).reduce((prev, curr) => {
-        if (isAcute(curr[0])) {
+        if (isAcute(curr[0]) && isInitialQuestion(curr[0])) {
             return prev + 1
         }
         return prev

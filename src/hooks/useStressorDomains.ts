@@ -37,18 +37,6 @@ const isAcuteAndInitial = variable => isAcute(variable) && isInitialQuestion(var
 const isChronicSeverity = variable => isChronic(variable) && isSeverity(variable)
 
 function useStressorDomains(userData: UserData, publicData: UserData[]) {
-  // console.log('H', totalOfDomain('H')(userData), userData['Hous'], sumOfDomain('H')(userData))
-  // console.log('E', totalOfDomain('E')(userData), userData['Educ'], sumOfDomain('E')(userData))
-  // console.log('M', totalOfDomain('M')(userData), userData['Mari'], sumOfDomain('M')(userData))
-  // console.log('R', totalOfDomain('R')(userData), userData['Repr'], sumOfDomain('R')(userData))
-  // console.log('O', totalOfDomain('O')(userData), userData['Rela'], sumOfDomain('O')(userData))
-  // console.log('W', totalOfDomain('W')(userData), userData['Work'], sumOfDomain('W')(userData))
-  // console.log('F', totalOfDomain('F')(userData), userData['Fina'], sumOfDomain('F')(userData))
-  // console.log('D', totalOfDomain('D')(userData), userData['Deat'], sumOfDomain('D')(userData))
-  // console.log('L', totalOfDomain('L')(userData), userData['Lega'], sumOfDomain('L')(userData))
-  // console.log('P', totalOfDomain('P')(userData), userData['Poss'], sumOfDomain('P')(userData))
-  // console.log('X', totalOfDomain('X')(userData), userData['Life'], sumOfDomain('X')(userData))
-  // console.log('T', totalOfDomain('T')(userData), userData['Trea'], sumOfDomain('T')(userData))
 
   const userSeverity = sumSeverity(userData)
 
