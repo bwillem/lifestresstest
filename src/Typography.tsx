@@ -22,7 +22,6 @@ const Emphasis: FC<React.HtmlHTMLAttributes<HTMLSpanElement>> = ({ className, ..
 }
 
 const P: FC<React.HtmlHTMLAttributes<HTMLParagraphElement> & { inactive?: boolean }> = ({ className, inactive = false, ...rest }) => {
-    // const color = inactive ? 'text-neutral-500' : 'text-neutral-900'
     const classes = classNames('text-sm', className)
     return <p className={classes} {...rest} />
 }
