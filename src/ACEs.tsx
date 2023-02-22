@@ -47,7 +47,7 @@ function ACEs({ patientName, userTotal, populationAverage, ACEs }: ACEsProps) {
                             <Indicator
                                 key={d}
                                 title={d}
-                                className={`w-1/5 h-[133px] border-black ${borders[i]}`}
+                                className={`w-1/5 h-[133px]}`}
                                 src={`${imgDir}/ace-${slugify(d)}.png`}
                                 {...ACEs[d]}
                             />
