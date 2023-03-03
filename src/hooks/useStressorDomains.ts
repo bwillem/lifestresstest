@@ -69,50 +69,62 @@ function useStressorDomains(userData: UserData, publicData: UserData[]) {
     'housing': {
       value: totalOfDomain('H')(userData),
       total: maxOfDomain('H')(userData),
+      img: 'domain-housing.png',
     },
     'education': {
       value: totalOfDomain('E')(userData),
       total: maxOfDomain('E')(userData),
+      img: 'domain-education.png',
     },
-    'marital or partner': {
+    'marital or<br/>partner': {
       value: totalOfDomain('M')(userData),
       total: maxOfDomain('M')(userData),
+      img: 'domain-marital-or-partner.png',
     },
     'reproduction': {
       value: totalOfDomain('R')(userData),
       total: maxOfDomain('R')(userData),
+      img: 'domain-reproduction.png',
     },
-    'other relationships': {
+    'other<br/>relationships': {
       value: totalOfDomain('O')(userData),
       total: maxOfDomain('O')(userData),
+      img: 'domain-other-relationships.png',
     },
     'work': {
       value: totalOfDomain('W')(userData),
       total: maxOfDomain('W')(userData),
+      img: 'domain-work.png',
     },
     'financial': {
       value: totalOfDomain('F')(userData),
       total: maxOfDomain('F')(userData),
+      img: 'domain-financial.png',
     },
     'death': {
       value: totalOfDomain('D')(userData),
       total: maxOfDomain('D')(userData),
+      img: 'domain-death.png',
     },
     'legal or crime': {
       value: totalOfDomain('L')(userData),
       total: maxOfDomain('L')(userData),
+      img: 'domain-legal-or-crime.png',
     },
     'possessions': {
       value: totalOfDomain('P')(userData),
       total: maxOfDomain('P')(userData),
+      img: 'domain-possessions.png',
     },
     'life-threatening situation': {
       value: totalOfDomain('X')(userData),
       total: maxOfDomain('X')(userData),
+      img: 'domain-life-threatening-situation.png',
     },
-    'treatment or health': {
+    'treatment or<br/>health': {
       value: totalOfDomain('T')(userData),
       total: maxOfDomain('T')(userData),
+      img: 'domain-treatment-or-health.png',
     },
   } : {}
 

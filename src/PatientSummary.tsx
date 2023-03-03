@@ -162,7 +162,7 @@ function PatientSummary({
     return (
         <>
             <div className='text-center relative [margin-top:100px]'>
-                <BlurbWithOutline className='border-b-0 before:[height:100px!important] after:[height:100px!important]'>
+                <BlurbWithOutline className='border-b-0 before:[height:115px!important] after:[height:115px!important]'>
                     <Emphasis>{patientName}</Emphasis> is <Emphasis>{patientAge}</Emphasis> years old.
                     Their relationship status is <Emphasis>{relationshipMap[patientRelationshipStatus]}</Emphasis>.
                     {patientRace ? (<>{` `}Their ethinicity is <Emphasis>{patientRace}</Emphasis>.</>) : null}
@@ -190,7 +190,7 @@ function PatientSummary({
                     Patient summary
                 </H1>
             </div>
-            <div className='grid grid-cols-5 border border-gray-500'>
+            <div className='mt-2 grid grid-cols-5 border border-gray-500'>
                 <div className="text-center bg-[#d9d9d9] p-4 border-black border-b col-span-5">
                     <H1><CautionSymbol />Priority response: in the last 30 days<CautionSymbol /></H1>
                 </div>

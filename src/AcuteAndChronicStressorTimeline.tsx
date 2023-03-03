@@ -211,7 +211,7 @@ function AcuteAndChronicStressorTimeline({
     return (
         <div className='flex flex-col h-full'>
             <div className='text-center relative'>
-                <BlurbWithOutline className='text-coral border-b-0 before:[height:109px!important] after:[height:109px!important]'>
+                <BlurbWithOutline className='text-coral border-b-0 before:[height:136px!important] after:[height:136px!important]'>
                     Life Stress Test assesses 55 different major life stressors known
                     to impact health, wellbeing, and aging. Below is a graph showing
                     when <Emphasis>{patientName}'s</Emphasis> stressors occurred, including

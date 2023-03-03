@@ -7,8 +7,8 @@ function StressorExposureBySocialPyshChart({ socialPsychoCharacteristics, public
     return (
         <div>
             <div className='flex items-center justify-center w-100 space-x-4'>
-                <div className='space-x-1 flex items-center'><div className='w-4 h-4 bg-coral-600 rounded-full'></div> <P>Patient</P></div>
-                <div className='space-x-1 flex items-center'><div className='w-4 h-4 bg-coral-100 rounded-full'></div> <P>Population</P></div>
+                <div className='space-x-1 flex items-center'><div className='w-4 h-4 bg-coral-600 rounded-full'></div> <P>Patient Total</P></div>
+                <div className='space-x-1 flex items-center'><div className='w-4 h-4 bg-coral-100 rounded-full'></div> <P>Population Average</P></div>
             </div>
             <Line
                 options={{
@@ -18,6 +18,11 @@ function StressorExposureBySocialPyshChart({ socialPsychoCharacteristics, public
                                 display: true,
                                 text: 'SOCIAL-PSYCHOLOGICAL CHARACTERISTIC',
                                 font: scaleTitleFont,
+                            },
+                            ticks: {
+                                maxRotation: 20,
+                                minRotation: 20,
+                                align: 'start',
                             },
                         },
                         y: {

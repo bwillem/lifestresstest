@@ -3,6 +3,7 @@ export interface UserData { [key: string]: string }
 export interface ComputedDomain {
     value: number
     total?: number
+    img?: string
 }
 export type ComputedDomains = { [key: string]: ComputedDomain }
 

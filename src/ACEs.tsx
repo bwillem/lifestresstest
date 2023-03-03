@@ -12,30 +12,17 @@ interface ACEsProps {
     ACEs: ComputedDomains,
 }
 
-const borders = [
-    `border-b border-r`,
-    `border-b border-r`,
-    `border-b border-r`,
-    `border-b border-r`,
-    `border-b`,
-    `border-r`,
-    `border-r`,
-    `border-r`,
-    `border-r`,
-    ``,
-]
-
-const dims = [
-    `w-[90px] h-[133px]`,
-    `w-[114px] h-[133px]`,
-    `w-[90px] h-[133px]`,
-    `w-1/5 h-[133px]`,
-    `w-[144px] h-[133px]`,
-    `w-[90px] h-[133px]`,
-    `w-[114px] h-[133px]`,
-    `w-[90px] h-[133px]`,
-    `w-1/5 h-[133px]`,
-    `w-[144px] h-[133px]`,
+const classes = [
+    `border-b border-r w-[90px] h-[133px]`,
+    `border-b border-r w-[114px] h-[133px]`,
+    `border-b border-r w-[90px] h-[133px]`,
+    `border-b border-r w-1/5 h-[133px]`,
+    `border-b w-[144px] h-[133px]`,
+    `border-r w-[90px] h-[133px] pt-2`,
+    `border-r w-[114px] h-[133px] pt-2`,
+    `border-r w-[90px] h-[133px] pt-2`,
+    `border-r w-1/5 h-[133px] pt-2`,
+    `w-[144px] h-[133px] pt-2`,
 ]
 
 function ACEs({ patientName, userTotal, populationAverage, ACEs }: ACEsProps) {
@@ -43,7 +30,7 @@ function ACEs({ patientName, userTotal, populationAverage, ACEs }: ACEsProps) {
         <div>
             <div className='w-100 text-center'>
                 <div className='relative'>
-                    <BlurbWithOutline className='text-coral [margin-top:100px] border-b-0 after:[height:116px!important] before:[height:116px!important]'>
+                    <BlurbWithOutline className='text-coral [margin-top:100px] border-b-0 after:[height:136px!important] before:[height:136px!important]'>
                         Adverse Childhood Experiences, or ACEs, are major life stressors such as abuse,
                         neglect, and household dysfunction that some people experience before age 18.
                         <Emphasis> {patientName} </Emphasis> experienced <Emphasis>{userTotal} out of 10 </Emphasis>
@@ -57,7 +44,7 @@ function ACEs({ patientName, userTotal, populationAverage, ACEs }: ACEsProps) {
                     <div className='flex flex-wrap items-start'>
                         {Object.keys(ACEs).map((x, i) => (
                             <Indicator
-                                className={`border-black ${borders[i]} ${dims[i]}`}
+                                className={`border-black ${classes[i]}`}
                                 key={x}
                                 src={`${imgDir}/ace-${slugify(x)}.png`}
                                 title={i === 9 ? x : x.split(' ').join('<br/>')}

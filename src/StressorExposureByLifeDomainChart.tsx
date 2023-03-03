@@ -7,8 +7,8 @@ function StressorExposureByLifeDomainChart({ stressorDomains, publicStressorDoma
     return (
         <div>
             <div className='flex items-center justify-center w-100 space-x-4'>
-                <div className='space-x-1 flex items-center'><div className='w-4 h-4 bg-coral-600 rounded-full'></div> <P>Patient</P></div>
-                <div className='space-x-1 flex items-center'><div className='w-4 h-4 bg-coral-100 rounded-full'></div> <P>Population</P></div>
+                <div className='space-x-1 flex items-center'><div className='w-4 h-4 bg-coral-600 rounded-full'></div> <P>Patient Total</P></div>
+                <div className='space-x-1 flex items-center'><div className='w-4 h-4 bg-coral-100 rounded-full'></div> <P>Population Average</P></div>
             </div>
             <Line
                 options={{
@@ -33,12 +33,12 @@ function StressorExposureByLifeDomainChart({ stressorDomains, publicStressorDoma
                     labels: Object.keys(stressorDomains).map(x => x),
                     datasets: [{
                         data: Object.keys(stressorDomains).map(x => stressorDomains[x].value),
-                        label: 'Patient',
+                        label: 'Patient Total',
                         backgroundColor: colors.coral.DEFAULT,
                         borderColor: colors.coral.DEFAULT,
                     }, {
                         data: Object.keys(publicStressorDomains).map(x => publicStressorDomains[x].value),
-                        label: 'Population',
+                        label: 'Population Average',
                         backgroundColor: colors.coral[100],
                         borderColor: colors.coral[100],
                     }]

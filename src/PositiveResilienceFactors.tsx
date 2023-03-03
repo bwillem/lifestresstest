@@ -18,11 +18,11 @@ const borders = [
 ]
 
 const firstRowBorders = [
-  'border-r border-l border-b',
-  'border-r border-b',
-  'border-r border-b',
-  'border-r border-b',
-  'border-b',
+  'border-r border-l',
+  'border-r',
+  'border-r',
+  'border-r',
+  '',
 ]
 
 const secondRowBorders = [
@@ -54,7 +54,7 @@ function PositiveResilienceFactors({
     <div>
       <div className='w-100 text-center'>
         <div className='relative'>
-          <BlurbWithOutline className='text-teal-dark [margin-top:100px] border-b-0 after:[height:116px!important] before:[height:116px!important]'>
+          <BlurbWithOutline className='text-teal-dark [margin-top:100px] border-b-0 after:[height:136px!important] before:[height:136px!important]'>
             Resilience factors are personal and interpersonal processes such as
             positive emotions and feeling connected to friends and family, which
             can reduce the negative impact stressors have on health. <Emphasis className="text-teal-dark"> {patientName} </Emphasis>
@@ -64,9 +64,9 @@ function PositiveResilienceFactors({
           <H1 className='[width:560px] [padding:32px] [top:-50px] [left:50%] [transform:translateX(-50%)] bg-white mx-auto absolute'>Positive resilience factors</H1>
         </div>
       </div>
-      <div className='border-black flex items-stretch relative pb-8 pl-8 pr-8 after:[background:white] after:[height:312px] after:[width:3px] after:[right:-2px] after:[top:0] after:absolute after:content-" " before:[background:white] before:[height:312px] before:[width:3px] before:[left:-2px] before:[top:0] before:absolute before:content-" " border-b border-l border-r'>
+      <div className='border-black flex items-stretch relative pb-8 pl-8 pr-8 after:[background:white] after:[height:300px] after:[width:3px] after:[right:-2px] after:[top:0] after:absolute after:content-" " before:[background:white] before:[height:300px] before:[width:3px] before:[left:-2px] before:[top:0] before:absolute before:content-" " border-b border-l border-r'>
         <div className="w-2/3 flex flex-col">
-          <div className="items-start space-between flex w-full">
+          <div className="items-start space-between flex w-full border-b border-black">
             <H2 className="[writing-mode:vertical-lr] [text-orientation:upright] m-auto">SELF</H2>
             {Object.keys(selfPositiveResilienceFactors).map((d, i) => (
               <Indicator
@@ -83,7 +83,7 @@ function PositiveResilienceFactors({
             {Object.keys(socialPositiveResilienceFactors).map((d, i) => (
               <Indicator
                 key={d}
-                className={`border-black ${dims[i]} ${secondRowBorders[i]}`}
+                className={`pt-2 border-black ${dims[i]} ${secondRowBorders[i]}`}
                 title={d}
                 value={socialPositiveResilienceFactors[d].value}
                 total={socialPositiveResilienceFactors[d].total}

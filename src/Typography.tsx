@@ -22,6 +22,11 @@ const Emphasis: FC<React.HtmlHTMLAttributes<HTMLSpanElement>> = ({ className, ..
 }
 
 const P: FC<React.HtmlHTMLAttributes<HTMLParagraphElement> & { inactive?: boolean }> = ({ className, inactive = false, ...rest }) => {
+    const classes = classNames('text-md', className)
+    return <p className={classes} {...rest} />
+}
+
+const Caption: FC<React.HtmlHTMLAttributes<HTMLParagraphElement> & { inactive?: boolean }> = ({ className, inactive = false, ...rest }) => {
     const classes = classNames('text-sm', className)
     return <p className={classes} {...rest} />
 }
@@ -32,4 +37,5 @@ export {
     H2,
     H3,
     Emphasis,
+    Caption,
 }
