@@ -14,10 +14,8 @@ function Indicator({ src, title, value, total, className, ...rest }: PropsWithCh
 
   return (
     <div className={classes} {...rest}>
-      <img className='w-16' src={src} />
-      <P className="mt-2">
-        {title}
-      </P>
+      <img className='w-12' src={src} />
+      <P className="mt-2" dangerouslySetInnerHTML={{ __html: title }} />
       <P>
         <Emphasis>{value || 0}</Emphasis>{total ? `/${total}` : ''}
       </P>

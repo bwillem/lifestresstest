@@ -281,8 +281,6 @@ function App() {
 
   const testDate = data['submitdate']?.split(' ')?.[0] || 'Date missing'
 
-  // console.log(patientName)
-
   return (
     <>
       <div

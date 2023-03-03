@@ -2,7 +2,45 @@ import BlurbWithOutline from "./BlurbWithOutline"
 import Indicator from "./Indicator"
 import PRFChart from "./PRFChart"
 import { Emphasis, H1, H2 } from "./Typography"
-import { imgDir, slugify } from "./util"
+import { imgDir } from "./util"
+
+const borders = [
+  `border-b border-r`,
+  `border-b border-r`,
+  `border-b border-r`,
+  `border-b border-r`,
+  `border-b`,
+  `border-r`,
+  `border-r`,
+  `border-r`,
+  `border-r`,
+  ``,
+]
+
+const firstRowBorders = [
+  'border-r border-l border-b',
+  'border-r border-b',
+  'border-r border-b',
+  'border-r border-b',
+  'border-b',
+]
+
+const secondRowBorders = [
+  'border-r border-l',
+  'border-r',
+  'border-r',
+  'border-r',
+  '',
+]
+
+const dims = [
+  'w-1/5 h-[133px]',
+  'w-1/5 h-[133px]',
+  'w-1/5 h-[133px]',
+  'w-1/5 h-[133px]',
+  'w-1/5 h-[133px]',
+  'w-1/5 h-[133px]',
+]
 
 function PositiveResilienceFactors({
   userTotal,
@@ -26,26 +64,30 @@ function PositiveResilienceFactors({
           <H1 className='[width:560px] [padding:32px] [top:-50px] [left:50%] [transform:translateX(-50%)] bg-white mx-auto absolute'>Positive resilience factors</H1>
         </div>
       </div>
-      <div className='border-black flex items-stretch relative pb-8 pl-8 pr-8 after:[background:white] after:[height:312px] after:[width:1px] after:[right:-1px] after:[top:0] after:absolute after:content-" " before:[background:white] before:[height:312px] before:[width:1px] before:[left:-1px] before:[top:0] before:absolute before:content-" " border-b border-l border-r'>
+      <div className='border-black flex items-stretch relative pb-8 pl-8 pr-8 after:[background:white] after:[height:312px] after:[width:3px] after:[right:-2px] after:[top:0] after:absolute after:content-" " before:[background:white] before:[height:312px] before:[width:3px] before:[left:-2px] before:[top:0] before:absolute before:content-" " border-b border-l border-r'>
         <div className="w-2/3 flex flex-col">
-          <div className="items-center space-between flex w-full h-1/2">
-            <H2 className="[writing-mode:vertical-lr] [text-orientation:upright]">SELF</H2>
-            {Object.keys(selfPositiveResilienceFactors).map(d => (
+          <div className="items-start space-between flex w-full">
+            <H2 className="[writing-mode:vertical-lr] [text-orientation:upright] m-auto">SELF</H2>
+            {Object.keys(selfPositiveResilienceFactors).map((d, i) => (
               <Indicator
                 key={d}
-                className='w-1/5'
-                src={`${imgDir}/res-${slugify(d)}.png`}
-                {...selfPositiveResilienceFactors[d]} />
+                className={`border-black ${dims[i]} ${firstRowBorders[i]}`}
+                title={d}
+                value={selfPositiveResilienceFactors[d].value}
+                total={selfPositiveResilienceFactors[d].total}
+                src={`${imgDir}${selfPositiveResilienceFactors[d].img}`} />
             ))}
           </div>
-          <div className="items-center space-between flex mt-8 w-full h-1/2">
-            <H2 className="[writing-mode:vertical-lr] [text-orientation:upright]">SOCIAL</H2>
-            {Object.keys(socialPositiveResilienceFactors).map(d => (
+          <div className="items-start space-between flex w-fullc">
+            <H2 className="[writing-mode:vertical-lr] [text-orientation:upright] m-auto">SOCIAL</H2>
+            {Object.keys(socialPositiveResilienceFactors).map((d, i) => (
               <Indicator
                 key={d}
-                className='w-1/5'
-                src={`${imgDir}/res-${slugify(d)}.png`}
-                {...socialPositiveResilienceFactors[d]} />
+                className={`border-black ${dims[i]} ${secondRowBorders[i]}`}
+                title={d}
+                value={socialPositiveResilienceFactors[d].value}
+                total={socialPositiveResilienceFactors[d].total}
+                src={`${imgDir}${socialPositiveResilienceFactors[d].img}`} />
             ))}
           </div>
         </div>

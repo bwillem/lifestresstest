@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  -webkit-print-color-adjust: exact;
+}
+
 .page {
   margin: auto;
   padding: 16px 64px 64px;
@@ -24,11 +28,12 @@
 .stressor-table {
   width: 1200px;
   height: 1200px;
+  margin-bottom: 0;
 }
 
-@font-face{
+@font-face {
   font-family: 'Hatton';
-  src:url('./fonts/PPHatton-Regular.otf')  format('opentype');
+  src: url('./fonts/PPHatton-Regular.otf') format('opentype');
   font-weight: 300;
   font-style: normal;
   font-display: auto;

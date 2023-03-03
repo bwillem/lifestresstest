@@ -5,16 +5,23 @@ function Quote(props) {
     return <p className='text-coral italic' {...props} />
 }
 
+const isSectionEnd = (label: string) => {
+    return (label.toLowerCase() === 'had thoughts of harming others') ||
+        (label.toLowerCase() === 'felt hopeless')
+}
+
 function PriorityResponseRow({ label, response, isCritical }) {
     const bg = isCritical ? 'critical' : 'white'
-    const borderColor = isCritical ? 'gray-900' : 'gray-400'
+    const borderColor = isCritical ? 'gray-900' : isSectionEnd(label) ? 'black' : 'gray-400'
+
+    console.log('label', label, borderColor)
 
     return (
         <>
-            <div className={`p-4 border-b border-b-${borderColor} col-span-4 bg-${bg}`}>
+            <div className={`p-4 border-b border-${borderColor} col-span-4 bg-${bg}`}>
                 {label}
             </div>
-            <div className={`p-4 border-l border-b border-l-${borderColor} border-b-${borderColor} col-span-1 bg-${bg}`}>
+            <div className={`p-4 border-l border-b border-l-black border-${borderColor} col-span-1 bg-${bg}`}>
                 {response}
             </div>
         </>
@@ -184,8 +191,8 @@ function PatientSummary({
                 </H1>
             </div>
             <div className='grid grid-cols-5 border border-gray-500'>
-                <div className="text-center bg-[#d9d9d9] p-4 border-b col-span-5">
-                    <H1><CautionSymbol/>Priority response: in the last 30 days<CautionSymbol/></H1>
+                <div className="text-center bg-[#d9d9d9] p-4 border-black border-b col-span-5">
+                    <H1><CautionSymbol />Priority response: in the last 30 days<CautionSymbol /></H1>
                 </div>
                 {Object.keys(summaryData).map(x => (
                     <PriorityResponseRow

@@ -33,12 +33,12 @@ function StressorExposureBySocialPyshChart({ socialPsychoCharacteristics, public
                     labels: Object.keys(socialPsychoCharacteristics).map(x => x),
                     datasets: [{
                         data: Object.keys(socialPsychoCharacteristics).map(x => socialPsychoCharacteristics[x].value),
-                        label: 'Patient',
+                        label: 'Patient Total',
                         backgroundColor: colors.coral.DEFAULT,
                         borderColor: colors.coral.DEFAULT,
                     }, {
                         data: Object.keys(publicSocialPsychoCharacteristics).map(x => publicSocialPsychoCharacteristics[x].value),
-                        label: 'Population',
+                        label: 'Population Average',
                         backgroundColor: colors.coral[100],
                         borderColor: colors.coral[100],
                     }]

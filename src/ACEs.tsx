@@ -1,7 +1,6 @@
 import Indicator from './Indicator';
 import { Emphasis, H1, P } from './Typography';
-import { imgDir, slugify } from './util';
-import GenericBarChart from './GenericBarChart';
+import { capitalize, imgDir, slugify } from './util';
 import { ComputedDomains } from './types';
 import BlurbWithOutline from './BlurbWithOutline';
 import ACEChart from './ACEChart';
@@ -26,6 +25,19 @@ const borders = [
     ``,
 ]
 
+const dims = [
+    `w-[90px] h-[133px]`,
+    `w-[114px] h-[133px]`,
+    `w-[90px] h-[133px]`,
+    `w-1/5 h-[133px]`,
+    `w-[144px] h-[133px]`,
+    `w-[90px] h-[133px]`,
+    `w-[114px] h-[133px]`,
+    `w-[90px] h-[133px]`,
+    `w-1/5 h-[133px]`,
+    `w-[144px] h-[133px]`,
+]
+
 function ACEs({ patientName, userTotal, populationAverage, ACEs }: ACEsProps) {
     return (
         <div>
@@ -40,16 +52,17 @@ function ACEs({ patientName, userTotal, populationAverage, ACEs }: ACEsProps) {
                     <H1 className='w-1/3 [padding:32px] [top:-52px] [left:50%] [transform:translateX(-50%)] bg-white mx-auto absolute'>10 ACEs</H1>
                 </div>
             </div>
-            <div className='border-black flex items-stretch relative pb-8 pl-8 pr-8 after:[background:white] after:[height:260px] after:[width:1px] after:[right:-1px] after:[top:0] after:absolute after:content-" " before:[background:white] before:[height:260px] before:[width:1px] before:[left:-1px] before:[top:0] before:absolute before:content-" " border-b border-l border-r'>
+            <div className='border-black flex items-stretch relative pb-8 pl-8 pr-8 after:[background:white] after:[height:260px] after:[width:3px] after:[right:-2px] after:[top:0] after:absolute after:content-" " before:[background:white] before:[height:260px] before:[width:3px] before:[left:-2px] before:[top:0] before:absolute before:content-" " border-b border-l border-r'>
                 <div className='w-2/3'>
                     <div className='flex flex-wrap items-start'>
-                        {Object.keys(ACEs).map((d, i) => (
+                        {Object.keys(ACEs).map((x, i) => (
                             <Indicator
-                                key={d}
-                                title={d}
-                                className={`w-1/5 h-[133px]}`}
-                                src={`${imgDir}/ace-${slugify(d)}.png`}
-                                {...ACEs[d]}
+                                className={`border-black ${borders[i]} ${dims[i]}`}
+                                key={x}
+                                src={`${imgDir}/ace-${slugify(x)}.png`}
+                                title={i === 9 ? x : x.split(' ').join('<br/>')}
+                                value={ACEs[x].value}
+                                total={ACEs[x].total}
                             />
                         ))}
                     </div>

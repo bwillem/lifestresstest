@@ -20,7 +20,7 @@ function LifeStressorTimeline({
                 </BlurbWithOutline>
                 <H1 className="w-1/2 [padding:32px] [top:-54px] [left:50%] [transform:translateX(-50%)] bg-white mx-auto absolute">Life stressor timeline</H1>
             </div>
-            <div className='relative w-full h-[578px] border-black pb-8 after:[background:white] after:[height:532px] after:[width:1px] after:[right:-1px] after:[top:0] after:absolute after:content-" " before:[background:white] before:[height:532px] before:[width:1px] before:[left:-1px] before:[top:0] before:absolute before:content-" " border-b border-l border-r'>
+            <div className='relative w-full h-[578px] border-black pb-8 after:[background:white] after:[height:532px] after:[width:3px] after:[right:-2px] after:[top:0] after:absolute after:content-" " before:[background:white] before:[height:532px] before:[width:3px] before:[left:-2px] before:[top:0] before:absolute before:content-" " border-b border-l border-r'>
                 <LifeStressorTimelineChart
                     patientAge={patientAge}
                     acuteStressors={acuteStressors}

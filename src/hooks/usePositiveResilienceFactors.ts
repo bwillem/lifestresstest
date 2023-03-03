@@ -31,48 +31,58 @@ function usePositiveResilienceFactors(userData, publicData) {
   const populationAverage = Math.round(getKAverage(publicData))
 
   const selfPositiveResilienceFactors = userData ? {
-    'positive emotions': {
+    'positive<br/>emotions': {
       value: allK['K67'],
       total: 4,
+      img: '/res-positive-emotions.png',
     },
-    'sense of purpose': {
+    'sense of<br/>purpose': {
       value: allK['K68'],
       total: 4,
+      img: '/res-sense-of-purpose.png',
     },
-    'self-regulation': {
+    'self-<br/>regulation': {
       value: allK['K69'],
       total: 4,
+      img: '/res-self-regulation.png',
     },
-    'connection to nature': {
+    'connection<br/>to nature': {
       value: allK['K70'],
       total: 4,
+      img: '/res-connection-to-nature.png',
     },
     'agency/control': {
       value: allK['K71'],
       total: 4,
+      img: '/res-agency-control.png',
     },
   } : {}
 
   const socialPositiveResilienceFactors = userData ? {
-    'social connection': {
+    'social<br/>connection': {
       value: allK['K72'],
       total: 4,
+      img: '/res-social-connection.png',
     },
     'collaboration': {
       value: allK['K73'],
       total: 4,
+      img: '/res-collaboration.png',
     },
     'conflict resolution': {
       value: allK['K74'],
       total: 4,
+      img: '/res-conflict-resolution.png',
     },
-    'resources to succeed': {
+    'resources<br/>to succeed': {
       value: allK['K75'],
       total: 4,
+      img: '/res-resources-to-succeed.png',
     },
-    'collective support': {
+    'collective<br/>support': {
       value: allK['K76'],
       total: 8,
+      img: '/res-collective-support.png',
     },
   } : {}
 
