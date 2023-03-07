@@ -26,6 +26,8 @@ function StressorExposureByLifeDomainChart({ stressorDomains, publicStressorDoma
                                 text: 'LIFETIME STRESSOR COUNT',
                                 font: scaleTitleFont,
                             },
+                            min: 0,
+                            max: 11,
                         },
                     },
                 }}

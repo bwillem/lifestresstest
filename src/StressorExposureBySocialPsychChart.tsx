@@ -31,6 +31,8 @@ function StressorExposureBySocialPyshChart({ socialPsychoCharacteristics, public
                                 text: 'LIFETIME STRESSOR COUNT',
                                 font: scaleTitleFont,
                             },
+                            min: 0,
+                            max: 16,
                         },
                     },
                 }}

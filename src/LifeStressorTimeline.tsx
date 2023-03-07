@@ -11,7 +11,7 @@ function LifeStressorTimeline({
     return (
         <div className='space-y-8 text-center h-full'>
             <div className="relative">
-                <BlurbWithOutline className='max-w-[100%] border-b-0 before:[height:116px] after:[height:116px] text-coral [margin-top:100px]'>People can experience major life
+                <BlurbWithOutline className='max-w-[100%] border-b-0 before:[height:136px] after:[height:136px] text-coral [margin-top:100px]'>People can experience major life
                     stressors known to impact health, wellbeing, and aging over
                     the entire life course. Below is a timeline of the specific
                     stressors <Emphasis>{patientName}</Emphasis> experienced categorized by their reported

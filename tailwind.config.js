@@ -24,6 +24,7 @@ module.exports = {
           dark: "#166e78",
         },
         critical: {
+          500: "#F4D9D7",
           DEFAULT: "#F4D9D7",
         },
       },

@@ -223,7 +223,7 @@ function AcuteAndChronicStressorTimeline({
                 <h3 className="[writing-mode:vertical-lr] [transform:rotate(180deg)translateY(70px)] text-center">STRESSORS</h3>
                 <div className='flex flex-col [height:96%] grow'>
                     <div className='flex [height:43%] [padding-bottom:16px] w-full grow'>
-                        <p className="[writing-mode:vertical-lr] [transform:rotate(180deg)] text-center">Acute</p>
+                        <p className="[writing-mode:vertical-lr] [transform:rotate(180deg)] text-center">ACUTE</p>
                         <ChartContainerWithBracket className='[padding-left:11px]'>
                             <AcuteStressorChart
                                 acuteStressors={acuteStressors}
@@ -232,7 +232,7 @@ function AcuteAndChronicStressorTimeline({
                         </ChartContainerWithBracket>
                     </div>
                     <div className='flex h-1/2 w-full grow'>
-                        <p className="[writing-mode:vertical-lr] [transform:rotate(180deg)] text-center">Chronic</p>
+                        <p className="[writing-mode:vertical-lr] [transform:rotate(180deg)] text-center">CHRONIC</p>
                         <div className={`${bottomEdge} ${topEdge} ${borders} w-full relative`}>
                             <ChronicStressorChart
                                 chronicStressors={chronicStressors}

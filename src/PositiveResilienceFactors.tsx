@@ -57,9 +57,9 @@ function PositiveResilienceFactors({
           <BlurbWithOutline className='text-teal-dark [margin-top:100px] border-b-0 after:[height:136px!important] before:[height:136px!important]'>
             Resilience factors are personal and interpersonal processes such as
             positive emotions and feeling connected to friends and family, which
-            can reduce the negative impact stressors have on health. <Emphasis className="text-teal-dark"> {patientName} </Emphasis>
-            has a positive resilience score of <Emphasis className="text-teal-dark"> {userTotal} out of 28</Emphasis> vs.
-            the population average of <Emphasis className="text-teal-dark"> {populationAverage} out of 28</Emphasis>.
+            can reduce the negative impact stressors have on health. <Emphasis className="text-teal-dark">{patientName}</Emphasis>{` `}
+            has a positive resilience score of <Emphasis className="text-teal-dark">{userTotal} out of 28</Emphasis> vs.
+            the population average of <Emphasis className="text-teal-dark">{populationAverage} out of 28</Emphasis>.
           </BlurbWithOutline>
           <H1 className='[width:560px] [padding:32px] [top:-50px] [left:50%] [transform:translateX(-50%)] bg-white mx-auto absolute'>Positive resilience factors</H1>
         </div>

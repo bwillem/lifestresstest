@@ -5,7 +5,7 @@ function StressorExposureBySocialPsychological({ socialPsychoCharacteristics, pu
     return (
         <div className='text-center'>
             <div className='space-y-4'>
-                <H1>Stressor exposure by social-psychological characteristics</H1>
+                <H1>Stressor exposure by social-psychological characteristic</H1>
                 <StressorExposureBySocialPyshChart
                     socialPsychoCharacteristics={socialPsychoCharacteristics}
                     publicSocialPsychoCharacteristics={publicSocialPsychoCharacteristics}

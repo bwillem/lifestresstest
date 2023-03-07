@@ -17,7 +17,7 @@ const H3: FC<React.HtmlHTMLAttributes<HTMLHeadingElement>> = ({ className, ...re
 }
 
 const Emphasis: FC<React.HtmlHTMLAttributes<HTMLSpanElement>> = ({ className, ...rest }) => {
-    const classes = classNames(className, 'font-medium')
+    const classes = classNames(className, 'font-medium underline')
     return <span className={classes} {...rest} />
 }
 

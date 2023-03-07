@@ -162,7 +162,8 @@ function usePatientDetails(userData) {
       patientRelationshipStatus: userData['X009RELA'] || 'undisclosed',
       patientMotherIsAlive: userData['E535DL'],
       patientFatherIsAlive: userData['E538DL'],
-      additionalInformation: userData['S440StWT'],
+      // additionalInformation: userData['S440StWT'],
+      additionalInformation: 'Test additonal information! This is a sentence',
     })
   }, [userData])
 
@@ -370,7 +371,7 @@ function App() {
         />
       </div>
       <div
-        className='page space-y-12'
+        className='page space-y-8'
       >
         <Header
           patientName={patientName}
@@ -398,26 +399,6 @@ function App() {
             />
           </HalfWidthItem>
           <HalfWidthItem>
-            <H2 className='uppercase'>Lifetime chronic stressor count</H2>
-            <Blurb className='text-coral'>
-              Represents the <span className='underline'>total number</span> of all the chronic stressors experienced over the life course. Chronic stressors include persistent interpersonal, financial, and housing problems that last at least one month, though many last much longer.
-            </Blurb>
-            <GenericBarChart
-              data={[populationAverageChronicStressors, userChronicStressors]}
-              max={totalMaxSumOfChronicStressors}
-            />
-          </HalfWidthItem>
-          <HalfWidthItem>
-            <H2 className='uppercase'>Lifetime chronic stressor severity</H2>
-            <Blurb className='text-coral'>
-              Represents the <span className='underline'>total severity</span> of all the chronic stressors experienced over the life course. Chronic stressors include persistent interpersonal, financial, and housing problems that last at least one month, though many last much longer.
-            </Blurb>
-            <GenericBarChart
-              data={[populationAverageChronicStressorSeverity, userChronicStressorSeverity]}
-              max={totalMaxSumOfChronicStressorSeverity}
-            />
-          </HalfWidthItem>
-          <HalfWidthItem>
             <H2 className='uppercase'>Lifetime acute stressor count</H2>
             <Blurb className='text-coral'>
               Represents the <span className='underline'>total number</span> of all the acute stressors experienced over the life course. Acute stressors include getting laid off or fired, being robbed or attacked, getting divorced, or having a loved one pass away.
@@ -435,6 +416,26 @@ function App() {
             <GenericBarChart
               data={[populationAverageAcuteStressorSeverity, userAcuteStressorSeverity]}
               max={totalMaxSumOfAcuteStressorSeverity}
+            />
+          </HalfWidthItem>
+          <HalfWidthItem>
+            <H2 className='uppercase'>Lifetime chronic stressor count</H2>
+            <Blurb className='text-coral'>
+              Represents the <span className='underline'>total number</span> of all the chronic stressors experienced over the life course. Chronic stressors include persistent interpersonal, financial, and housing problems that last at least one month, though many last much longer.
+            </Blurb>
+            <GenericBarChart
+              data={[populationAverageChronicStressors, userChronicStressors]}
+              max={totalMaxSumOfChronicStressors}
+            />
+          </HalfWidthItem>
+          <HalfWidthItem>
+            <H2 className='uppercase'>Lifetime chronic stressor severity</H2>
+            <Blurb className='text-coral'>
+              Represents the <span className='underline'>total severity</span> of all the chronic stressors experienced over the life course. Chronic stressors include persistent interpersonal, financial, and housing problems that last at least one month, though many last much longer.
+            </Blurb>
+            <GenericBarChart
+              data={[populationAverageChronicStressorSeverity, userChronicStressorSeverity]}
+              max={totalMaxSumOfChronicStressorSeverity}
             />
           </HalfWidthItem>
         </div>

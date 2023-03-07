@@ -1,6 +1,6 @@
 import classnames from "classnames"
-import React, { PropsWithChildren } from "react"
-import { Caption, Emphasis, P } from "./Typography"
+import React, { FC, PropsWithChildren } from "react"
+import { Caption } from "./Typography"
 
 interface IndicatorProps {
   src: string
@@ -8,6 +8,8 @@ interface IndicatorProps {
   value?: number
   total?: number
 }
+
+const Value: FC<{ children: number }> = props => <span className='font-bold' {...props} />
 
 function Indicator({ src, title, value, total, className, ...rest }: PropsWithChildren<React.HtmlHTMLAttributes<HTMLDivElement> & IndicatorProps>) {
   const classes = classnames(className, 'flex flex-col justify-start items-center text-center')
@@ -17,7 +19,7 @@ function Indicator({ src, title, value, total, className, ...rest }: PropsWithCh
       <img className='w-12' src={src} />
       <Caption className="mt-2" dangerouslySetInnerHTML={{ __html: title }} />
       <Caption>
-        <Emphasis>{value || 0}</Emphasis>{total ? `/${total}` : ''}
+        <Value>{value || 0}</Value>{total ? `/${total}` : ''}
       </Caption>
     </div>
   )

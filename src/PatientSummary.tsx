@@ -11,17 +11,15 @@ const isSectionEnd = (label: string) => {
 }
 
 function PriorityResponseRow({ label, response, isCritical }) {
-    const bg = isCritical ? 'critical' : 'white'
+    const bg = isCritical ? 'bg-critical' : 'bg-white'
     const borderColor = isCritical ? 'gray-900' : isSectionEnd(label) ? 'black' : 'gray-400'
-
-    console.log('label', label, borderColor)
 
     return (
         <>
-            <div className={`p-4 border-b border-${borderColor} col-span-4 bg-${bg}`}>
+            <div className={`p-4 border-b border-${borderColor} col-span-4 ${bg}`}>
                 {label}
             </div>
-            <div className={`p-4 border-l border-b border-l-black border-${borderColor} col-span-1 bg-${bg}`}>
+            <div className={`p-4 border-l border-b border-l-black border-${borderColor} col-span-1 ${bg}`}>
                 {response}
             </div>
         </>
@@ -36,9 +34,11 @@ const scaleMap = {
     4: 'very often',
 }
 
-const is0or1 = x => x === '0' || x === '1'
+const is0or1 = x => x === '0' || x === '1' || x === '2'
 
 function useSummaryData(userData) {
+
+    console.log('usrdata', userData)
 
     return {
         'suicide attempt': {
@@ -159,9 +159,11 @@ function PatientSummary({
 
     const summaryData = useSummaryData(userData)
 
+    console.log('summaryData', summaryData)
+
     return (
         <>
-            <div className='text-center relative [margin-top:100px]'>
+            <div className='text-center relative [margin-top:64px]'>
                 <BlurbWithOutline className='border-b-0 before:[height:115px!important] after:[height:115px!important]'>
                     <Emphasis>{patientName}</Emphasis> is <Emphasis>{patientAge}</Emphasis> years old.
                     Their relationship status is <Emphasis>{relationshipMap[patientRelationshipStatus]}</Emphasis>.
@@ -181,7 +183,7 @@ function PatientSummary({
                     {
                         upbringingMap[patientUpbringing] ? (
                             <>
-                                {` `}They <Emphasis>{upbringingMap[patientUpbringing]}</Emphasis>
+                                {` `}They <Emphasis>{upbringingMap[patientUpbringing]}.</Emphasis>
                             </>
                         ) : null
                     }
@@ -196,19 +198,20 @@ function PatientSummary({
                 </div>
                 {Object.keys(summaryData).map(x => (
                     <PriorityResponseRow
+                        key={x}
                         label={x}
                         {...summaryData[x]}
                     />
                 ))}
             </div>
             {additionalInformation ? (
-                <div className='text-center relative [margin-top:100px]'>
-                    <BlurbWithOutline className='border-b-0 before:[height:109px!important] after:[height:109px!important]'>
-                        When asked if there was anything stressful that was not covered in the test,
-                        <Emphasis> {patientName}</Emphasis> said:
+                <div className='text-center relative [margin-top:64px]'>
+                    <BlurbWithOutline className='before:[height:82px!important] after:[height:82px!important]'>
+                        When asked if there was anything stressful that was not covered in the test,{` `}
+                        <Emphasis>{patientName}</Emphasis> said:
                         <Quote>"{additionalInformation}"</Quote>
                     </BlurbWithOutline>
-                    <H2 className='[width:382px] [padding:32px] [top:-52px] [left:50%] [transform:translateX(-50%)] bg-white mx-auto absolute'>
+                    <H2 className='uppercase [width:340px] [padding:32px] [top:-44px] [left:50%] [transform:translateX(-50%)] bg-white mx-auto absolute'>
                         Additional information
                     </H2>
                 </div>
