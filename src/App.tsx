@@ -149,8 +149,6 @@ function usePatientDetails(userData) {
     additionalInformation: '',
   })
 
-  console.log('user data', userData)
-
   useEffect(() => {
     setPatientDetails({
       patientName: capitalizeEach(`${userData['S002SuNm']} ${userData['S003SuNm'] || ''}`),
@@ -162,8 +160,7 @@ function usePatientDetails(userData) {
       patientRelationshipStatus: userData['X009RELA'] || 'undisclosed',
       patientMotherIsAlive: userData['E535DL'],
       patientFatherIsAlive: userData['E538DL'],
-      // additionalInformation: userData['S440StWT'],
-      additionalInformation: 'Test additonal information! This is a sentence',
+      additionalInformation: userData['S440StWT'],
     })
   }, [userData])
 

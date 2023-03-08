@@ -12,13 +12,12 @@ interface LifeStressorTimelineChartProps {
 
 const getMiddlePoint = ({ start_age = 0, end_age = 0, duration = 0 }: ChronicStressor) => {
     if (start_age) {
-        return Number((start_age + (duration / 2)).toFixed(1))
+        return Math.round(Number((start_age + (duration / 2))))
     }
     if (end_age) {
-        return Number((end_age - (duration / 2)).toFixed(1))
+        return Math.round(Number((end_age - (duration / 2))))
     }
 
-    // console.warn('[getMiddlePoint] no middle point for a chronic stressor')
     return 0
 }
 
@@ -27,6 +26,8 @@ const mapNameToImage = (name: string) => {
     image.src = `${imgDir}/timeline-${slugify(name)}.png`
     return image
 }
+
+const roundToEven = (x: number) => ((x % 2) !== 0) ? x + 1 : x
 
 function LifeStressorTimelineChart({
     acuteStressors,
@@ -41,7 +42,7 @@ function LifeStressorTimelineChart({
         .entries(acuteStressors)
         .filter(x => x[1]?.age)
         .map(x => ({
-            data: [x[1].age, x[1].severity * 2],
+            data: [roundToEven(x[1].age), x[1].severity * 2],
             image: mapNameToImage(x[0]),
         }))
 
@@ -49,7 +50,7 @@ function LifeStressorTimelineChart({
         .entries(chronicStressors)
         .filter(x => getMiddlePoint(x[1]))
         .map(x => ({
-            data: [getMiddlePoint(x[1]), x[1].severity * 2],
+            data: [roundToEven(getMiddlePoint(x[1])), x[1].severity * 2],
             image: mapNameToImage(x[0]),
         }))
 
@@ -187,7 +188,7 @@ function LifeStressorTimelineChart({
                         beginAtZero: true,
                         max: patientAge,
                         ticks: {
-                            stepSize: 1,
+                            stepSize: 2,
                         },
                     },
                 },

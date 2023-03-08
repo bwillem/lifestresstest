@@ -38,8 +38,6 @@ const is0or1 = x => x === '0' || x === '1' || x === '2'
 
 function useSummaryData(userData) {
 
-    console.log('usrdata', userData)
-
     return {
         'suicide attempt': {
             response: userData['K661'] === 1 ? 'yes' : 'no',
@@ -158,8 +156,6 @@ function PatientSummary({
     }
 
     const summaryData = useSummaryData(userData)
-
-    console.log('summaryData', summaryData)
 
     return (
         <>

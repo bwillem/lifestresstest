@@ -32,7 +32,7 @@ function StressorExposureByLifeDomainChart({ stressorDomains, publicStressorDoma
                     },
                 }}
                 data={{
-                    labels: Object.keys(stressorDomains).map(x => x),
+                    labels: Object.keys(stressorDomains).map(x => x.replace('<br/>', ' ')),
                     datasets: [{
                         data: Object.keys(stressorDomains).map(x => stressorDomains[x].value),
                         label: 'Patient Total',
