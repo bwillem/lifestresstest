@@ -27,7 +27,7 @@ function LifeStressorDomains({ stressorDomains }) {
                 </BlurbWithOutline>
                 <H1 className='[width:518px] [padding:32px] [top:-52px] [left:50%] [transform:translateX(-50%)] bg-white mx-auto absolute'>12 Life stressor domains</H1>
             </div>
-            <div className='border-black flex flex-wrap items-start justify-center relative pb-8 after:[background:white] after:[height:292px] after:[width:3px] after:[right:-2px] after:[top:0] after:absolute after:content-" " before:[background:white] before:[height:292px] before:[width:3px] before:[left:-2px] before:[top:0] before:absolute before:content-" " border-b border-l border-r'>
+            <div className='border-black flex flex-wrap items-start justify-center relative pb-8 after:[background:white] after:[height:264px] after:[width:3px] after:[right:-2px] after:[top:0] after:absolute after:content-" " before:[background:white] before:[height:264px] before:[width:3px] before:[left:-2px] before:[top:0] before:absolute before:content-" " border-b border-l border-r'>
                 {Object.keys(stressorDomains).map((d, i) => (
                     <Indicator
                         key={d}
