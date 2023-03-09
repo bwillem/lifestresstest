@@ -14,7 +14,7 @@ function StressorTable() {
             </div>
             <div className='space-y-4'>
                 <H2>12 LIFE STRESSOR DOMAINS</H2>
-                <div className='border-black p-12 relative after:[background:white] after:[height:492px] after:[width:3px] after:[right:-2px] after:[top:8%] after:absolute after:content-" " before:[background:white] before:[height:492px] before:[width:3px] before:[left:-2px] before:[top:8%] before:absolute before:content-" " border'>
+                <div className='border-black p-12 relative after:[background:white] after:[height:534px] after:[width:3px] after:[right:-2px] after:[top:8%] after:absolute after:content-" " before:[background:white] before:[height:534px] before:[width:3px] before:[left:-2px] before:[top:8%] before:absolute before:content-" " border'>
                     <img className='w-100' src={stressorTable} />
                 </div>
             </div>

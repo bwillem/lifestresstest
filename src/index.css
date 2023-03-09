@@ -18,16 +18,19 @@ html {
   transform: rotate(90deg);
   display: flex;
   align-items: center;
+  margin: auto;
 }
 
 .stressor-timeline {
   width: 1280px;
   height: 1280px;
+  /* padding-left: 100px; */
 }
 
 .stressor-table {
-  width: 1200px;
-  height: 1200px;
+  width: 1280px;
+  height: 1280px;
+  padding-left: 100px;
   margin-bottom: 0;
 }
 
@@ -40,6 +43,7 @@ html {
 }
 
 @media print {
+  .break,
   .page {
     page-break-after: always;
   }

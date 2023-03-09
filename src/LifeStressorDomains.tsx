@@ -4,18 +4,18 @@ import { H1 } from "./Typography"
 import { imgDir } from "./util"
 
 const classes = [
-    `border-b border-r w-1/6 h-[133px]`,
-    `border-b border-r w-1/6 h-[133px]`,
-    `border-b border-r w-1/6 h-[133px]`,
-    `border-b border-r w-1/6 h-[133px]`,
-    `border-b border-r w-1/6 h-[133px]`,
-    `border-b border-r w-1/6 h-[133px]`,
-    `border-r w-1/6 h-[133px] pt-2`,
-    `border-r w-1/6 h-[133px] pt-2`,
-    `border-r w-1/6 h-[133px] pt-2`,
-    `border-r w-1/6 h-[133px] pt-2`,
-    `border-r w-1/6 h-[133px] pt-2`,
-    `w-1/6 h-[133px] pt-2`,
+    `border-b border-r w-1/6 h-[130px]`,
+    `border-b border-r w-1/6 h-[130px]`,
+    `border-b border-r w-1/6 h-[130px]`,
+    `border-b border-r w-1/6 h-[130px]`,
+    `border-b border-r w-1/6 h-[130px]`,
+    `border-b border-r w-1/6 h-[130px]`,
+    `border-r w-1/6 h-[130px] pt-4`,
+    `border-r w-1/6 h-[130px] pt-4`,
+    `border-r w-1/6 h-[130px] pt-4`,
+    `border-r w-1/6 h-[130px] pt-4`,
+    `border-r w-1/6 h-[130px] pt-4`,
+    `w-1/6 h-[130px] pt-4`,
 ]
 
 function LifeStressorDomains({ stressorDomains }) {

@@ -157,6 +157,7 @@ function LifeStressorTimelineChart({
             options={{
                 indexAxis: 'y',
                 showLine: false,
+                maintainAspectRatio: false,
                 elements: {
                     point: {
                         pointStyle: images,

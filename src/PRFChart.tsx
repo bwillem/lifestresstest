@@ -15,6 +15,7 @@ function PRFChart({ userTotal, populationAverage }) {
                             font: {
                                 size: 14,
                             },
+                            stepSize: 2,
                         },
                     },
                     x: {

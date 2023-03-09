@@ -148,14 +148,16 @@ function ChronicStressorChart({ chronicStressors, patientAge }: ChronicStressors
                         beginAtZero: true,
                         max: patientAge,
                         title: {
-                            display: true,
-                            text: 'PATIENT AGE',
-                            font: scaleTitleFont,
+                            display: false,
                         },
                     },
                     y: {
                         ticks: {
                             autoSkip: false,
+                            stepSize: 1,
+                        },
+                        grid: {
+                            offset: false,
                         },
                     },
                 },
@@ -211,7 +213,7 @@ function AcuteAndChronicStressorTimeline({
     return (
         <div className='flex flex-col h-full'>
             <div className='text-center relative'>
-                <BlurbWithOutline className='text-coral border-b-0 before:[height:136px!important] after:[height:136px!important]'>
+                <BlurbWithOutline className='pb-4 text-coral border-b-0 before:[height:136px!important] after:[height:136px!important]'>
                     Life Stress Test assesses 55 different major life stressors known
                     to impact health, wellbeing, and aging. Below is a graph showing
                     when <Emphasis>{patientName}'s</Emphasis> stressors occurred, including
@@ -222,7 +224,7 @@ function AcuteAndChronicStressorTimeline({
             <div className='flex h-full'>
                 <h3 className="[writing-mode:vertical-lr] [transform:rotate(180deg)translateY(70px)] text-center">STRESSORS</h3>
                 <div className='flex flex-col [height:96%] grow'>
-                    <div className='flex [height:43%] [padding-bottom:16px] w-full grow'>
+                    <div className='flex [height:43%] [padding-bottom:8px] w-full grow'>
                         <p className="[writing-mode:vertical-lr] [transform:rotate(180deg)] text-center">ACUTE</p>
                         <ChartContainerWithBracket className='[padding-left:11px]'>
                             <AcuteStressorChart
@@ -231,15 +233,18 @@ function AcuteAndChronicStressorTimeline({
                             />
                         </ChartContainerWithBracket>
                     </div>
-                    <div className='flex h-1/2 w-full grow'>
+                    <div className='flex h-1/2 w-full grow [margin-bottom:20px]'>
                         <p className="[writing-mode:vertical-lr] [transform:rotate(180deg)] text-center">CHRONIC</p>
                         <div className={`${bottomEdge} ${topEdge} ${borders} w-full relative`}>
-                            <ChronicStressorChart
-                                chronicStressors={chronicStressors}
-                                patientAge={patientAge}
-                            />
+                            <div className='absolute h-[105%] w-full top-[-10px]'>
+                                <ChronicStressorChart
+                                    chronicStressors={chronicStressors}
+                                    patientAge={patientAge}
+                                />
+                            </div>
                         </div>
                     </div>
+                    <p className="text-center uppercase font-[20px] font-bold">Patient Age</p>
                 </div>
             </div>
         </div>

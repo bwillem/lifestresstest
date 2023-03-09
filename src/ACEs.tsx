@@ -25,6 +25,8 @@ const classes = [
     `w-[144px] h-[133px] pt-2`,
 ]
 
+const Lowercase = p => <span className='lowercase' {...p}/>
+
 function ACEs({ patientName, userTotal, populationAverage, ACEs }: ACEsProps) {
     return (
         <div>
@@ -36,7 +38,7 @@ function ACEs({ patientName, userTotal, populationAverage, ACEs }: ACEsProps) {
                         {` `}<Emphasis>{patientName}</Emphasis> experienced <Emphasis>{userTotal} out of 10</Emphasis>{` `}
                         possible ACEs before age 18 vs. the population average of <Emphasis>{populationAverage} out of 10 ACEs.</Emphasis>
                     </BlurbWithOutline>
-                    <H1 className='w-1/3 [padding:32px] [top:-52px] [left:50%] [transform:translateX(-50%)] bg-white mx-auto absolute'>10 ACEs</H1>
+                    <H1 className='w-1/3 [padding:32px] [top:-52px] [left:50%] [transform:translateX(-50%)] bg-white mx-auto absolute'>10 ACE<Lowercase>s</Lowercase></H1>
                 </div>
             </div>
             <div className='border-black flex items-stretch relative pb-8 pl-8 pr-8 after:[background:white] after:[height:260px] after:[width:3px] after:[right:-2px] after:[top:0] after:absolute after:content-" " before:[background:white] before:[height:260px] before:[width:3px] before:[left:-2px] before:[top:0] before:absolute before:content-" " border-b border-l border-r'>

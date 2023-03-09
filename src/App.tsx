@@ -375,15 +375,18 @@ function App() {
           testDate={testDate}
         />
         <div className='flex flex-wrap gap-4'>
-          <HalfWidthItem>
+          <HalfWidthItem className='flex flex-col'>
             <H2 className='uppercase'>Total lifetime stressor count</H2>
             <Blurb className='text-coral'>
               Represents the <span className='underline'>total number</span> of all the acute & chronic stressors experienced over the life course. Higher scores have been related to poorer health and wellbeing, cognitive and behavioral outcomes, aging, and longevity.
             </Blurb>
-            <GenericBarChart
-              data={[populationAverageStressors, userTotalStressors]}
-              max={totalMaxSumOfStressors}
-            />
+            <div className='h-full'>
+              <GenericBarChart
+                maintainAspectRatio={false}
+                data={[populationAverageStressors, userTotalStressors]}
+                max={totalMaxSumOfStressors}
+              />
+            </div>
           </HalfWidthItem>
           <HalfWidthItem>
             <H2 className='uppercase'>Total lifetime stressor severity</H2>
@@ -438,7 +441,7 @@ function App() {
         </div>
       </div>
       <div
-        className='page landscape stressor-table space-y-12'
+        className='break landscape stressor-table space-y-12'
       >
         <div className='w-full h-[896px]'>
           <Header
@@ -449,7 +452,7 @@ function App() {
         </div>
       </div>
       <div
-        className='page landscape stressor-timeline space-y-12'
+        className='break landscape stressor-timeline space-y-12'
       >
         <div className='w-full h-[896px]'>
           <Header

@@ -4,19 +4,6 @@ import PRFChart from "./PRFChart"
 import { Emphasis, H1, H2 } from "./Typography"
 import { imgDir } from "./util"
 
-const borders = [
-  `border-b border-r`,
-  `border-b border-r`,
-  `border-b border-r`,
-  `border-b border-r`,
-  `border-b`,
-  `border-r`,
-  `border-r`,
-  `border-r`,
-  `border-r`,
-  ``,
-]
-
 const firstRowBorders = [
   'border-r border-l',
   'border-r',
@@ -34,12 +21,12 @@ const secondRowBorders = [
 ]
 
 const dims = [
-  'w-1/5 h-[133px]',
-  'w-1/5 h-[133px]',
-  'w-1/5 h-[133px]',
-  'w-1/5 h-[133px]',
-  'w-1/5 h-[133px]',
-  'w-1/5 h-[133px]',
+  'w-1/5 h-[122px]',
+  'w-1/5 h-[122px]',
+  'w-1/5 h-[122px]',
+  'w-1/5 h-[122px]',
+  'w-1/5 h-[122px]',
+  'w-1/5 h-[122px]',
 ]
 
 function PositiveResilienceFactors({
@@ -79,11 +66,11 @@ function PositiveResilienceFactors({
             ))}
           </div>
           <div className="items-start space-between flex w-fullc">
-            <H2 className="[writing-mode:vertical-lr] [text-orientation:upright] m-auto">SOCIAL</H2>
+            <H2 className="[writing-mode:vertical-lr] [text-orientation:upright] m-auto pt-2">SOCIAL</H2>
             {Object.keys(socialPositiveResilienceFactors).map((d, i) => (
               <Indicator
                 key={d}
-                className={`pt-2 border-black ${dims[i]} ${secondRowBorders[i]}`}
+                className={`pt-4 border-black ${dims[i]} ${secondRowBorders[i]}`}
                 title={d}
                 value={socialPositiveResilienceFactors[d].value}
                 total={socialPositiveResilienceFactors[d].total}

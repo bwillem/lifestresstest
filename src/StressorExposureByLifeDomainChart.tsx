@@ -28,6 +28,9 @@ function StressorExposureByLifeDomainChart({ stressorDomains, publicStressorDoma
                             },
                             min: 0,
                             max: 11,
+                            ticks: {
+                                stepSize: 1,
+                            },
                         },
                     },
                 }}
