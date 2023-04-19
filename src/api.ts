@@ -618,7 +618,7 @@ const urls = {
     userData: (userId: string) => userId &&
         process.env.NODE_ENV === 'development' ?
         `https://lifestresstest.com/wp-json/lifestresstest/survey?survey_id=${userId}` :
-        `/wp-json/lifestresstest/limesurvey/${userId}`,
+        `/wp-json/lifestresstest/survey?survey_id=${userId}`,
 
     publicData: process.env.NODE_ENV === 'development' ?
         `https://lifestresstest.com/wp-json/lifestresstest/public` :

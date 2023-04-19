@@ -51,7 +51,7 @@ function usePositiveResilienceFactors(userData, publicData) {
       total: 4,
       img: '/res-connection-to-nature.png',
     },
-    'agency/control': {
+    'agency/<br/>control': {
       value: allK['K71'],
       total: 4,
       img: '/res-agency-control.png',

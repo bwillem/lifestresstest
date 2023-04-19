@@ -9,7 +9,7 @@ const classes = [
     `border-b border-r w-1/6 h-[130px]`,
     `border-b border-r w-1/6 h-[130px]`,
     `border-b border-r w-1/6 h-[130px]`,
-    `border-b border-r w-1/6 h-[130px]`,
+    `border-b w-1/6 h-[130px]`,
     `border-r w-1/6 h-[130px] pt-4`,
     `border-r w-1/6 h-[130px] pt-4`,
     `border-r w-1/6 h-[130px] pt-4`,

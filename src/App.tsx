@@ -174,8 +174,19 @@ function App() {
 
   const isPuppeteer = useIsPuppeteer()
 
-  const { data, error } = useSWR(isPuppeteer && urls.userData(userId), fetcher)
-  const { data: rawPublicData, error: publicDataError } = useSWR(isPuppeteer && urls.publicData, fetcher)
+  const { data, error } = useSWR(
+    isPuppeteer && [
+      urls.userData(userId),
+      {
+        headers: new Headers({ Authorization: `Basic YWRtaW46VzdISyA4cXBIIG1NeWwgTFhOQiB2TkQ3IEh0VnM=` })
+      }], fetcher)
+
+  const { data: rawPublicData, error: publicDataError } = useSWR(
+    isPuppeteer && [
+      urls.publicData, {
+        headers: new Headers({ Authorization: `Basic YWRtaW46VzdISyA4cXBIIG1NeWwgTFhOQiB2TkQ3IEh0VnM=` })
+      }],
+    fetcher)
 
   const {
     patientName,
