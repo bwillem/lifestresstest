@@ -1,5 +1,5 @@
 import classNames from "classnames"
-import React, { FC } from "react"
+import React, { FC, forwardRef } from "react"
 
 const H1: FC<React.HtmlHTMLAttributes<HTMLHeadingElement>> = ({ className, ...rest }) => {
     const classes = classNames('text-3xl font-bold', className)
@@ -21,10 +21,10 @@ const Emphasis: FC<React.HtmlHTMLAttributes<HTMLSpanElement>> = ({ className, ..
     return <span className={classes} {...rest} />
 }
 
-const P: FC<React.HtmlHTMLAttributes<HTMLParagraphElement> & { inactive?: boolean }> = ({ className, inactive = false, ...rest }) => {
+const P: FC<any> = forwardRef<any, React.HtmlHTMLAttributes<HTMLParagraphElement> & { inactive?: boolean }>(({ className, inactive = false, ...rest }, ref) => {
     const classes = classNames('text-md', className)
-    return <p className={classes} {...rest} />
-}
+    return <p className={classes} ref={ref} {...rest} />
+})
 
 const Caption: FC<React.HtmlHTMLAttributes<HTMLParagraphElement> & { inactive?: boolean }> = ({ className, inactive = false, ...rest }) => {
     const classes = classNames('text-sm', className)

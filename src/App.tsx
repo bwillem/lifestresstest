@@ -16,7 +16,7 @@ import AcuteAndChronicStressorTimeline from './AcuteAndChronicStressorTimeline';
 import StressorExposureBySocialPsychological from './StressorExposureBySocialPsychological';
 import useSWR from 'swr';
 import qs from 'query-string'
-import { fetcher, urls, variableMapping } from './api';
+import { authenticatedFetcher, fetcher, urls, variableMapping } from './api';
 import StressorExposure from './StressorExposure';
 import { H2, P } from './Typography';
 import useStressorDomains from './hooks/useStressorDomains';
@@ -175,18 +175,12 @@ function App() {
   const isPuppeteer = useIsPuppeteer()
 
   const { data, error } = useSWR(
-    isPuppeteer && [
-      urls.userData(userId),
-      {
-        headers: new Headers({ Authorization: `Basic YWRtaW46VzdISyA4cXBIIG1NeWwgTFhOQiB2TkQ3IEh0VnM=` })
-      }], fetcher)
+    isPuppeteer &&
+    urls.userData(userId), authenticatedFetcher)
 
   const { data: rawPublicData, error: publicDataError } = useSWR(
-    isPuppeteer && [
-      urls.publicData, {
-        headers: new Headers({ Authorization: `Basic YWRtaW46VzdISyA4cXBIIG1NeWwgTFhOQiB2TkQ3IEh0VnM=` })
-      }],
-    fetcher)
+    isPuppeteer &&
+    urls.publicData, authenticatedFetcher)
 
   const {
     patientName,

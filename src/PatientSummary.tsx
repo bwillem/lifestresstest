@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react"
 import BlurbWithOutline from "./BlurbWithOutline"
 import { Emphasis, H1, H2 } from "./Typography"
 
@@ -157,10 +158,19 @@ function PatientSummary({
 
     const summaryData = useSummaryData(userData)
 
+    const ref = useRef<HTMLDivElement>(null)
+    const [height, setHeight] = useState(0)
+
+    useEffect(() => {
+        setHeight(ref.current?.clientHeight || 0)
+    }, [ref.current])
+
     return (
         <>
             <div className='text-center relative [margin-top:64px]'>
-                <BlurbWithOutline className='border-b-0 before:[height:115px!important] after:[height:115px!important]'>
+                <BlurbWithOutline
+                    ref={ref}
+                    className={`border-b-0 before:[height:${height}px!important] after:[height:${height}px!important]`}>
                     <Emphasis>{patientName}</Emphasis> is <Emphasis>{patientAge}</Emphasis> years old.
                     Their relationship status is <Emphasis>{relationshipMap[patientRelationshipStatus]}</Emphasis>.
                     {patientRace ? (<>{` `}Their ethinicity is <Emphasis>{patientRace}</Emphasis>.</>) : null}

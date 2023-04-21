@@ -614,6 +614,11 @@ const variableMapping = {
 // @ts-ignore
 const fetcher = (...args) => fetch(...args).then(res => res.json())
 
+const authenticatedFetcher = url =>
+    fetcher(url, {
+        headers: new Headers({ 'Authorization': 'Basic YWRtaW46VzdISyA4cXBIIG1NeWwgTFhOQiB2TkQ3IEh0VnM=' }),
+    })
+
 const urls = {
     userData: (userId: string) => userId &&
         process.env.NODE_ENV === 'development' ?
@@ -641,4 +646,5 @@ export {
     fetcher,
     postReport,
     variableMapping,
+    authenticatedFetcher,
 }

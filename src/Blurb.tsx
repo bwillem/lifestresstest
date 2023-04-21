@@ -1,9 +1,10 @@
 import classNames from "classnames";
 import { P } from "./Typography";
+import { forwardRef } from "react";
 
-function Blurb({ className = '', ...rest }) {
+const Blurb = forwardRef<any, any>(({ className = '', ...rest }, ref) => {
     const classes = classNames(className, 'max-w-5xl mx-auto')
-    return <P className={classes} inactive {...rest} />
-}
+    return <P ref={ref} className={classes} inactive {...rest} />
+})
 
 export default Blurb
