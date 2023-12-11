@@ -4,7 +4,6 @@ import BlurbWithOutline from "./BlurbWithOutline"
 import colors from "./colors"
 import { AcuteStressor, ChronicStressor } from "./hooks/useAcuteAndChronicStressors"
 import { Emphasis, H1 } from "./Typography"
-import { scaleTitleFont } from "./util"
 
 interface AcuteStressorsChartProps {
     acuteStressors: { [key: string]: AcuteStressor }
@@ -19,7 +18,7 @@ interface ChronicStressorsChartProps {
 const mapSeverityToColor = (severity: number) => {
     switch (severity) {
         case 0: {
-            return 'transparent'
+            return colors.coral[100]
         }
         case 1: {
             return colors.coral[200]
@@ -108,7 +107,7 @@ function AcuteStressorChart({ acuteStressors, patientAge }: AcuteStressorsChartP
                             return mapSeverityToColor(severity[i])
                         },
                         pointRadius: context => {
-                            return severity[context.dataIndex] * 1.333
+                            return (severity[context.dataIndex] || 0.5) * 1.333
                         },
                     }
                 ],

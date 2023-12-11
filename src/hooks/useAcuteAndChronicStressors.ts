@@ -163,21 +163,18 @@ function useAcuteAndChronicStressors(userData: UserData) {
       end_age: _userData['D049WRA'],
       severity: _userData['D047WRS'],
     },
-
     'psychiatric diagnosis: self': {
       // missing A, D and S
       end_age: _userData['D183TRA'],
       duration: 0,
       severity: 0,
     },
-
     'substance abuse: self': {
       // missing A, D and S
       end_age: 0,
       duration: 0,
       severity: 0,
     },
-
     'loved one mentally ill': {
       // done
       duration: getDurationInYears(_userData['D435TRDA'], _userData['D435TRDB']),
@@ -190,7 +187,6 @@ function useAcuteAndChronicStressors(userData: UserData) {
       duration: 0,
       severity: 0,
     },
-
     'father mentally ill': {
       // missing both A and D
       end_age: 0,
