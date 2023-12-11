@@ -16,7 +16,7 @@ import AcuteAndChronicStressorTimeline from './AcuteAndChronicStressorTimeline';
 import StressorExposureBySocialPsychological from './StressorExposureBySocialPsychological';
 import useSWR from 'swr';
 import qs from 'query-string'
-import { authenticatedFetcher, fetcher, urls, variableMapping } from './api';
+import { authenticatedFetcher, urls, variableMapping } from './api';
 import StressorExposure from './StressorExposure';
 import { H2, P } from './Typography';
 import useStressorDomains from './hooks/useStressorDomains';
@@ -170,7 +170,7 @@ function usePatientDetails(userData) {
 function App() {
   const [userId, setUserId] = useState('')
   const [userData, setUserData] = useState<UserData>({})
-  const [publicData, setPublicData] = useState([])
+  const [publicData, setPublicData] = useState<UserData[]>([])
 
   const isPuppeteer = useIsPuppeteer()
 

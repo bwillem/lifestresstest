@@ -187,7 +187,7 @@ function LifeStressorTimelineChart({
                             font: scaleTitleFont,
                         },
                         beginAtZero: true,
-                        max: patientAge,
+                        max: ( patientAge + 2 ),
                         ticks: {
                             stepSize: 2,
                         },

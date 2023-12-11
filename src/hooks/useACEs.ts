@@ -1,6 +1,6 @@
 import { ComputedDomains, UserData } from "../types"
 
-function useACEs(userData, publicData) {
+function useACEs(userData: UserData, publicData: UserData[]) {
     const aceData: ComputedDomains = userData ? {
         'physical abuse': {
             value: parseInt(userData['ACE8']),
@@ -57,18 +57,22 @@ function useACEs(userData, publicData) {
      * be 0 or falsy or something?????
      * 
      * We might want to just do this by submit date.
-     * Anything at or newer than launch date is v2
+     * Anything at or newer than launch date
      */
-    const shouldBeIncluded = answer =>
-        answer[0]?.includes('ACE') && answer !== undefined && answer !== null
+    const shouldBeIncluded = (value: string) =>
+        (value !== undefined) &&
+        (value !== null)
 
-    const sumACES = (userData: UserData) => {
-        const values = Object.entries(userData).reduce((prev, curr) => {
-            if (shouldBeIncluded(curr[0])) return [...prev, parseInt(curr[0])]
-            return prev
-        }, [] as number[])
+    const sumACES = (data: UserData) => {
 
-        return values
+        const sum = Object.keys(data)
+            .filter(x => x[0] === 'A' && x[1] === 'C' && x[2] === 'E')
+            .reduce((prev, curr) => {
+                if (shouldBeIncluded(data[curr])) return prev + parseInt(data[curr])
+                return prev
+            }, 0)
+
+        return sum
     }
 
     const userTotalACEs = Object
@@ -76,9 +80,10 @@ function useACEs(userData, publicData) {
         ?.map(x => aceData[x]?.value || 0)
         ?.reduce((prev, curr) => prev + curr, 0) || 0
 
-    const populationAverageACEs = publicData
-        .map(userData => sumACES(userData))
-        .reduce((prev, curr) => prev + curr, 0) || 0
+    const populationAverageACEs = Math.round(
+        (publicData.reduce((prev, curr) => {
+            return prev + sumACES(curr)
+        }, 0) / publicData.length) * 10) / 10
 
     return {
         aceData,

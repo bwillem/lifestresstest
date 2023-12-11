@@ -35,71 +35,78 @@ const scaleMap = {
     4: 'very often',
 }
 
-const is0or1 = x => x === '0' || x === '1' || x === '2'
+const is0or1 = x => x === 0 || x === 1 || x === 2
 
 function useSummaryData(userData) {
 
+    const _userData = Object.keys(userData)
+        .filter(key => key[0] === 'K')
+        .reduce((prev, curr) => ({
+            ...prev,
+            [curr]: parseInt(userData[curr]),
+        }), {})
+
     return {
         'suicide attempt': {
-            response: userData['K661'] === 1 ? 'yes' : 'no',
-            isCritical: userData['K661'] === 1,
+            response: _userData['K661'] === 1 ? 'yes' : 'no',
+            isCritical: _userData['K661'] === 1,
         },
         'suicidal ideation: had thoughts of taking own life': {
-            response: userData['K662'] === 1 ? 'yes' : 'no',
-            isCritical: userData['K662'] === 1,
+            response: _userData['K662'] === 1 ? 'yes' : 'no',
+            isCritical: _userData['K662'] === 1,
         },
         'suicidal ideation: felt friends and family would be better off': {
-            response: userData['K663'] === 1 ? 'yes' : 'no',
-            isCritical: userData['K663'] === 1,
+            response: _userData['K663'] === 1 ? 'yes' : 'no',
+            isCritical: _userData['K663'] === 1,
         },
         'had thoughts of self-harm': {
-            response: userData['K664'] === 1 ? 'yes' : 'no',
-            isCritical: userData['K664'] === 1,
+            response: _userData['K664'] === 1 ? 'yes' : 'no',
+            isCritical: _userData['K664'] === 1,
         },
         'had thoughts of harming others': {
-            response: userData['K665'] === 1 ? 'yes' : 'no',
-            isCritical: userData['K665'] === 1,
+            response: _userData['K665'] === 1 ? 'yes' : 'no',
+            isCritical: _userData['K665'] === 1,
         },
         // 'experienced ongoing maltreatment, abuse or neglect': {
-        //     response: userData['K665'] === 1 ? 'yes' : 'no',
-        //     isCriticall: userData['K665'] === 1,
+        //     response: _userData['K665'] === 1 ? 'yes' : 'no',
+        //     isCriticall: _userData['K665'] === 1,
         // },
         'felt worthless': {
-            response: scaleMap[userData['K65']],
-            isCritical: userData['K65'] > 2,
+            response: scaleMap[_userData['K65']],
+            isCritical: _userData['K65'] > 2,
         },
         'felt hopeless': {
-            response: scaleMap[userData['K62']],
-            isCritical: userData['K62'] > 2,
+            response: scaleMap[_userData['K62']],
+            isCritical: _userData['K62'] > 2,
         },
         'happy or joyful': {
-            response: scaleMap[userData['K67']],
-            isCritical: is0or1(userData['K67']),
+            response: scaleMap[_userData['K67']],
+            isCritical: is0or1(_userData['K67']),
         },
         'felt connected to others': {
-            response: scaleMap[userData['K72']],
-            isCritical: is0or1(userData['K72']),
+            response: scaleMap[_userData['K72']],
+            isCritical: is0or1(_userData['K72']),
         },
         'felt connected to nature': {
-            response: scaleMap[userData['K70']],
-            isCritical: is0or1(userData['K70']),
+            response: scaleMap[_userData['K70']],
+            isCritical: is0or1(_userData['K70']),
         },
         'felt sense of purpose': {
-            response: scaleMap[userData['K68']],
-            isCritical: is0or1(userData['K68']),
+            response: scaleMap[_userData['K68']],
+            isCritical: is0or1(_userData['K68']),
         },
         // can't find this question on survey
         // 'had access to something in life to improve mood': {
-        //     response: scaleMap[userData['K71']],
-        //     isCritical: userData['K71'] < 2,
+        //     response: scaleMap[_userData['K71']],
+        //     isCritical: _userData['K71'] < 2,
         // },
         'knew how to manage emotions when things were stressful': {
-            response: scaleMap[userData['K69']],
-            isCritical: is0or1(userData['K69']),
+            response: scaleMap[_userData['K69']],
+            isCritical: is0or1(_userData['K69']),
         },
         'had people, resources or knowledge needed to make positive changes': {
-            response: scaleMap[userData['K75']],
-            isCritical: is0or1(userData['K75']),
+            response: scaleMap[_userData['K75']],
+            isCritical: is0or1(_userData['K75']),
         },
     }
 }
